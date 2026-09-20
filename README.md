@@ -7,7 +7,7 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 
 | Page | Fichier | Contenu |
 |---|---|---|
-| Accueil | `index.html` | héro vidéo, rayons de lumière WebGL, bandeau, polaroïds 3D, anneau 3D des plats, rituels, section cocktails, horaires + plan |
+| Accueil | `index.html` | héro vidéo avec rayons de lumière WebGL, « Notre histoire » avec vidéo en modale, carrousel des plats signature, bande « Réservez votre table » (pré-remplit la page réservation), horaires + plan |
 | La carte | `carte.html` | carte complète générée depuis `data.js`, filtres (végétarien, sans gluten, signatures), recherche, navigation sticky, impression |
 | Le lieu | `le-lieu.html` | histoire, engagements, équipe, privatisation |
 | Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
@@ -27,10 +27,10 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 
 ```
 index.html … 404.html      pages générées (à servir)
-assets/css/main.css        styles (palette sable / terre cuite / olive / mer)
+assets/css/main.css        styles (thème noir & or, fine dining)
 assets/js/data.js          données modifiables
 assets/js/app.js           préloader, transitions 3D, curseur, nav, statut horaires, carte, galerie, réservation, contact
-assets/fonts/              Fraunces (variable) & Instrument Sans (variable), licence OFL
+assets/fonts/              Playfair Display (variable) & Instrument Sans (variable), licence OFL
 assets/img/ · assets/video/ photos (WebP, 2 tailles + LQIP) et vidéo héro (H.264, boucle aller-retour)
 src/layout.html            gabarit commun (head SEO, JSON-LD Restaurant, nav, footer)
 src/partials/*.html        nav, footer, préloader, plan SVG

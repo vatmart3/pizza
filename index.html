@@ -7,7 +7,7 @@
 <meta name="description" content="Restaurant sous les pins avec vue mer à Sète. Cuisine méditerranéenne, poisson de la criée, braise et cocktails au coucher du soleil. Terrasse, réservation obligatoire.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://lespierresblanches.com/">
-<meta name="theme-color" content="#1B1915">
+<meta name="theme-color" content="#0C0B09">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="La Mesa — Les Pierres Blanches">
@@ -21,7 +21,7 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <script>(function(){try{var h=document.documentElement;if(sessionStorage.getItem('lm-seen'))h.classList.add('no-loader');if(sessionStorage.getItem('lm-veil')){h.classList.add('is-transition');sessionStorage.removeItem('lm-veil')}}catch(e){}})();</script>
-<link rel="preload" href="assets/fonts/fraunces-opsz.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/playfair.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/still-06.webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/main.css">
@@ -39,7 +39,7 @@
       <path class="st" d="M46 38c0-5 6-8 14-8s14 3 14 8-6 7-14 7-14-2-14-7z"/>
       <path class="loader__shadow" d="M10 110c20 6 80 6 100 0"/>
     </svg>
-    <div class="loader__word" aria-label="La Mesa"><span style="animation-delay:.9s">L</span><span style="animation-delay:.95s">a</span><span style="width:.3em"></span><span style="animation-delay:1s">M</span><span style="animation-delay:1.05s">e</span><span style="animation-delay:1.1s">s</span><span style="animation-delay:1.15s">a</span></div>
+    <div class="loader__word" aria-label="La Mesa"><span style="animation-delay:.9s">L</span><span style="animation-delay:.95s">a</span><span style="width:.4em"></span><span style="animation-delay:1s">M</span><span style="animation-delay:1.05s">e</span><span style="animation-delay:1.1s">s</span><span style="animation-delay:1.15s">a</span></div>
     <div class="loader__sub">Les Pierres Blanches · Sète</div>
   </div>
   <div class="loader__hint">Face à la mer</div>
@@ -53,18 +53,21 @@
 <header class="nav">
   <div class="container">
     <a class="brand" href="index.html" aria-label="La Mesa — Les Pierres Blanches, accueil" data-label="Accueil">
+      <svg class="brand__emblem" viewBox="0 0 52 32" aria-hidden="true"><path fill="currentColor" d="M6 27c0-3 9-5 20-5s20 2 20 5-9 4-20 4S6 30 6 27zm5-9c0-2.5 7-4 15-4s15 1.5 15 4-7 3.5-15 3.5-15-1-15-3.5zm6-8c0-2 4-3.5 9-3.5s9 1.5 9 3.5-4 3-9 3-9-1-9-3z"/></svg>
       <span class="brand__main">La Mesa</span>
-      <span class="brand__sub">Les Pierres Blanches · Sète</span>
+      <span class="brand__sub">Les Pierres Blanches</span>
     </a>
     <nav class="nav__links" aria-label="Navigation principale">
-      <a href="carte.html">La carte</a>
+      <a href="index.html">Accueil</a>
       <a href="le-lieu.html">Le lieu</a>
+      <a href="carte.html">La carte</a>
+      <a href="reservation.html">Réservation</a>
       <a href="galerie.html">Galerie</a>
-      <a href="contact.html">Infos &amp; accès</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="nav__right">
       <span class="status" data-status><i></i><span data-status-text>…</span></span>
-      <a class="btn btn--sm btn--terra nav__cta" href="reservation.html" data-label="Réserver">Réserver</a>
+      <a class="btn btn--sm btn--ghost nav__cta" href="reservation.html" data-label="Réserver">Réserver une table</a>
       <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu"><i></i><i></i><i></i></button>
     </div>
   </div>
@@ -72,10 +75,10 @@
 <div class="menu" id="menu">
   <nav class="menu__links" aria-label="Menu mobile">
     <a href="index.html"><small>01</small>Accueil</a>
-    <a href="carte.html"><small>02</small>La carte</a>
-    <a href="le-lieu.html"><small>03</small>Le lieu</a>
+    <a href="le-lieu.html"><small>02</small>Le lieu</a>
+    <a href="carte.html"><small>03</small>La carte</a>
     <a href="galerie.html"><small>04</small>Galerie</a>
-    <a href="contact.html"><small>05</small>Infos &amp; accès</a>
+    <a href="contact.html"><small>05</small>Contact</a>
     <a href="reservation.html"><small>06</small><em>Réserver</em></a>
   </nav>
   <div class="menu__foot">
@@ -88,158 +91,105 @@
 <main id="main">
 <section class="hero" aria-label="Bienvenue">
   <div class="hero__media">
-    <img src="assets/img/still-06.webp" srcset="assets/img/still-06-640.webp 640w, assets/img/still-06.webp 1206w" sizes="100vw" width="1206" height="676" alt="La salle de La Mesa sous sa canisse, grande table ronde en bois et corbeille de légumes" fetchpriority="high" decoding="async">
+    <img src="assets/img/still-06.webp" srcset="assets/img/still-06-640.webp 640w, assets/img/still-06.webp 1206w" sizes="100vw" width="1206" height="676" alt="La grande table ronde de La Mesa sous sa canisse, verres verts et corbeille de légumes" fetchpriority="high" decoding="async">
     <video data-src="assets/video/hero.mp4" data-webm="assets/video/hero.webm" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   </div>
   <canvas class="hero__rays" aria-hidden="true"></canvas>
-  <div class="container hero__inner">
-    <span class="hero__kicker">Sète · Corniche des Pierres Blanches</span>
-    <h1 class="hero__title" data-letters>La table qui regarde la mer.</h1>
-    <div class="hero__row">
-      <p class="hero__lead">Sous les pins, au-dessus des flots. Une cuisine de la mer et de la braise, des cocktails à l’heure dorée, et une terrasse où le temps ralentit.</p>
-      <div class="hero__actions">
-        <a class="btn btn--light" href="reservation.html" data-label="Réserver">Réserver une table <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn--ghost" href="carte.html" data-label="La carte">Voir la carte</a>
-      </div>
+  <div class="container"><div class="hero__inner">
+    <span class="hero__kicker">Bienvenue à La Mesa</span>
+    <h1 class="hero__title" data-letters>Là où la mer rencontre <em>la table</em></h1>
+    <div class="orn" aria-hidden="true"><i></i></div>
+    <p class="hero__lead">Sous les pins de la corniche des Pierres Blanches, une cuisine de la mer et de la braise, des cocktails à l’heure dorée et une terrasse suspendue au-dessus de la Méditerranée.</p>
+    <div class="hero__actions">
+      <a class="btn" href="carte.html" data-label="La carte">Découvrir la carte</a>
+      <a class="btn btn--ghost" href="reservation.html" data-label="Réserver">Réserver une table</a>
     </div>
     <div class="hero__meta">
-      <span class="status" data-status><i></i><span data-status-text>…</span></span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>65 allée Pierre Barthas</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20h16M6 20V9l6-5 6 5v11"/></svg>Terrasse vue mer</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Vue mer à 180°</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3h8l-1 9a3 3 0 0 1-6 0L8 3zM12 15v6M9 21h6"/></svg>Excellents cocktails</span>
-      <span>30 – 50 € par personne</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12c4-6 14-6 18 0-4 6-14 6-18 0z"/><circle cx="14" cy="12" r="1.5"/></svg>Pêche du jour de Sète</span>
     </div>
-  </div>
+    <div class="hero__status"><span class="status" data-status><i></i><span data-status-text>…</span></span></div>
+  </div></div>
   <div class="hero__scroll" aria-hidden="true"><span>Défiler</span><i></i></div>
 </section>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee__track">
-    <span>Terrasse sous les pins</span><span>Huîtres de Thau</span><span>Poisson de la criée</span><span>Braise au bois d’olivier</span><span>Cocktails à l’heure dorée</span><span>Vue sur la Méditerranée</span><span>Réservation obligatoire</span>
-    <span>Terrasse sous les pins</span><span>Huîtres de Thau</span><span>Poisson de la criée</span><span>Braise au bois d’olivier</span><span>Cocktails à l’heure dorée</span><span>Vue sur la Méditerranée</span><span>Réservation obligatoire</span>
-  </div>
-</div>
-
-<section class="section intro" aria-labelledby="intro-t">
-  <div class="container split split--narrow">
-    <div class="polaroids" data-reveal="scale">
-      <figure class="polaroid" data-tilt="8"><span class="tape"></span><img src="assets/img/polaroid-1.webp" width="368" height="262" alt="La terrasse face à la mer, sous les pins" loading="lazy"><figcaption><span>La terrasse</span><span>été</span></figcaption></figure>
-      <figure class="polaroid" data-tilt="8"><span class="tape"></span><img src="assets/img/polaroid-2.webp" width="368" height="262" alt="Le bar et ses poteries, sous le toit de roseaux" loading="lazy"><figcaption><span>Le bar</span><span>midi</span></figcaption></figure>
-      <figure class="polaroid" data-tilt="8"><span class="tape"></span><img src="assets/img/polaroid-3.webp" width="368" height="262" alt="La grande table ronde et les lanternes" loading="lazy"><figcaption><span>La grande table</span><span>soir</span></figcaption></figure>
-    </div>
-    <div class="intro__text">
-      <span class="eyebrow" data-reveal>Le lieu</span>
-      <h2 class="mask" style="margin:18px 0 28px"><span id="intro-t">Un cabanon de luxe <em>posé sur la corniche.</em></span></h2>
-      <div class="prose" data-reveal style="--d:.15s">
-        <p class="dropcap">Au bout de l’allée Pierre Barthas, là où la forêt des Pierres Blanches plonge dans la mer, La Mesa a pris ses quartiers sous une canisse tressée. Du bois clair, des lanternes en rotin, des verres verts qui accrochent la lumière : ici on mange les pieds presque dans le sable, à l’ombre des pins.</p>
-        <p>La Mesa, c’est « la table » en espagnol. Une grande table à partager, une cuisine qui va chercher son poisson à la criée du matin et le passe à la braise le soir, et une équipe qui préfère les assiettes généreuses aux discours.</p>
-      </div>
-      <div class="stats" data-reveal style="--d:.25s">
-        <div><b class="num">868</b><small>avis Google</small></div>
-        <div><b class="num">180°</b><small>de vue sur la mer</small></div>
-        <div><b class="num">09h30</b><small>premier café face au large</small></div>
-      </div>
-      <p style="margin-top:34px;--d:.3s" data-reveal><a class="link" href="le-lieu.html">Découvrir l’histoire du lieu <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
-    </div>
-  </div>
-</section>
-
-<section class="section ring-section" aria-labelledby="ring-t">
-  <div class="container">
-    <div class="section-head" style="text-align:center;margin-inline:auto;justify-items:center">
-      <span class="eyebrow" data-reveal>La carte</span>
-      <h2 class="mask"><span id="ring-t">Ce qui tourne <em>autour de la table</em></span></h2>
-      <p class="lead" data-reveal style="--d:.1s;text-align:center">Huîtres de l’étang de Thau, poulpe à la braise, loup en croûte de sel. La carte change au rythme des arrivages ; voici quelques fidèles.</p>
-    </div>
-  </div>
-  <div class="ring-wrap" data-cursor="Glisser" aria-label="Carrousel de plats — faites glisser pour tourner">
-    <div class="ring"></div>
-  </div>
-  <div class="ring-nav">
-    <button type="button" data-dir="prev" aria-label="Plat précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-    <button type="button" data-dir="next" aria-label="Plat suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-  </div>
-  <p class="ring__hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 11V6a1.5 1.5 0 0 1 3 0v5m0-2a1.5 1.5 0 0 1 3 0v2m0-1a1.5 1.5 0 0 1 3 0v4a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L4 14a1.5 1.5 0 0 1 2.4-1.8L9 14v-3"/></svg>Faites glisser pour tourner la table</p>
-  <div class="container" style="text-align:center;margin-top:44px"><a class="btn" href="carte.html" data-label="La carte">Toute la carte <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-</section>
-
-<section class="section" aria-labelledby="rit-t">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow" data-reveal>Une journée aux Pierres Blanches</span>
-      <h2 class="mask"><span id="rit-t">Trois heures <em>où tout change.</em></span></h2>
-    </div>
-  </div>
-  <div class="rituals" data-reveal="fade">
-    <article class="ritual">
-      <div class="ritual__img"><img src="assets/img/still-00-640.webp" alt="" loading="lazy" width="640" height="359"></div>
-      <div class="ritual__time">09<small>h30</small></div>
-      <div><h3>Le matin, café face au large</h3><p>Les premiers rayons passent à travers la canisse. Café, viennoiseries, jus pressés — et la mer encore lisse.</p></div>
-    </article>
-    <article class="ritual">
-      <div class="ritual__img"><img src="assets/img/still-03-640.webp" alt="" loading="lazy" width="640" height="359"></div>
-      <div class="ritual__time">12<small>h30</small></div>
-      <div><h3>Le déjeuner, sous les pins</h3><p>Poisson de la criée, assiettes à partager, rosé bien frais. Le déjeuner de la semaine dès 29 €, du mardi au vendredi.</p></div>
-    </article>
-    <article class="ritual">
-      <div class="ritual__img"><img src="assets/img/still-04-640.webp" alt="" loading="lazy" width="640" height="359"></div>
-      <div class="ritual__time">19<small>h45</small></div>
-      <div><h3>Le soir, l’heure dorée</h3><p>Le soleil tombe dans la mer, les lanternes s’allument. Cocktails, braise et longues tablées jusqu’à minuit.</p></div>
-    </article>
-  </div>
-</section>
-
-<section class="section night" aria-labelledby="night-t">
-  <div class="sun" aria-hidden="true"></div>
-  <svg class="sea-lines" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 60c100-20 200 20 300 0s200-20 300 0 200 20 300 0 200-20 300 0"/>
-    <path d="M0 120c100-20 200 20 300 0s200-20 300 0 200 20 300 0 200-20 300 0"/>
-    <path d="M0 180c100-20 200 20 300 0s200-20 300 0 200 20 300 0 200-20 300 0"/>
-  </svg>
+<section class="section" aria-labelledby="story-t">
   <div class="container split split--wide">
-    <div>
-      <span class="eyebrow" data-reveal>Les soirs</span>
-      <h2 class="mask" style="margin:18px 0 26px"><span id="night-t">Le soleil tombe, <em>les verres se lèvent.</em></span></h2>
-      <p class="lead" data-reveal style="--d:.1s">Le bar fait face à l’ouest. Chaque soir d’été, le soleil se couche dans la mer juste derrière votre verre. Nos cocktails sont pensés pour ce moment-là : herbes du parc, agrumes, sel et fumée.</p>
-      <div class="cocktails" data-cocktails></div>
-      <p style="margin-top:30px" data-reveal><span class="alcohol">L’abus d’alcool est dangereux pour la santé · à consommer avec modération</span></p>
+    <div class="story__media" data-reveal="scale">
+      <img src="assets/img/still-00.webp" srcset="assets/img/still-00-640.webp 640w, assets/img/still-00.webp 1206w" sizes="(min-width:900px) 55vw, 100vw" width="1206" height="676" alt="La salle de La Mesa, bois clair et lumière filtrée par le toit de roseaux" loading="lazy">
+      <button class="play" type="button" data-video aria-label="Voir la vidéo du restaurant"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></button>
     </div>
-    <div data-reveal="scale" style="--d:.2s;align-self:center">
-      <figure class="tilt" style="position:relative;border-radius:var(--r);overflow:hidden;box-shadow:0 60px 100px -50px rgba(0,0,0,.8)" data-tilt="6">
-        <img src="assets/img/still-05.webp" srcset="assets/img/still-05-640.webp 640w, assets/img/still-05.webp 1206w" sizes="(min-width:900px) 45vw, 100vw" width="1206" height="676" alt="La salle le soir, lanternes en rotin allumées" loading="lazy" style="filter:brightness(.82) saturate(1.1)">
-        <span class="shine"></span>
-      </figure>
+    <div>
+      <span class="eyebrow" data-reveal>Notre histoire</span>
+      <h2 class="mask" style="margin-top:14px"><span id="story-t">Une passion pour <em>la mer</em></span></h2>
+      <p class="lead" data-reveal style="--d:.1s;margin-top:18px">À La Mesa, un repas est plus qu’un repas : c’est une table qu’on partage au-dessus des flots. Le poisson arrive de la criée du matin, passe à la braise de bois d’olivier, et se déguste face au soleil qui tombe dans la mer.</p>
+      <div class="feats" data-reveal style="--d:.15s">
+        <div class="feat"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 10a6 6 0 0 1 12 0v2H6zM5 12h14l-1 9H6zM12 4V2"/></svg></span><b>Cuisine de la braise</b><p>Bois d’olivier et sarments, du poisson aux légumes.</p></div>
+        <div class="feat"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 13c4-7 14-7 18 0-4 7-14 7-18 0z"/><circle cx="14" cy="13" r="1.5"/><path d="M12 3v3M8 5l1 2M16 5l-1 2"/></svg></span><b>Produits d’ici</b><p>Criée de Sète, étang de Thau, maraîchers voisins.</p></div>
+        <div class="feat"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 20h16M6 20V9l6-5 6 5v11M9 20v-5h6v5"/></svg></span><b>Ambiance bohème</b><p>Canisse, teck, lanternes et vue mer à 180°.</p></div>
+      </div>
+      <a class="btn btn--ghost" href="le-lieu.html" data-reveal data-label="Le lieu">En savoir plus</a>
     </div>
   </div>
 </section>
 
-<section class="section infos" aria-labelledby="infos-t">
-  <div class="container split">
+<section class="section section--alt" aria-labelledby="dish-t">
+  <div class="container">
+    <div class="section-head section-head--row">
+      <div><span class="eyebrow" data-reveal>Nos spécialités</span><h2 class="mask" style="margin-top:12px"><span id="dish-t">Plats <em>signature</em></span></h2></div>
+      <a class="btn btn--ghost" href="carte.html" data-reveal data-label="La carte">Voir toute la carte</a>
+    </div>
+    <div class="dishes" data-dishes aria-label="Nos plats signature"></div>
+    <div class="dots" data-dots aria-label="Pages du carrousel"></div>
+    <p class="notice" style="margin-top:18px;text-align:center;font-size:.72rem">Photographies d’ambiance en attendant les photos des plats.</p>
+  </div>
+</section>
+
+<section class="book" aria-labelledby="book-t">
+  <div class="book__bg"><img src="assets/img/still-05.webp" srcset="assets/img/still-05-640.webp 640w, assets/img/still-05.webp 1206w" sizes="100vw" width="1206" height="676" alt="" loading="lazy"></div>
+  <div class="container">
+    <div>
+      <span class="eyebrow" data-reveal>Réservation</span>
+      <h2 class="mask" style="margin-top:12px"><span id="book-t">Réservez <em>votre table</em></span></h2>
+      <p class="lead" data-reveal style="--d:.1s;margin-top:16px">Choisissez votre date, votre service et le nombre de convives : nous vous confirmons par téléphone ou e-mail. Réservation obligatoire.</p>
+    </div>
+    <form class="book__form" action="reservation.html" method="get" data-book data-reveal style="--d:.15s">
+      <label class="bf"><span class="sr-only">Date</span><input type="date" name="date" aria-label="Date" required><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></label>
+      <label class="bf"><span class="sr-only">Service</span><select name="service" aria-label="Service" required><option value="">Service</option><option value="lunch">Déjeuner</option><option value="dinner">Dîner</option></select><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></label>
+      <label class="bf"><span class="sr-only">Convives</span><select name="guests" aria-label="Nombre de personnes"><option value="1">1 personne</option><option value="2" selected>2 personnes</option><option value="3">3 personnes</option><option value="4">4 personnes</option><option value="5">5 personnes</option><option value="6">6 personnes</option><option value="7">7 personnes</option><option value="8">8 personnes</option><option value="10">10 personnes</option><option value="12">12 personnes</option></select><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></label>
+      <button class="btn" type="submit">Trouver une table</button>
+    </form>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="infos-t">
+  <div class="container split split--top">
     <div>
       <span class="eyebrow" data-reveal>Infos pratiques</span>
-      <h2 class="mask" style="margin:18px 0 28px"><span id="infos-t">Venir <em>nous voir</em></span></h2>
-      <p class="addr" data-reveal>65 allée Pierre Barthas<br>34200 Sète — Corniche</p>
-      <p data-reveal style="--d:.1s;margin-top:18px"><a class="link" data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a> &nbsp;·&nbsp; <span class="pill">Réservation obligatoire</span></p>
-      <div class="hours" data-hours data-reveal style="--d:.15s;margin-top:34px"></div>
-      <p class="notice" data-reveal style="margin-top:18px">Horaires susceptibles de varier selon la saison et la météo. Dernière commande 30 minutes avant la fermeture.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px" data-reveal>
+      <h2 class="mask" style="margin-top:12px"><span id="infos-t">Venir <em>nous voir</em></span></h2>
+      <p class="addr" data-reveal style="margin-top:18px">65 allée Pierre Barthas<br>34200 Sète — Corniche</p>
+      <p data-reveal style="--d:.1s;margin-top:16px"><a class="link" data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a> &nbsp;·&nbsp; <span class="pill">Réservation obligatoire</span></p>
+      <div class="hours" data-hours data-reveal style="--d:.15s;margin-top:30px"></div>
+      <p class="notice" data-reveal style="margin-top:16px">Horaires susceptibles de varier selon la saison et la météo. Dernière commande 30 minutes avant la fermeture.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px" data-reveal>
         <a class="btn" href="reservation.html" data-label="Réserver">Réserver une table</a>
-        <a class="btn btn--ghost" href="contact.html" data-label="Infos & accès">Accès &amp; contact</a>
+        <a class="btn btn--ghost" href="contact.html" data-label="Contact">Accès &amp; contact</a>
       </div>
     </div>
-    <div class="map" data-reveal="scale" style="--x:41%;--y:63%">
+    <div class="map" data-reveal="scale">
       <svg viewBox="0 0 600 600" role="img" aria-label="Plan stylisé de Sète : le mont Saint-Clair, la corniche et l’emplacement du restaurant" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <pattern id="waves" width="40" height="14" patternUnits="userSpaceOnUse"><path d="M0 7q10-6 20 0t20 0" fill="none" stroke="#9DC2C4" stroke-width=".9" opacity=".45"/></pattern>
-    <radialGradient id="hill" cx="55%" cy="40%" r="60%"><stop offset="0" stop-color="#8E9A6B"/><stop offset="1" stop-color="#5E6A42"/></radialGradient>
+    <pattern id="waves" width="40" height="14" patternUnits="userSpaceOnUse"><path d="M0 7q10-6 20 0t20 0" fill="none" stroke="#C9A063" stroke-width=".9" opacity=".22"/></pattern>
+    <radialGradient id="hill" cx="55%" cy="40%" r="60%"><stop offset="0" stop-color="#5a5a3f"/><stop offset="1" stop-color="#33361f"/></radialGradient>
   </defs>
-  <rect width="600" height="600" fill="#1F3F48"/>
+  <rect width="600" height="600" fill="#141b1e"/>
   <rect width="600" height="600" fill="url(#waves)"/>
   <!-- étang de Thau -->
-  <path d="M-20 40c80-40 200-30 250 40 30 40 0 90-60 100S40 220-20 190z" fill="#2B5661"/>
-  <text x="70" y="120" fill="#9DC2C4" font-family="Fraunces,serif" font-style="italic" font-size="15" opacity=".8">Étang de Thau</text>
+  <path d="M-20 40c80-40 200-30 250 40 30 40 0 90-60 100S40 220-20 190z" fill="#1c2a30"/>
+  <text x="70" y="120" fill="#C9A063" font-family="Fraunces,serif" font-style="italic" font-size="15" opacity=".8">Étang de Thau</text>
   <!-- ville / lido -->
-  <path d="M300 60c90-10 200 10 320 40v140c-70 20-120 40-160 60-40-40-120-70-160-70z" fill="#E4DAC8"/>
+  <path d="M300 60c90-10 200 10 320 40v140c-70 20-120 40-160 60-40-40-120-70-160-70z" fill="#2a2721"/>
   <path d="M250 200c50-50 140-60 200-20 60 40 80 120 20 190-70 80-200 40-240-30-30-50-10-110 20-140z" fill="url(#hill)"/>
   <!-- courbes de niveau -->
   <g fill="none" stroke="#F3EBDD" stroke-opacity=".28" stroke-width="1">
@@ -250,7 +200,7 @@
   <text x="335" y="315" fill="#F3EBDD" font-family="Fraunces,serif" font-size="14" opacity=".9">Mont Saint-Clair</text>
   <text x="345" y="333" fill="#F3EBDD" font-family="Instrument Sans,sans-serif" font-size="9" letter-spacing="2" opacity=".6">175 m</text>
   <!-- forêt des Pierres Blanches -->
-  <g fill="#4E5836" opacity=".9">
+  <g fill="#3d4327" opacity=".9">
     <circle cx="258" cy="352" r="9"/><circle cx="240" cy="372" r="11"/><circle cx="268" cy="378" r="8"/><circle cx="228" cy="396" r="9"/><circle cx="252" cy="402" r="7"/><circle cx="278" cy="400" r="10"/><circle cx="238" cy="424" r="8"/><circle cx="262" cy="426" r="6"/>
   </g>
   <text x="196" y="450" fill="#F3EBDD" font-family="Fraunces,serif" font-style="italic" font-size="13" opacity=".85">Forêt des Pierres Blanches</text>
@@ -261,62 +211,78 @@
   <path d="M90 600c40-30 60-60 80-90" fill="none" stroke="#E4DAC8" stroke-width="6" opacity=".7"/>
   <!-- rose des vents -->
   <g transform="translate(540 540)" fill="none" stroke="#F3EBDD" stroke-width="1" opacity=".8"><circle r="22"/><path d="M0-22V22M-22 0H22"/><path d="M0-22l5 16-5-4-5 4z" fill="#C2613A" stroke="none"/><text y="-28" text-anchor="middle" font-size="10" fill="#F3EBDD" font-family="Instrument Sans,sans-serif" stroke="none">N</text></g>
-  <text x="360" y="520" fill="#9DC2C4" font-family="Fraunces,serif" font-style="italic" font-size="20" opacity=".8">Mer Méditerranée</text>
+  <text x="360" y="520" fill="#C9A063" font-family="Fraunces,serif" font-style="italic" font-size="20" opacity=".8">Mer Méditerranée</text>
 </svg>
 
       <div class="map__pin" style="--x:41%;--y:63%"><span>La Mesa</span><i></i></div>
-      <div class="map__btns">
-        <a data-href="maps" href="#" target="_blank" rel="noopener">Google Maps</a>
-        <a data-href="apple" href="#" target="_blank" rel="noopener">Plans</a>
-        <a data-href="waze" href="#" target="_blank" rel="noopener">Waze</a>
-      </div>
+      <div class="map__btns"><a data-href="maps" href="#" target="_blank" rel="noopener">Google Maps</a><a data-href="apple" href="#" target="_blank" rel="noopener">Plans</a><a data-href="waze" href="#" target="_blank" rel="noopener">Waze</a></div>
     </div>
   </div>
 </section>
 
+<div class="modal" data-modal role="dialog" aria-modal="true" aria-label="Vidéo du restaurant">
+  <button class="modal__close" type="button" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <video controls playsinline preload="none" data-src="assets/video/hero.mp4" data-webm="assets/video/hero.webm" poster="assets/img/still-06.webp"></video>
+</div>
+
 </main>
 <footer class="footer">
-  <div class="footer__word" aria-hidden="true">La Mesa</div>
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a class="brand" href="index.html"><span class="brand__main">La Mesa</span><span class="brand__sub">Les Pierres Blanches · Sète</span></a>
-        <p>Une table sous les pins, au-dessus de la Méditerranée. Cuisine de la mer et de la braise, cocktails au coucher du soleil.</p>
-        <p class="footer__legal"><b>Réservation obligatoire.</b> Prix nets en euros, taxes et service compris. Liste des allergènes disponible sur demande.</p>
+        <a class="brand" href="index.html"><svg class="brand__emblem" viewBox="0 0 52 32" aria-hidden="true"><path fill="currentColor" d="M6 27c0-3 9-5 20-5s20 2 20 5-9 4-20 4S6 30 6 27zm5-9c0-2.5 7-4 15-4s15 1.5 15 4-7 3.5-15 3.5-15-1-15-3.5zm6-8c0-2 4-3.5 9-3.5s9 1.5 9 3.5-4 3-9 3-9-1-9-3z"/></svg><span class="brand__main">La Mesa</span><span class="brand__sub">Les Pierres Blanches</span></a>
+        <p>La Mesa est plus qu’un restaurant : une table sous les pins, au-dessus de la Méditerranée, où la mer, la braise et le coucher du soleil se retrouvent.</p>
+        <div class="social">
+          <a data-href="instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></a>
+          <a href="https://www.tripadvisor.fr/" target="_blank" rel="noopener" aria-label="Tripadvisor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7.5" cy="13" r="3.5"/><circle cx="16.5" cy="13" r="3.5"/><path d="M2 9h5a5 5 0 0 1 10 0h5M12 9v2"/></svg></a>
+          <a data-href="maps" href="#" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></a>
+        </div>
       </div>
       <div>
-        <h4>Le restaurant</h4>
+        <h4>Liens rapides</h4>
         <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="le-lieu.html">Le lieu</a></li>
           <li><a href="carte.html">La carte</a></li>
-          <li><a href="le-lieu.html">Le lieu &amp; l’équipe</a></li>
+          <li><a href="reservation.html">Réservation</a></li>
           <li><a href="galerie.html">Galerie</a></li>
-          <li><a href="reservation.html">Réserver une table</a></li>
-          <li><a href="le-lieu.html#privatisation">Privatisation</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Nous trouver</h4>
-        <ul>
-          <li><a data-href="maps" href="#" target="_blank" rel="noopener">65 allée Pierre Barthas<br>34200 Sète</a></li>
-          <li><a data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a></li>
-          <li><a data-href="email" href="#">Nous écrire</a></li>
-          <li><a data-href="instagram" href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div>
         <h4>Informations</h4>
         <ul>
+          <li><a href="le-lieu.html#privatisation">Privatisation</a></li>
+          <li><a href="carte.html#vins">Carte des vins</a></li>
           <li><a href="contact.html">Horaires &amp; accès</a></li>
-          <li><a href="mentions-legales.html">Mentions légales</a></li>
-          <li><a href="confidentialite.html">Confidentialité</a></li>
           <li><a href="accessibilite.html">Accessibilité</a></li>
-          <li><button class="link" type="button" data-share>Partager le site</button></li>
+          <li><a href="le-lieu.html">Recrutement</a></li>
+          <li><button class="link" type="button" data-share style="color:inherit">Partager le site</button></li>
         </ul>
+      </div>
+      <div class="footer__contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><a data-href="maps" href="#" target="_blank" rel="noopener">65 allée Pierre Barthas<br>34200 Sète</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a data-href="email" href="#" data-info="email">contact@lespierresblanches.com</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Mar – Dim · dès 09h30<br><span class="status" data-status style="font-size:.72rem"><i></i><span data-status-text>…</span></span></span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <p style="font-size:.86rem;color:var(--muted);line-height:1.7">Les soirées, les menus de saison et les événements, une fois par mois.</p>
+        <form class="newsletter" data-newsletter>
+          <input type="email" name="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" required>
+          <button type="submit" aria-label="S’inscrire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+        </form>
+        <p class="footer__legal"><b>Réservation obligatoire.</b> Prix nets, taxes et service compris. Allergènes sur demande.</p>
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© <span data-year>2026</span> La Mesa — Les Pierres Blanches. Tous droits réservés.</span>
-      <span>L’abus d’alcool est dangereux pour la santé, à consommer avec modération.</span>
+      <span>© <span data-year>2026</span> La Mesa — Les Pierres Blanches. Tous droits réservés. L’abus d’alcool est dangereux pour la santé.</span>
+      <nav aria-label="Légal"><a href="confidentialite.html">Confidentialité</a><span>|</span><a href="mentions-legales.html">Mentions légales</a></nav>
     </div>
   </div>
 </footer>

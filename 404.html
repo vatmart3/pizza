@@ -7,7 +7,7 @@
 <meta name="description" content="Cette page n’existe pas ou plus.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="canonical" href="https://lespierresblanches.com/404.html">
-<meta name="theme-color" content="#1B1915">
+<meta name="theme-color" content="#0C0B09">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="La Mesa — Les Pierres Blanches">
@@ -21,7 +21,7 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <script>(function(){try{var h=document.documentElement;if(sessionStorage.getItem('lm-seen'))h.classList.add('no-loader');if(sessionStorage.getItem('lm-veil')){h.classList.add('is-transition');sessionStorage.removeItem('lm-veil')}}catch(e){}})();</script>
-<link rel="preload" href="assets/fonts/fraunces-opsz.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/playfair.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="assets/css/main.css">
@@ -39,7 +39,7 @@
       <path class="st" d="M46 38c0-5 6-8 14-8s14 3 14 8-6 7-14 7-14-2-14-7z"/>
       <path class="loader__shadow" d="M10 110c20 6 80 6 100 0"/>
     </svg>
-    <div class="loader__word" aria-label="La Mesa"><span style="animation-delay:.9s">L</span><span style="animation-delay:.95s">a</span><span style="width:.3em"></span><span style="animation-delay:1s">M</span><span style="animation-delay:1.05s">e</span><span style="animation-delay:1.1s">s</span><span style="animation-delay:1.15s">a</span></div>
+    <div class="loader__word" aria-label="La Mesa"><span style="animation-delay:.9s">L</span><span style="animation-delay:.95s">a</span><span style="width:.4em"></span><span style="animation-delay:1s">M</span><span style="animation-delay:1.05s">e</span><span style="animation-delay:1.1s">s</span><span style="animation-delay:1.15s">a</span></div>
     <div class="loader__sub">Les Pierres Blanches · Sète</div>
   </div>
   <div class="loader__hint">Face à la mer</div>
@@ -53,18 +53,21 @@
 <header class="nav">
   <div class="container">
     <a class="brand" href="index.html" aria-label="La Mesa — Les Pierres Blanches, accueil" data-label="Accueil">
+      <svg class="brand__emblem" viewBox="0 0 52 32" aria-hidden="true"><path fill="currentColor" d="M6 27c0-3 9-5 20-5s20 2 20 5-9 4-20 4S6 30 6 27zm5-9c0-2.5 7-4 15-4s15 1.5 15 4-7 3.5-15 3.5-15-1-15-3.5zm6-8c0-2 4-3.5 9-3.5s9 1.5 9 3.5-4 3-9 3-9-1-9-3z"/></svg>
       <span class="brand__main">La Mesa</span>
-      <span class="brand__sub">Les Pierres Blanches · Sète</span>
+      <span class="brand__sub">Les Pierres Blanches</span>
     </a>
     <nav class="nav__links" aria-label="Navigation principale">
-      <a href="carte.html">La carte</a>
+      <a href="index.html">Accueil</a>
       <a href="le-lieu.html">Le lieu</a>
+      <a href="carte.html">La carte</a>
+      <a href="reservation.html">Réservation</a>
       <a href="galerie.html">Galerie</a>
-      <a href="contact.html">Infos &amp; accès</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="nav__right">
       <span class="status" data-status><i></i><span data-status-text>…</span></span>
-      <a class="btn btn--sm btn--terra nav__cta" href="reservation.html" data-label="Réserver">Réserver</a>
+      <a class="btn btn--sm btn--ghost nav__cta" href="reservation.html" data-label="Réserver">Réserver une table</a>
       <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu"><i></i><i></i><i></i></button>
     </div>
   </div>
@@ -72,10 +75,10 @@
 <div class="menu" id="menu">
   <nav class="menu__links" aria-label="Menu mobile">
     <a href="index.html"><small>01</small>Accueil</a>
-    <a href="carte.html"><small>02</small>La carte</a>
-    <a href="le-lieu.html"><small>03</small>Le lieu</a>
+    <a href="le-lieu.html"><small>02</small>Le lieu</a>
+    <a href="carte.html"><small>03</small>La carte</a>
     <a href="galerie.html"><small>04</small>Galerie</a>
-    <a href="contact.html"><small>05</small>Infos &amp; accès</a>
+    <a href="contact.html"><small>05</small>Contact</a>
     <a href="reservation.html"><small>06</small><em>Réserver</em></a>
   </nav>
   <div class="menu__foot">
@@ -97,47 +100,62 @@
 
 </main>
 <footer class="footer">
-  <div class="footer__word" aria-hidden="true">La Mesa</div>
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a class="brand" href="index.html"><span class="brand__main">La Mesa</span><span class="brand__sub">Les Pierres Blanches · Sète</span></a>
-        <p>Une table sous les pins, au-dessus de la Méditerranée. Cuisine de la mer et de la braise, cocktails au coucher du soleil.</p>
-        <p class="footer__legal"><b>Réservation obligatoire.</b> Prix nets en euros, taxes et service compris. Liste des allergènes disponible sur demande.</p>
+        <a class="brand" href="index.html"><svg class="brand__emblem" viewBox="0 0 52 32" aria-hidden="true"><path fill="currentColor" d="M6 27c0-3 9-5 20-5s20 2 20 5-9 4-20 4S6 30 6 27zm5-9c0-2.5 7-4 15-4s15 1.5 15 4-7 3.5-15 3.5-15-1-15-3.5zm6-8c0-2 4-3.5 9-3.5s9 1.5 9 3.5-4 3-9 3-9-1-9-3z"/></svg><span class="brand__main">La Mesa</span><span class="brand__sub">Les Pierres Blanches</span></a>
+        <p>La Mesa est plus qu’un restaurant : une table sous les pins, au-dessus de la Méditerranée, où la mer, la braise et le coucher du soleil se retrouvent.</p>
+        <div class="social">
+          <a data-href="instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></a>
+          <a href="https://www.tripadvisor.fr/" target="_blank" rel="noopener" aria-label="Tripadvisor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7.5" cy="13" r="3.5"/><circle cx="16.5" cy="13" r="3.5"/><path d="M2 9h5a5 5 0 0 1 10 0h5M12 9v2"/></svg></a>
+          <a data-href="maps" href="#" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></a>
+        </div>
       </div>
       <div>
-        <h4>Le restaurant</h4>
+        <h4>Liens rapides</h4>
         <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="le-lieu.html">Le lieu</a></li>
           <li><a href="carte.html">La carte</a></li>
-          <li><a href="le-lieu.html">Le lieu &amp; l’équipe</a></li>
+          <li><a href="reservation.html">Réservation</a></li>
           <li><a href="galerie.html">Galerie</a></li>
-          <li><a href="reservation.html">Réserver une table</a></li>
-          <li><a href="le-lieu.html#privatisation">Privatisation</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Nous trouver</h4>
-        <ul>
-          <li><a data-href="maps" href="#" target="_blank" rel="noopener">65 allée Pierre Barthas<br>34200 Sète</a></li>
-          <li><a data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a></li>
-          <li><a data-href="email" href="#">Nous écrire</a></li>
-          <li><a data-href="instagram" href="#" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div>
         <h4>Informations</h4>
         <ul>
+          <li><a href="le-lieu.html#privatisation">Privatisation</a></li>
+          <li><a href="carte.html#vins">Carte des vins</a></li>
           <li><a href="contact.html">Horaires &amp; accès</a></li>
-          <li><a href="mentions-legales.html">Mentions légales</a></li>
-          <li><a href="confidentialite.html">Confidentialité</a></li>
           <li><a href="accessibilite.html">Accessibilité</a></li>
-          <li><button class="link" type="button" data-share>Partager le site</button></li>
+          <li><a href="le-lieu.html">Recrutement</a></li>
+          <li><button class="link" type="button" data-share style="color:inherit">Partager le site</button></li>
         </ul>
+      </div>
+      <div class="footer__contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><a data-href="maps" href="#" target="_blank" rel="noopener">65 allée Pierre Barthas<br>34200 Sète</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a data-href="email" href="#" data-info="email">contact@lespierresblanches.com</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Mar – Dim · dès 09h30<br><span class="status" data-status style="font-size:.72rem"><i></i><span data-status-text>…</span></span></span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <p style="font-size:.86rem;color:var(--muted);line-height:1.7">Les soirées, les menus de saison et les événements, une fois par mois.</p>
+        <form class="newsletter" data-newsletter>
+          <input type="email" name="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" required>
+          <button type="submit" aria-label="S’inscrire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+        </form>
+        <p class="footer__legal"><b>Réservation obligatoire.</b> Prix nets, taxes et service compris. Allergènes sur demande.</p>
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© <span data-year>2026</span> La Mesa — Les Pierres Blanches. Tous droits réservés.</span>
-      <span>L’abus d’alcool est dangereux pour la santé, à consommer avec modération.</span>
+      <span>© <span data-year>2026</span> La Mesa — Les Pierres Blanches. Tous droits réservés. L’abus d’alcool est dangereux pour la santé.</span>
+      <nav aria-label="Légal"><a href="confidentialite.html">Confidentialité</a><span>|</span><a href="mentions-legales.html">Mentions légales</a></nav>
     </div>
   </div>
 </footer>
