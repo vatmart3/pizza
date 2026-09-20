@@ -1,0 +1,38 @@
+---
+title: La carte — La Mesa, Les Pierres Blanches · Sète
+desc: La carte de La Mesa à Sète : huîtres de Thau, poulpe à la braise, poisson de la criée, viandes au feu de bois, desserts et cocktails. Prix nets, service compris.
+page: carte
+priority: 0.9
+---
+<section class="page-head" aria-labelledby="carte-t">
+  <div class="container">
+    <nav class="crumbs" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span>/</span><span>La carte</span></nav>
+    <span class="eyebrow">Saison <span data-year>2026</span></span>
+    <h1 class="mask" style="margin-top:18px"><span id="carte-t">La carte, <em>au gré des arrivages.</em></span></h1>
+    <p class="lead" data-reveal>Une cuisine de la mer et de la braise, des assiettes pensées pour le centre de la table. Le poisson vient de la criée de Sète, les légumes des maraîchers de l’étang, le bois de la garrigue.</p>
+    <div class="carte-tools" data-reveal style="--d:.1s">
+      <button class="chip" type="button" data-filter="v" aria-pressed="false"><span class="tag">V</span> Végétarien</button>
+      <button class="chip" type="button" data-filter="sg" aria-pressed="false"><span class="tag">SG</span> Sans gluten</button>
+      <button class="chip" type="button" data-filter="sig" aria-pressed="false"><span class="tag tag--sig">★</span> Signatures</button>
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" placeholder="Rechercher un plat…" aria-label="Rechercher dans la carte"></label>
+      <button class="chip" type="button" data-print><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6z"/></svg> Imprimer</button>
+    </div>
+  </div>
+</section>
+<nav class="carte-nav" aria-label="Catégories de la carte"><div class="container"></div></nav>
+<div class="container">
+  <div id="carte-root"></div>
+  <div class="split" style="padding-block:clamp(40px,6vw,88px);border-top:1px solid var(--line)">
+    <div class="formula" data-formula data-reveal="scale"></div>
+    <div data-reveal>
+      <h3 style="margin-bottom:14px">Bon à savoir</h3>
+      <p class="notice">Prix nets en euros, taxes et service compris. Nos plats sont préparés sur place à partir de produits bruts (« fait maison »). L’origine des viandes est précisée à la table. La carte évolue avec les saisons et les arrivages : certains plats peuvent manquer, d’autres arriver.</p>
+      <p class="notice" style="margin-top:12px"><strong>Allergènes :</strong> la liste des 14 allergènes réglementaires est disponible sur demande auprès de l’équipe, pour chaque plat. Signalez-nous toute intolérance à la réservation, nous adaptons volontiers.</p>
+      <div class="legend">
+        <span><span class="tag">V</span> Végétarien</span><span><span class="tag">VG</span> Végan</span><span><span class="tag">SG</span> Sans gluten</span><span><span class="tag tag--sig">★</span> Signature de la maison</span>
+      </div>
+      <p style="margin-top:26px"><span class="alcohol">L’abus d’alcool est dangereux pour la santé · à consommer avec modération</span></p>
+      <div style="margin-top:30px"><a class="btn" href="reservation.html" data-label="Réserver">Réserver une table <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+</div>

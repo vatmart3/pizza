@@ -1,145 +1,161 @@
 /* ============================================================
-   Données de la maison : tailles, pizzas de la roue, carte
-   complète et avis. Tout est ici pour rester modifiable
-   sans toucher au reste du code.
+   La Mesa — Les Pierres Blanches · données du site
+   Tout ce qui est modifiable (horaires, carte, coordonnées)
+   est ici. Aucun autre fichier n'a besoin d'être touché.
    ============================================================ */
-window.DATA = (function () {
-  'use strict';
+window.LM = window.LM || {};
 
-  const SIZES = {
-    S:  { label: 'S',  cm: 26, mult: 0.82, scale: 0.80 },
-    M:  { label: 'M',  cm: 31, mult: 1.00, scale: 0.92 },
-    L:  { label: 'L',  cm: 36, mult: 1.22, scale: 1.04 },
-    XL: { label: 'XL', cm: 42, mult: 1.45, scale: 1.16 }
-  };
+LM.info = {
+  name: 'La Mesa',
+  sub: 'Les Pierres Blanches',
+  city: 'Sète',
+  address: '65 allée Pierre Barthas',
+  zip: '34200',
+  phone: '04 67 53 33 40',
+  phoneIntl: '+33467533340',
+  email: 'contact@lespierresblanches.com',      // à confirmer
+  site: 'https://lespierresblanches.com',
+  maps: 'https://www.google.com/maps/search/?api=1&query=La+Mesa+Les+Pierres+Blanches+65+All.+Pierre+Barthas+34200+S%C3%A8te',
+  apple: 'https://maps.apple.com/?q=La+Mesa+Les+Pierres+Blanches&address=65+All%C3%A9e+Pierre+Barthas,+34200+S%C3%A8te',
+  waze:  'https://waze.com/ul?q=65%20All%C3%A9e%20Pierre%20Barthas%2034200%20S%C3%A8te&navigate=yes',
+  lat: 43.3934, lng: 3.6802,
+  instagram: 'https://www.instagram.com/',        // à compléter
+  reviews: 868,
+  priceRange: '30 – 50 €',
+  /* Formulaires : renseignez un endpoint (Formspree, Getform, Basin…)
+     pour recevoir les réservations par e-mail. Vide = ouverture du
+     client mail du visiteur avec le message pré-rempli. */
+  formEndpoint: ''
+};
 
-  /* — les 8 pizzas de la Roue des Saveurs — */
-  const PIZZAS = [
-    {
-      id: 'margherita', short: 'Margherita', name: 'Margherita', tag: 'rossa', price: 11.5, hue: 8,
-      desc: 'La mère de toutes. San Marzano crues, fior di latte égoutté douze heures, basilic cueilli sur le rebord de la fenêtre, huile de Nyons.',
-      chips: ['San Marzano', 'Fior di latte', 'Basilic', 'Huile d’olive'],
-      recipe: { seed: 11, base: 'rossa', cheeseN: 15, toppings: [{ k: 'basilic', n: 6, s: 1.05, gap: 46 }] }
-    },
-    {
-      id: 'marinara', short: 'Marinara', name: 'Marinara', tag: 'rossa · sans lait', price: 9.5, hue: 14,
-      desc: 'Celle des pêcheurs, sans un gramme de fromage. Tomate, ail en lamelles, origan de Sicile et beaucoup d’huile. La plus ancienne, la plus honnête.',
-      chips: ['Tomate', 'Ail', 'Origan', 'Sans lactose'],
-      recipe: { seed: 23, base: 'rossa', cheese: false, toppings: [{ k: 'oignon', n: 7, s: .6, gap: 42 }, { k: 'basilic', n: 4, s: .85, gap: 44 }] }
-    },
-    {
-      id: 'diavola', short: 'Diavola', name: 'Diavola', tag: 'rossa · piquante', price: 14, hue: 2,
-      desc: 'Salame piccante de Calabre, ’nduja fondante et piment frais. Elle mord, puis elle réchauffe. Un verre d’eau à portée de main.',
-      chips: ['Salame piccante', '’Nduja', 'Piment', 'Fior di latte'],
-      recipe: { seed: 37, base: 'rossa', cheeseN: 12, toppings: [{ k: 'pepperoni', n: 8, s: 1, gap: 48 }, { k: 'nduja', n: 5, s: 1, gap: 38 }, { k: 'piment', n: 5, s: 1, gap: 34 }] }
-    },
-    {
-      id: 'capricciosa', short: 'Capricciosa', name: 'Capricciosa', tag: 'rossa', price: 15.5, hue: 22,
-      desc: 'Le caprice complet : jambon cuit à l’os, champignons de Paris poêlés, artichauts romains et olives de Gaète. Quatre quartiers, quatre humeurs.',
-      chips: ['Jambon à l’os', 'Champignons', 'Artichauts', 'Olives de Gaète'],
-      recipe: { seed: 51, base: 'rossa', cheeseN: 11, toppings: [{ k: 'jambon', n: 4, s: 1, gap: 56 }, { k: 'funghi', n: 5, s: .9, gap: 44 }, { k: 'artichaut', n: 4, s: 1, gap: 44 }, { k: 'olive', n: 6, s: 1, gap: 32 }] }
-    },
-    {
-      id: 'ortolana', short: 'Ortolana', name: 'Ortolana', tag: 'rossa · vegana possible', price: 14.5, hue: 96,
-      desc: 'Le potager du marché des Capucins : poivrons grillés, courgettes, artichauts, oignon doux. Version vegana avec mozzarella d’amande.',
-      chips: ['Poivrons grillés', 'Champignons', 'Artichauts', 'Oignon doux'],
-      recipe: { seed: 67, base: 'rossa', cheeseN: 10, toppings: [{ k: 'poivron', n: 6, s: 1, gap: 46 }, { k: 'funghi', n: 4, s: .85, gap: 42 }, { k: 'artichaut', n: 4, s: .95, gap: 42 }, { k: 'oignon', n: 4, s: .8, gap: 40 }, { k: 'olive', n: 4, s: .9, gap: 30 }] }
-    },
-    {
-      id: 'quattro', short: '4 Formaggi', name: 'Quattro Formaggi', tag: 'bianca', price: 15, hue: 40,
-      desc: 'Sans tomate. Gorgonzola dolce, pecorino romano 24 mois, ricotta de brebis, fior di latte. On sert avec un filet de miel de lavande à part.',
-      chips: ['Gorgonzola', 'Pecorino 24 mois', 'Ricotta', 'Miel de lavande'],
-      recipe: { seed: 83, base: 'bianca', cheeseN: 13, toppings: [{ k: 'gorgonzola', n: 6, s: 1, gap: 44 }, { k: 'ricotta', n: 5, s: 1, gap: 42 }, { k: 'parmesan', n: 6, s: 1, gap: 38 }] }
-    },
-    {
-      id: 'burrata', short: 'Burrata', name: 'Burrata & Pesto', tag: 'bianca · à froid', price: 17, hue: 110,
-      desc: 'La burrata des Pouilles posée entière à la sortie du four, pesto au mortier, pignons torréfiés, roquette. Le contraste chaud-froid, notre signature.',
-      chips: ['Burrata entière', 'Pesto au mortier', 'Pignons', 'Roquette'],
-      recipe: { seed: 97, base: 'bianca', cheeseN: 9, toppings: [{ k: 'pesto', n: 7, s: 1, gap: 40 }, { k: 'burrata', n: 1, s: 1.25, r: 24, gap: 8 }, { k: 'roquette', n: 6, s: 1, gap: 40 }, { k: 'pignons', n: 9, s: 1, gap: 22 }] }
-    },
-    {
-      id: 'tartufo', short: 'Tartufo', name: 'Tartufo Nero', tag: 'bianca · de saison', price: 19.5, hue: 28,
-      desc: 'Crème de truffe noire du Ventoux, champignons de saison, copeaux de pecorino, œuf de caille au centre. Servie de novembre à mars.',
-      chips: ['Truffe du Ventoux', 'Champignons', 'Pecorino', 'Œuf de caille'],
-      recipe: { seed: 113, base: 'bianca', cheeseN: 11, toppings: [{ k: 'funghi', n: 5, s: .9, gap: 46 }, { k: 'truffe', n: 11, s: .95, gap: 28 }, { k: 'oeuf', n: 1, s: .8, r: 20, gap: 8 }, { k: 'parmesan', n: 5, s: 1, gap: 34 }] }
-    }
-  ];
+/* Horaires — 0 = dimanche … 6 = samedi. null = fermé.
+   Plusieurs plages possibles : [['09:30','15:00'],['18:30','23:30']] */
+LM.hours = {
+  1: null,                              // lundi : fermé
+  2: [['09:30', '23:00']],              // mardi
+  3: [['09:30', '23:00']],
+  4: [['09:30', '23:00']],
+  5: [['09:30', '00:30']],              // vendredi
+  6: [['09:30', '00:30']],              // samedi
+  0: [['09:30', '18:00']]               // dimanche
+};
+LM.services = {
+  lunch:  { label: 'Déjeuner', slots: ['12:00','12:15','12:30','12:45','13:00','13:15','13:30','13:45','14:00'] },
+  dinner: { label: 'Dîner',    slots: ['19:00','19:15','19:30','19:45','20:00','20:15','20:30','20:45','21:00','21:15','21:30','22:00'] }
+};
+LM.dayNames = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+LM.monthNames = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 
-  /* — la carte complète — */
-  const MENU = {
-    rosse: [
-      pick('margherita'), pick('marinara'), pick('diavola'), pick('capricciosa'), pick('ortolana'),
-      {
-        id: 'napoli', name: 'Napoli', tag: 'rossa', price: 13.5,
-        desc: 'Anchois de Cetara, olives, câpres de Pantelleria, origan.',
-        recipe: { seed: 131, base: 'rossa', cheeseN: 11, toppings: [{ k: 'anchois', n: 6, s: 1, gap: 46 }, { k: 'olive', n: 7, s: 1, gap: 32 }, { k: 'basilic', n: 3, s: .85, gap: 40 }] }
-      },
-      {
-        id: 'bufala', name: 'Bufala DOP', tag: 'rossa', price: 15.5,
-        desc: 'Mozzarella di bufala de Battipaglia posée après cuisson, tomates cerises, basilic.',
-        recipe: { seed: 149, base: 'rossa', cheeseN: 8, toppings: [{ k: 'burrata', n: 3, s: .8, r: 90, gap: 62 }, { k: 'tomate', n: 6, s: .9, gap: 40 }, { k: 'basilic', n: 5, s: 1, gap: 40 }] }
-      },
-      {
-        id: 'nduja', name: '’Nduja & Miel', tag: 'rossa · piquante', price: 16,
-        desc: '’Nduja de Spilinga, miel de châtaignier, pecorino, zeste de citron.',
-        recipe: { seed: 167, base: 'rossa', cheeseN: 12, toppings: [{ k: 'nduja', n: 8, s: 1.05, gap: 40 }, { k: 'parmesan', n: 5, s: 1, gap: 34 }, { k: 'piment', n: 4, s: .9, gap: 30 }] }
-      }
-    ],
-    bianche: [
-      pick('quattro'), pick('burrata'), pick('tartufo'),
-      {
-        id: 'patate', name: 'Patate e Rosmarino', tag: 'bianca', price: 13,
-        desc: 'Pommes de terre en fines lamelles, romarin, huile d’olive, fleur de sel.',
-        recipe: { seed: 181, base: 'bianca', cheeseN: 12, toppings: [{ k: 'citron', n: 7, s: 1.1, gap: 44 }, { k: 'roquette', n: 4, s: .8, gap: 40 }] }
-      },
-      {
-        id: 'speck', name: 'Speck & Gorgonzola', tag: 'bianca', price: 16.5,
-        desc: 'Speck du Trentin, gorgonzola dolce, noix, poire rôtie.',
-        recipe: { seed: 199, base: 'bianca', cheeseN: 11, toppings: [{ k: 'speck', n: 5, s: 1, gap: 52 }, { k: 'gorgonzola', n: 6, s: 1, gap: 40 }, { k: 'pignons', n: 8, s: 1.1, gap: 24 }] }
-      },
-      {
-        id: 'neve', name: 'Bianca Neve', tag: 'bianca · végétarienne', price: 14,
-        desc: 'Ricotta de brebis, citron d’Amalfi, poivre de Timut, roquette.',
-        recipe: { seed: 211, base: 'bianca', cheeseN: 12, toppings: [{ k: 'ricotta', n: 7, s: 1.05, gap: 40 }, { k: 'citron', n: 5, s: .9, gap: 40 }, { k: 'roquette', n: 6, s: 1, gap: 36 }] }
-      }
-    ],
-    antipasti: [
-      { id: 'bruschetta', name: 'Bruschetta al pomodoro', price: 7, tag: 'x3', desc: 'Pain de la veille grillé au four à bois, tomates, ail, basilic.', glyph: '🍞' },
-      { id: 'arancini', name: 'Arancini di Nonna', price: 8, tag: 'x3', desc: 'Boules de risotto safrané, cœur de mozzarella, panées et frites minute.', glyph: '🍙' },
-      { id: 'burrataAnti', name: 'Burrata & tomates confites', price: 12, tag: 'à partager', desc: 'Une burrata entière des Pouilles, tomates confites 6 h, basilic, huile nouvelle.', glyph: '🧀' },
-      { id: 'focaccia', name: 'Focaccia au romarin', price: 6, tag: 'du four', desc: 'Même pâte que les pizzas, huile, romarin, fleur de sel.', glyph: '🌿' },
-      { id: 'misto', name: 'Antipasto misto', price: 14, tag: '2 pers.', desc: 'Charcuterie de Calabre, pecorino, olives de Gaète, légumes marinés.', glyph: '🫒' }
-    ],
-    dolci: [
-      { id: 'tiramisu', name: 'Tiramisù di Nonna', price: 7, tag: 'la recette de 1974', desc: 'Mascarpone battu à la main, café du torréfacteur d’à côté, cacao amer.', glyph: '🍮' },
-      { id: 'cannolo', name: 'Cannolo siciliano', price: 6, tag: 'garni minute', desc: 'Ricotta de brebis, pistache de Bronte, écorces d’orange confite.', glyph: '🥐' },
-      { id: 'panna', name: 'Panna cotta pistache', price: 7, tag: 'maison', desc: 'Crème de Normandie, gousse de vanille, coulis de pistache.', glyph: '🍨' },
-      { id: 'sorbet', name: 'Sorbet citron de Menton', price: 5, tag: 'sans lait', desc: 'Deux boules, un trait de limoncello par-dessus si vous le demandez.', glyph: '🍋' }
-    ],
-    bevande: [
-      { id: 'nero', name: 'Nero d’Avola', price: 5, tag: 'le verre · 18 € la carafe', desc: 'Sicile, rouge souple et poivré. Notre compagnon des pizze rosse.', glyph: '🍷' },
-      { id: 'chinotto', name: 'Chinotto', price: 4, tag: '25 cl', desc: 'L’amer italien qui ressemble au cola sans lui ressembler du tout.', glyph: '🥤' },
-      { id: 'limonata', name: 'Limonata amalfitaine', price: 4.5, tag: '33 cl', desc: 'Citrons de la côte, à peine sucrée, servie très froide.', glyph: '🍋‍🟩' },
-      { id: 'caffe', name: 'Caffè', price: 2, tag: 'ristretto', desc: 'Serré, sur le comptoir, debout. Comme il se doit.', glyph: '☕' },
-      { id: 'amaro', name: 'Amaro del Nonno', price: 6, tag: 'digestivo', desc: 'Trente-deux plantes, la bouteille reste sur la table.', glyph: '🥃' }
+/* ---------- La carte ----------
+   tags : v = végétarien · vg = végan · sg = sans gluten · sig = signature
+   Les prix sont en euros, nets, service compris. */
+LM.menu = [
+  {
+    id: 'debuts', title: 'Pour commencer', kicker: 'À l’ombre des pins',
+    note: 'Pain au levain & huile d’olive de l’Hérault servis avec chaque table.',
+    items: [
+      { name: 'Huîtres de l’étang de Thau', desc: 'N°3, échalote au vinaigre de Banyuls, citron de Menton', price: 16, unit: 'les 6', tags: ['sg','sig'] },
+      { name: 'Tielle sétoise revisitée', desc: 'Poulpe confit, tomate brûlée, piment doux, pâte fine', price: 12, tags: ['sig'] },
+      { name: 'Burrata des Pouilles', desc: 'Tomates anciennes, pêche rôtie, basilic pourpre, pistache', price: 15, tags: ['v','sg'] },
+      { name: 'Anchois de Collioure', desc: 'Beurre fumé, focaccia grillée, zeste d’orange', price: 11 },
+      { name: 'Gazpacho blanc', desc: 'Amande, raisin muscat, huile de verveine', price: 10, tags: ['v','vg','sg'] }
     ]
-  };
-
-  function pick(id) {
-    const p = PIZZAS.find((x) => x.id === id);
-    return { id: p.id, name: p.name, tag: p.tag, price: p.price, desc: p.desc, recipe: p.recipe };
+  },
+  {
+    id: 'partager', title: 'À partager', kicker: 'La mesa, c’est la table',
+    note: 'Pensées pour le centre de la table. Comptez deux à trois assiettes par personne.',
+    items: [
+      { name: 'Poulpe à la braise', desc: 'Pommes grenaille écrasées, aïoli safrané, paprika fumé', price: 24, tags: ['sg','sig'] },
+      { name: 'Gambas rouges de Méditerranée', desc: 'Beurre d’ail noir, citron confit, herbes du parc', price: 28, tags: ['sg'] },
+      { name: 'Pluma ibérique', desc: 'Chimichurri, oignons doux de Lézignan, jus corsé', price: 26 },
+      { name: 'Légumes de saison au feu', desc: 'Aubergine, poivron, courgette, labneh à la menthe, dukkah', price: 18, tags: ['v','sg'] },
+      { name: 'Croquetas du jour', desc: 'Jambon ibérique ou champignons, selon l’humeur du chef', price: 12, unit: 'les 4' }
+    ]
+  },
+  {
+    id: 'mer', title: 'La mer', kicker: 'Pêche de Sète, criée du matin',
+    note: 'Le poisson du jour est annoncé à la table selon l’arrivage.',
+    items: [
+      { name: 'Loup entier en croûte de sel', desc: 'Fenouil confit, sauce vierge, pommes de terre au four', price: 42, unit: 'pour 2, / pers.', tags: ['sg','sig'] },
+      { name: 'Dorade royale grillée', desc: 'Beurre blanc au vin de Picpoul, blettes, amandes', price: 32, tags: ['sg'] },
+      { name: 'Seiche à la sétoise', desc: 'Rouille maison, riz de Camargue, olives de Lucques', price: 27 },
+      { name: 'Thon rouge mi-cuit', desc: 'Sésame noir, ponzu, avocat, jeunes pousses', price: 34, tags: ['sg'] },
+      { name: 'Bourride de lotte', desc: 'Aïoli, croûtons, légumes fondants — la recette d’ici', price: 36 }
+    ]
+  },
+  {
+    id: 'braise', title: 'La braise', kicker: 'Bois d’olivier & sarments',
+    note: 'Toutes les viandes sont d’origine française ou ibérique, précisée à la table.',
+    items: [
+      { name: 'Côte de bœuf maturée', desc: 'Race Aubrac, 30 jours, os à moelle, frites au gras de bœuf', price: 48, unit: 'pour 2, / pers.', tags: ['sg'] },
+      { name: 'Agneau de l’Aveyron', desc: 'Selle rôtie au thym, pois chiches, jus au ras-el-hanout', price: 34, tags: ['sg'] },
+      { name: 'Volaille jaune des Landes', desc: 'Demi-poulet à la braise, citron, salade d’herbes', price: 27, tags: ['sg'] },
+      { name: 'Brochettes de la mer', desc: 'Lotte, gambas, poivrons, riz pilaf au safran', price: 30, tags: ['sg'] }
+    ]
+  },
+  {
+    id: 'douceurs', title: 'Douceurs', kicker: 'Pour finir face au large',
+    items: [
+      { name: 'Tarte au citron de Menton', desc: 'Meringue flambée, sorbet basilic', price: 11, tags: ['v'] },
+      { name: 'Pavlova aux fruits rouges', desc: 'Crème mascarpone, vanille de Madagascar', price: 12, tags: ['v','sg'] },
+      { name: 'Chocolat & fleur de sel', desc: 'Fondant tiède, glace à l’huile d’olive', price: 12, tags: ['v'] },
+      { name: 'Fromages affinés', desc: 'Sélection de la région, confiture de figues', price: 13, tags: ['v'] },
+      { name: 'Pêche rôtie au romarin', desc: 'Crumble aux amandes, crème glacée', price: 10, tags: ['v'] }
+    ]
+  },
+  {
+    id: 'cocktails', title: 'Cocktails', kicker: 'L’heure dorée',
+    note: 'Tous nos cocktails existent en version sans alcool (– 3 €).',
+    items: [
+      { name: 'Pierres Blanches Spritz', desc: 'Prosecco, liqueur de pêche de vigne, thym citron, tonic', price: 12, tags: ['sig'] },
+      { name: 'Mesa Margarita', desc: 'Tequila blanco, agave, citron vert, sel fumé au piment', price: 13 },
+      { name: 'Corniche Sour', desc: 'Gin méditerranéen, romarin, citron, blanc d’œuf', price: 13 },
+      { name: 'Étang de Thau', desc: 'Vodka, concombre, basilic, tonic, soupçon de sel', price: 12 },
+      { name: 'Mont Saint-Clair', desc: 'Rhum ambré, sirop d’amande, ananas rôti, bitters', price: 13 },
+      { name: 'Sans alcool — Golden Hour', desc: 'Abricot, verveine, citron, ginger beer', price: 9 }
+    ]
+  },
+  {
+    id: 'vins', title: 'Vins & bulles', kicker: 'Languedoc d’abord',
+    note: 'Carte complète disponible à la table — plus de 60 références.',
+    items: [
+      { name: 'Picpoul de Pinet', desc: 'Domaine Félines Jourdan — le vin des huîtres', price: 7, unit: 'verre', prices: { verre: 7, bouteille: 32 } },
+      { name: 'Rosé Côtes de Thau', desc: 'Frais, salin, parfait sous les pins', price: 7, unit: 'verre', prices: { verre: 7, bouteille: 30 } },
+      { name: 'Terrasses du Larzac', desc: 'Rouge de garrigue, syrah-grenache', price: 9, unit: 'verre', prices: { verre: 9, bouteille: 44 } },
+      { name: 'Blanquette de Limoux', desc: 'Bulles fines du Languedoc', price: 9, unit: 'verre', prices: { verre: 9, bouteille: 42 } },
+      { name: 'Champagne Brut', desc: 'Maison indépendante, dosage léger', price: 14, unit: 'verre', prices: { verre: 14, bouteille: 78 } }
+    ]
   }
+];
 
-  const REVIEWS = [
-    { t: 'La pâte est vivante, on la sent respirer sous la dent.', a: 'Camille R.' },
-    { t: 'Meilleure Diavola au sud de Naples. J’ai vérifié, deux fois.', a: 'Yannis P.' },
-    { t: 'On mange debout, on repart heureux. Le Panier a de la chance.', a: 'Soraya B.' },
-    { t: 'La burrata posée à la sortie du four : un truc de fou.', a: 'Thomas L.' },
-    { t: 'Le four est visible depuis la salle, mes enfants ne regardaient que ça.', a: 'Nadia K.' },
-    { t: '72 heures de pâte, ça se sent dès la première bouchée.', a: 'Marc-Antoine D.' },
-    { t: 'Le tiramisù de Nonna vaut à lui seul le détour.', a: 'Léa M.' },
-    { t: 'Service rapide, pizza brûlante à la maison en 20 minutes.', a: 'Farid O.' }
-  ];
+LM.menuFormula = {
+  title: 'Le déjeuner de la semaine',
+  sub: 'Du mardi au vendredi, 12h – 14h30 (hors jours fériés)',
+  lines: [
+    { label: 'Entrée + plat ou plat + dessert', price: 29 },
+    { label: 'Entrée + plat + dessert', price: 36 },
+    { label: 'Verre de vin du moment', price: 6 }
+  ]
+};
 
-  return { SIZES, PIZZAS, MENU, REVIEWS };
-})();
+LM.tags = {
+  v:  { label: 'Végétarien', short: 'V' },
+  vg: { label: 'Végan', short: 'VG' },
+  sg: { label: 'Sans gluten', short: 'SG' },
+  sig:{ label: 'Signature', short: '★' }
+};
+
+/* ---------- Galerie ---------- */
+LM.gallery = [
+  { src: 'assets/img/still-06.webp', small: 'assets/img/still-06-640.webp', w: 1206, h: 676, alt: 'La grande table ronde et sa corbeille de légumes, sous la canisse', cap: 'La grande table' },
+  { src: 'assets/img/still-00.webp', small: 'assets/img/still-00-640.webp', w: 1206, h: 676, alt: 'Salle en bois clair, verres verts et lumière filtrée par le toit de roseaux', cap: 'Lumière du matin' },
+  { src: 'assets/img/still-03.webp', small: 'assets/img/still-03-640.webp', w: 1206, h: 676, alt: 'Un olivier au premier plan devant les tables dressées', cap: 'L’olivier' },
+  { src: 'assets/img/polaroid-1.webp', small: 'assets/img/polaroid-1.webp', w: 368, h: 262, alt: 'La terrasse face à la mer, sous les pins', cap: 'La terrasse' },
+  { src: 'assets/img/still-04.webp', small: 'assets/img/still-04-640.webp', w: 1206, h: 676, alt: 'Table ronde, verres à pied verts et set de table corail', cap: 'Avant le service' },
+  { src: 'assets/img/polaroid-2.webp', small: 'assets/img/polaroid-2.webp', w: 368, h: 262, alt: 'La salle bohème et son bar aux poteries', cap: 'Le bar' },
+  { src: 'assets/img/still-01.webp', small: 'assets/img/still-01-640.webp', w: 1206, h: 676, alt: 'Chaises en teck et longue table de bois', cap: 'Le bois & la paille' },
+  { src: 'assets/img/polaroid-3.webp', small: 'assets/img/polaroid-3.webp', w: 368, h: 262, alt: 'Table ronde dressée et lanternes', cap: 'Les lanternes' },
+  { src: 'assets/img/still-07.webp', small: 'assets/img/still-07-640.webp', w: 1206, h: 676, alt: 'Vue sur le passage vers la cuisine ouverte', cap: 'Vers la cuisine' },
+  { src: 'assets/img/still-05.webp', small: 'assets/img/still-05-640.webp', w: 1206, h: 676, alt: 'La salle depuis l’entrée, lanternes en rotin', cap: 'Sous la canisse' },
+  { src: 'assets/img/still-02.webp', small: 'assets/img/still-02-640.webp', w: 1206, h: 676, alt: 'Herbes aromatiques posées sur la longue table', cap: 'Les herbes' }
+];

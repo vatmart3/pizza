@@ -1,0 +1,75 @@
+---
+title: Réserver une table — La Mesa, Les Pierres Blanches · Sète
+desc: Réservez votre table à La Mesa, Sète : choisissez la date, le service et l’horaire, nous confirmons par téléphone ou e-mail. Réservation obligatoire.
+page: reservation
+priority: 0.9
+---
+<section class="page-head" aria-labelledby="resa-t">
+  <div class="container">
+    <nav class="crumbs" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span>/</span><span>Réservation</span></nav>
+    <span class="eyebrow">Réservation</span>
+    <h1 class="mask" style="margin-top:18px"><span id="resa-t">Votre table <em>face à la mer.</em></span></h1>
+    <p class="lead" data-reveal>Trois étapes, une minute. Nous confirmons chaque demande par téléphone ou e-mail. Pour une table le jour même ou plus de 12 personnes, appelez-nous directement au <a class="link" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>04 67 53 33 40</a>.</p>
+  </div>
+</section>
+<section class="section section--tight" aria-label="Formulaire de réservation">
+  <div class="container resa">
+    <form id="resa-form" novalidate>
+      <ol class="steps" aria-label="Étapes">
+        <li class="is-active">1 · Date &amp; heure</li><li>2 · Convives</li><li>3 · Coordonnées</li><li>4 · Confirmation</li>
+      </ol>
+      <div class="step is-active" data-step="0">
+        <h2>Quand <em>venez-vous ?</em></h2>
+        <div class="split">
+          <div class="cal" aria-label="Calendrier">
+            <div class="cal__head">
+              <button type="button" class="cal__prev" aria-label="Mois précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <b></b>
+              <button type="button" class="cal__next" aria-label="Mois suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+            <div class="cal__grid"></div>
+          </div>
+          <div style="display:grid;gap:26px;align-content:start">
+            <div class="field"><label>Service</label>
+              <div class="seg" data-service><button type="button" data-v="lunch" aria-pressed="false">Déjeuner</button><button type="button" data-v="dinner" aria-pressed="false">Dîner</button></div>
+            </div>
+            <div class="field"><label>Horaire</label><div class="slots" aria-live="polite"></div><p class="notice" style="margin-top:6px">Choisissez d’abord une date et un service. Les horaires barrés sont hors ouverture.</p></div>
+          </div>
+        </div>
+        <div class="step__actions"><span></span><button type="button" class="btn" data-next>Continuer <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      </div>
+      <div class="step" data-step="1">
+        <h2>Vous serez <em>combien ?</em></h2>
+        <div class="stepper" role="group" aria-label="Nombre de convives"><button type="button" data-d="-1" aria-label="Moins">−</button><output>2</output><button type="button" data-d="1" aria-label="Plus">+</button></div>
+        <p class="notice">Au-delà de 12 personnes, contactez-nous pour un menu de groupe ou une privatisation. Poussettes et chaises hautes bienvenues.</p>
+        <div class="step__actions"><button type="button" class="btn btn--ghost" data-prev>Retour</button><button type="button" class="btn" data-next>Continuer <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      </div>
+      <div class="step" data-step="2">
+        <h2>À quel <em>nom ?</em></h2>
+        <div class="form-grid">
+          <div class="field"><label for="r-name">Nom complet</label><input id="r-name" name="name" type="text" required autocomplete="name" minlength="2"><span class="err">Indiquez votre nom.</span></div>
+          <div class="field"><label for="r-phone">Téléphone</label><input id="r-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="^[+0-9 \(\)\.\-]{8,20}$"><span class="err">Un numéro valide pour vous confirmer.</span></div>
+          <div class="field"><label for="r-email">E-mail</label><input id="r-email" name="email" type="email" required autocomplete="email"><span class="err">Une adresse e-mail valide.</span></div>
+          <div class="field"><label for="r-occasion">Occasion (optionnel)</label><select id="r-occasion" name="occasion"><option value="">—</option><option>Anniversaire</option><option>Dîner en amoureux</option><option>Repas d’affaires</option><option>Entre amis</option><option>Autre</option></select></div>
+          <div class="field full"><label for="r-note">Allergies, chaise haute, table en terrasse… (optionnel)</label><textarea id="r-note" name="note" maxlength="600"></textarea></div>
+          <p class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></p>
+          <label class="check full"><input type="checkbox" name="rgpd" required><span>J’accepte que mes coordonnées soient utilisées pour traiter ma réservation, conformément à la <a href="confidentialite.html">politique de confidentialité</a>.</span></label>
+        </div>
+        <div class="step__actions"><button type="button" class="btn btn--ghost" data-prev>Retour</button><button type="submit" class="btn btn--terra">Envoyer la demande</button></div>
+      </div>
+      <div class="step" data-step="3">
+        <div class="ticket">
+          <div><span class="eyebrow">Demande envoyée</span><h2 style="margin-top:14px">À très vite, <em data-t="name"></em></h2><p class="notice" style="margin-top:10px">Votre demande est enregistrée. Elle sera <strong>confirmée par l’équipe</strong> par téléphone ou e-mail. Sans confirmation, la table n’est pas garantie.</p></div>
+          <div class="ticket__row"><div><small>Date</small><b data-t="date"></b></div><div><small>Heure</small><b data-t="time"></b></div><div><small>Convives</small><b data-t="guests"></b></div><div><small>Lieu</small><b>La Mesa, Sète</b></div></div>
+          <div class="ticket__actions"><a class="btn btn--sm" data-ics href="#" download="reservation-la-mesa.ics" data-no-transition>Ajouter à mon agenda</a><a class="btn btn--sm btn--ghost" href="carte.html" data-label="La carte">Regarder la carte</a></div>
+          <p class="ticket__code">Référence <span data-t="code"></span></p>
+        </div>
+      </div>
+    </form>
+    <aside class="summary" aria-label="Récapitulatif">
+      <h3>Votre réservation</h3>
+      <dl><dt>Date</dt><dd data-s="date"></dd><dt>Heure</dt><dd data-s="time"></dd><dt>Convives</dt><dd data-s="guests"></dd><dt>Nom</dt><dd data-s="name"></dd></dl>
+      <p class="summary__note">Réservation obligatoire. Les tables sont gardées 15 minutes après l’heure prévue. Pour annuler, un simple appel ou un e-mail suffit — merci de nous prévenir.</p>
+    </aside>
+  </div>
+</section>

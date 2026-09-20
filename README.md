@@ -1,92 +1,65 @@
-# 🍕 Nonna Luna — pizzeria artigianale
+# La Mesa — Les Pierres Blanches · Sète
 
-Site vitrine + commande en ligne pour une pizzeria artisanale imaginaire du Panier, à Marseille.
-Projet de portfolio : **aucune dépendance, aucun build, aucune photo**.
+Site vitrine du restaurant **La Mesa** (Les Pierres Blanches), 65 allée Pierre Barthas, 34200 Sète.
+Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel quel.
 
-> Ronde comme la lune, cuite au feu de bois.
+## Pages
 
----
+| Page | Fichier | Contenu |
+|---|---|---|
+| Accueil | `index.html` | héro vidéo, rayons de lumière WebGL, bandeau, polaroïds 3D, anneau 3D des plats, rituels, section cocktails, horaires + plan |
+| La carte | `carte.html` | carte complète générée depuis `data.js`, filtres (végétarien, sans gluten, signatures), recherche, navigation sticky, impression |
+| Le lieu | `le-lieu.html` | histoire, engagements, équipe, privatisation |
+| Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
+| Réservation | `reservation.html` | calendrier (jours fermés grisés), service + créneaux selon les horaires réels, convives, coordonnées, ticket de confirmation, export `.ics` |
+| Infos & accès | `contact.html` | coordonnées, statut ouvert/fermé en direct, horaires, accès, plan stylisé, formulaire |
+| Légal | `mentions-legales.html`, `confidentialite.html`, `accessibilite.html` | textes conformes LCEN / RGPD, sans cookie ni traceur |
+| 404 | `404.html` | |
 
-## L'idée
+## Tout modifier depuis un seul fichier
 
-Les sites de pizzeria se ressemblent tous : un carrousel de photos achetées sur une banque d'images
-et un bouton « commander ». Ici, tout ce qui est rond est dessiné par le code, et l'interface
-tourne autour d'un objet unique : **la Roue des Saveurs**.
+`assets/js/data.js` contient **tout ce qui change** : téléphone, e-mail, liens de navigation (Google Maps, Plans, Waze), horaires (`LM.hours`), créneaux de réservation (`LM.services`), la carte complète (`LM.menu`), la formule du midi et la galerie.
 
-### La Roue des Saveurs
-Un sélecteur circulaire : les huit pizzas sont posées sur un arc, la pizza géante tourne au centre
-en 3D (`rotateX` + `rotate`), et chaque cran met à jour la recette, les produits et le prix.
-Elle se pilote **au glisser** (pointer events, angle calculé au `atan2`), **au clavier** (← →),
-en cliquant un nom, ou avec les flèches. La géométrie (diamètre, rayon de l'anneau, pas angulaire,
-inclinaison des noms) est recalculée à chaque redimensionnement pour rester lisible du mobile au 4K.
-
-### Des pizzas génératives, pas des photos
-`assets/js/pizza.js` est un petit moteur graphique : à partir d'une recette
-(`{ base, cheeseN, toppings: [{ k: 'pepperoni', n: 8 }] }`) il produit un SVG complet —
-pâte irrégulière lissée en courbes de Bézier, taches de cuisson « léopard », bulles de corniche,
-mozzarella fondue, une vingtaine de garnitures dessinées à la main (pepperoni, funghi, burrata,
-truffe, roquette, anchois…), brillance d'huile d'olive.
-Le placement suit une **spirale de Vogel** bruitée avec rejet de proximité, et l'aléatoire est
-**déterministe** (mulberry32) : une même graine redonne exactement la même pizza — indispensable
-pour la section « Le Rituel », où quatre calques successifs doivent partager la même croûte.
-
-### Le Rituel
-Une section scrollytelling : la pizza se construit pendant la lecture (pâte → tomate → mozzarella →
-feu), la jauge monte de 24 °C à 430 °C, et le four s'allume à la dernière étape.
-
----
-
-## Ce qu'il y a dedans
-
-| | |
-|---|---|
-| **Configurateur** | roue rotative, 4 tailles (prix indexés), quantité, ajout au panier |
-| **Panier** | tiroir latéral, quantités, sous-total, livraison offerte dès 25 €, persistance `localStorage` |
-| **Carte** | 5 catégories, onglets à pastille glissante, rail défilable à la souris/au doigt |
-| **Livraison** | suivi de commande animé, plan SVG stylisé avec livreur qui suit le tracé (`getPointAtLength`) |
-| **Promo** | compte à rebours réel jusqu'au mardi 18 h |
-| **Réservation** | formulaire validé côté client, messages d'erreur en français |
-| **Détails** | préloader, curseur personnalisé, parallaxe à la souris, apparitions au scroll, barre de progression, marquee d'avis |
-
-## Accessibilité & performance
-
-- `prefers-reduced-motion` respecté : toutes les animations sont neutralisées.
-- Navigation clavier complète, `:focus-visible` visible partout, rôles ARIA sur la roue, les onglets,
-  les tailles et le tiroir ; lien d'évitement.
-- **Zéro requête externe** : polices auto-hébergées (sous-ensembles latin/latin-ext), pas de CDN,
-  pas d'images bitmap. Le site fonctionne hors ligne, y compris en `file://`.
-- Poids total ≈ 550 Ko dont 420 Ko de polices.
-
-## Lancer le projet
-
-```bash
-git clone <ce-dépôt> && cd pizza
-python3 -m http.server 8000     # ou : npx serve .
-# puis http://localhost:8000
-```
-
-Aucune installation, aucun bundler. Un double-clic sur `index.html` fonctionne aussi.
+- Les horaires pilotent : le badge « Ouvert · ferme à … » (nav, héro, contact), le tableau d’horaires, le calendrier et les créneaux de réservation.
+- `LM.info.formEndpoint` : renseignez une URL Formspree / Getform / Basin pour recevoir les réservations et messages par e-mail. Vide, le site ouvre le client mail du visiteur avec le message pré-rempli.
 
 ## Structure
 
 ```
-index.html
-assets/
-  css/style.css     tokens de design, composants, sections, responsive
-  css/fonts.css     @font-face auto-hébergés
-  js/pizza.js       moteur de pizzas SVG procédurales
-  js/data.js        tailles, recettes, carte, avis  ← tout le contenu se modifie ici
-  js/main.js        interactions (roue, panier, rituel, carte, livraison, formulaires)
-  fonts/            Fredoka · Caveat · Nunito (woff2, SIL OFL 1.1)
+index.html … 404.html      pages générées (à servir)
+assets/css/main.css        styles (palette sable / terre cuite / olive / mer)
+assets/js/data.js          données modifiables
+assets/js/app.js           préloader, transitions 3D, curseur, nav, statut horaires, carte, galerie, réservation, contact
+assets/fonts/              Fraunces (variable) & Instrument Sans (variable), licence OFL
+assets/img/ · assets/video/ photos (WebP, 2 tailles + LQIP) et vidéo héro (H.264, boucle aller-retour)
+src/layout.html            gabarit commun (head SEO, JSON-LD Restaurant, nav, footer)
+src/partials/*.html        nav, footer, préloader, plan SVG
+src/pages/*.html           contenu de chaque page (avec en-tête `---`)
+tools/build.py             régénère les pages + sitemap.xml
+sw.js                      service worker (cache des ressources, hors-ligne léger)
 ```
 
-## Personnaliser
+Pour modifier une page : éditez `src/pages/<page>.html` puis lancez `python3 tools/build.py`.
+(Éditer directement les fichiers HTML à la racine fonctionne aussi, mais sera écrasé au prochain build.)
 
-Changer une pizza, un prix ou toute la carte se fait dans **`assets/js/data.js`**.
-Les couleurs, rayons et typographies sont des variables CSS en haut de **`style.css`** (`:root`).
+## Vitesse
 
-## Crédits
+- Aucun script externe, aucune police distante : deux polices variables auto-hébergées et préchargées.
+- Images WebP avec `srcset`, `loading="lazy"`, dimensions déclarées (pas de saut de mise en page).
+- Vidéo héro chargée **après** le préloader, jamais si `prefers-reduced-motion` ou `Save-Data`.
+- `speculationrules` (préchargement des pages au survol) + service worker.
+- Animations en `transform`/`opacity`, WebGL rendu à demi-résolution et mis en pause hors écran.
 
-Pizzeria fictive, contenus rédigés pour la démonstration.
-Polices Fredoka, Caveat et Nunito sous licence SIL Open Font License 1.1.
-Illustrations : générées par le code de ce dépôt.
+## Accessibilité & conformité
+
+- Navigation clavier, focus visible, `aria-*` sur les composants, textes alternatifs, `prefers-reduced-motion` respecté.
+- Aucun cookie ni traceur : pas de bandeau de consentement nécessaire (documenté dans la politique de confidentialité).
+- Mentions obligatoires : prix nets service compris, allergènes sur demande, origine des viandes, message alcool, médiation de la consommation.
+- Les zones surlignées en jaune dans les pages légales (`[à compléter]`) sont à renseigner par le restaurant (raison sociale, SIRET, hébergeur, médiateur).
+
+## À compléter par le restaurant
+
+- Menu : les plats et prix de `data.js` sont une **proposition** rédigée pour la démo, à remplacer par la carte réelle.
+- Horaires : déduits des informations publiques (« ouvre à 09:30 mar. ») — à vérifier.
+- E-mail, Instagram, endpoint de formulaire, mentions légales.
+- Photos : le site utilise les images et la vidéo fournies ; des photos HD supplémentaires (plats, terrasse au coucher du soleil) remplaceront avantageusement certains visuels.
