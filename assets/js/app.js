@@ -291,7 +291,7 @@
         const c = LM.menu.find(m => m.id === cat), it = c.items[idx];
         return `<a class="ring__card" href="carte.html#${cat}" style="--a:${i * step}deg" draggable="false" data-cursor="Voir"><img src="${img}" alt="${esc(it.name)}" loading="lazy" width="640" height="359" draggable="false"><div class="t"><b>${esc(it.name)}</b><span>${esc(c.title)}</span><i>${it.price} €</i></div></a>`;
       }).join('');
-      const radius = () => { const w = Math.min(350, Math.max(240, innerWidth * .27)); return Math.round((w + 130) / (2 * Math.tan(Math.PI / n))); };
+      const radius = () => { const w = parseFloat(getComputedStyle(ring.querySelector('.ring__card')).width) || 300; const gap = innerWidth < 600 ? 30 : 130; return Math.round((w + gap) / (2 * Math.tan(Math.PI / n))); };
       const setRadius = () => { const r = radius(); ring.style.setProperty('--radius', r + 'px'); ring.style.setProperty('--depth', -(r - 20) + 'px'); };
       setRadius(); addEventListener('resize', setRadius);
       let ry = 0, vel = 0, drag = false, sx = 0, sr = 0, moved = 0, idle = 0, snapT;
