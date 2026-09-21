@@ -97,16 +97,19 @@
   const hoursOn = dt => seasonHours(dt)[dt.getDay()] || null;
   const isShut = (when) => { const s = season(when); return !!(s && s.closed); };
   /* Date de reouverture, ecrite en toutes lettres. */
+  /* « 1er avril » / « April 1st » — un jour et son mois, dans la langue
+     de la page. Sert à la réouverture comme au calendrier du soleil. */
+  const dayMonth = (d, m) => (LANG === 'en'
+    ? `${LM.monthNamesEn[m - 1]} ${d}${d === 1 ? 'st' : d === 2 ? 'nd' : d === 3 ? 'rd' : 'th'}`
+    : `${d === 1 ? '1\u1D49\u02B3' : d} ${LM.monthNames[m - 1]}`);
+
   const reopenParts = () => {
     const [m, d] = String((LM.season && LM.season.reopen) || '').split('-').map(Number);
     if (!m) return null;
     const now = new Date();
     let y = now.getFullYear();
     if (new Date(y, m - 1, d) <= now) y++;
-    const txt = LANG === 'en'
-      ? `${LM.monthNamesEn[m - 1]} ${d}${d === 1 ? 'st' : d === 2 ? 'nd' : d === 3 ? 'rd' : 'th'}`
-      : `${d === 1 ? '1\u1D49\u02B3' : d} ${LM.monthNames[m - 1]}`;
-    return { date: new Date(y, m - 1, d), text: txt };
+    return { date: new Date(y, m - 1, d), text: dayMonth(d, m) };
   };
   /* Saison a afficher dans la grille d'horaires : pendant la fermeture,
      on montre celle qui reprend, pour que le visiteur sache a quoi s'attendre. */
@@ -393,6 +396,21 @@
         <figcaption>${esc(r.name)}<span>${esc(r.when)}</span></figcaption>
       </figure>`).join('');
     });
+    /* Extrait de carte, en typographie — pas de fausses photos de plats.
+       Employé par l'accueil comme par les pages d'atterrissage. */
+    $$('[data-extract]', main).forEach(ex => {
+      const col = (titre, plats) => `<div class="extract__col"><h3>${esc(titre)}</h3>${plats.map(it => `
+        <div class="dish-line">
+          <span class="dish-line__name">${esc(tx(it, 'name'))}<span class="dish-line__lead" aria-hidden="true"></span></span>
+          <span class="dish-line__price">${it.price} €</span>
+          <p>${esc(tx(it, 'desc'))}</p>
+        </div>`).join('')}</div>`;
+      const cat = id => (LM.menu.find(m => m.id === id) || { items: [] }).items;
+      ex.innerHTML =
+        col(tx(LM.menu.find(m => m.id === 'midi') || {}, 'title'), cat('midi').slice(0, 4)) +
+        col(tx(LM.menu.find(m => m.id === 'brochettes') || {}, 'title'), cat('brochettes').slice(0, 4));
+    });
+
     paintSun(main);
 
     if (page === 'home') initHome(main);
@@ -458,14 +476,40 @@
     const advice = new Date(set.getTime() - (cfg.before || 90) * 60000);
     const hSet = atSete(set, cfg.zone), hAdv = atSete(advice, cfg.zone);
     const reopen = reopenParts();
+    /* L'heure dorée : la dernière heure avant que le soleil touche la mer.
+       C'est celle qu'on vient chercher, plus que le coucher lui-même. */
+    const golden = atSete(new Date(set.getTime() - 60 * 60000), cfg.zone);
     targets.forEach(el => {
       const k = el.dataset.sunset;
       if (k === 'time') el.textContent = hSet;
+      else if (k === 'golden') el.textContent = golden;
       else if (k === 'advice') el.textContent = isShut() && reopen
         ? fill(T('sunsetClosed'), hSet, reopen.text)
         : fill(T('sunsetAdvice'), hAdv);
       else if (k === 'label') el.textContent = T('sunsetTonight');
+      else if (k === 'week') paintSunWeek(el, cfg, now);
     });
+    /* Le tableau annuel est écrit à la construction : on y souligne
+       seulement le mois où l'on se trouve aujourd'hui. */
+    $$('[data-sun-month]', root).forEach(tr => {
+      tr.classList.toggle('is-today', +tr.dataset.sunMonth === now.getMonth() + 1);
+    });
+  };
+
+  /* Les sept prochains soirs. Calculé chez le visiteur : la page est
+     statique, mais ce tableau est toujours à jour. */
+  const paintSunWeek = (host, cfg, now) => {
+    const rows = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+      const set = sunsetAt(d, cfg.lat, cfg.lng);
+      if (!set) continue;
+      const when = i === 0 ? T('sunToday') : i === 1 ? T('sunTomorrow')
+        : `${days()[d.getDay()]} ${dayMonth(d.getDate(), d.getMonth() + 1)}`;
+      rows.push(`<div${i === 0 ? ' class="is-today"' : ''}><span>${when}</span>`
+        + `<span class="num">${atSete(set, cfg.zone)}</span></div>`);
+    }
+    host.innerHTML = rows.join('');
   };
 
   /* ---------- Vidéo du héro : chargée tard, jamais sur réseau limité ---------- */
@@ -487,21 +531,6 @@
 
   /* ========================================================= ACCUEIL */
   function initHome(main) {
-    /* Extrait de carte, en typographie — pas de fausses photos de plats. */
-    const ex = $('[data-extract]', main);
-    if (ex) {
-      const col = (titre, plats) => `<div class="extract__col"><h3>${esc(titre)}</h3>${plats.map(it => `
-        <div class="dish-line">
-          <span class="dish-line__name">${esc(tx(it, 'name'))}<span class="dish-line__lead" aria-hidden="true"></span></span>
-          <span class="dish-line__price">${it.price} €</span>
-          <p>${esc(tx(it, 'desc'))}</p>
-        </div>`).join('')}</div>`;
-      const cat = id => (LM.menu.find(m => m.id === id) || { items: [] }).items;
-      ex.innerHTML =
-        col(tx(LM.menu.find(m => m.id === 'midi') || {}, 'title'), cat('midi').slice(0, 4)) +
-        col(tx(LM.menu.find(m => m.id === 'brochettes') || {}, 'title'), cat('brochettes').slice(0, 4));
-    }
-
     /* Bande « Réservez votre table » */
     const bd = $('[data-book] input[type=date]', main);
     if (bd) { const t = new Date(); bd.min = `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`; }

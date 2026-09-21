@@ -20,6 +20,9 @@ sauf mention contraire.
 | Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
 | Réservation | `reservation.html` | le téléphone en action principale, puis une demande de rappel en quatre étapes : calendrier (jours fermés grisés selon la saison), service, convives, coordonnées |
 | Contact & accès | `contact.html` | coordonnées, horaires saisonniers, accès voiture / bus ligne 5 / à pied, accessibilité, itinéraire, formulaire |
+| Coucher de soleil | `coucher-de-soleil.html` | l'heure du soir même, les sept prochains jours, le tableau de l'année, où le regarder, questions fréquentes |
+| Restaurant vue mer | `restaurant-vue-mer-sete.html` | ce qu'on voit exactement, la vue selon l'heure, l'extrait de carte, l'accès |
+| Mont Saint-Clair | `manger-mont-saint-clair.html` | le sommet, les trois façons d'y monter, ce qui est ouvert et quand |
 | Légal | `mentions-legales.html`, `confidentialite.html`, `accessibilite.html` | mentions obligatoires, RGPD, déclaration d'accessibilité (texte français seul) |
 | Erreur | `404.html` | page introuvable |
 
@@ -224,6 +227,46 @@ précédente, elle est mal placée.** Alterner `--hang` et `--wide`, faire
 déborder une image sur deux, et laisser une bande photographique sombre
 (`.book`) tous les cinq ou six écrans pour ancrer la page.
 
+## Les pages d'atterrissage
+
+Trois pages répondent à des recherches précises, au lieu d'attendre qu'on
+cherche « La Mesa » par son nom — presque personne ne le fait avant de
+connaître la maison.
+
+| Page | La recherche visée |
+| --- | --- |
+| `coucher-de-soleil.html` | « à quelle heure se couche le soleil à Sète », « coucher de soleil Sète » |
+| `restaurant-vue-mer-sete.html` | « restaurant vue mer Sète », « restaurant avec vue Sète » |
+| `manger-mont-saint-clair.html` | « où manger Mont Saint-Clair », « restaurant Pierres Blanches Sète » |
+
+Une seule page par recherche. Deux pages qui visent la même expression se
+font concurrence entre elles et Google n'en retient qu'une : la page du
+coucher de soleil sert donc à la fois la question pratique (« à quelle
+heure ») et la recherche commerciale (« restaurant coucher de soleil
+Sète »), plutôt que d'être dédoublée.
+
+Elles ne sont pas dans la barre de navigation — six entrées suffisent.
+Elles sont liées depuis le pied de page, depuis l'accueil et entre elles.
+
+### Le tableau du coucher de soleil
+
+Le même calcul (algorithme NOAA) tourne à deux endroits :
+
+- **`tools/build.py`**, à la construction, pour écrire en dur le tableau
+  mois par mois de l'année en cours. Un moteur de recherche lit le texte
+  produit, pas le résultat d'un script ;
+- **`assets/js/app.js`**, chez le visiteur, pour l'heure du soir même
+  (`[data-sunset="time"]`), l'heure dorée (`"golden"`), les sept prochains
+  soirs (`"week"`) et le mois en cours souligné dans le tableau.
+
+Les deux implémentations ont été comparées jour par jour sur une année
+entière : elles donnent la même minute. Si vous touchez à l'une, vérifiez
+l'autre.
+
+Le tableau est injecté par la variable `{{sunsets}}`, disponible dans
+n'importe quelle page. Il se régénère à chaque construction, donc l'année
+affichée est toujours la bonne.
+
 ## Bilingue : français et anglais
 
 Le français est servi à la racine, l'anglais sous `/en/`. Les deux versions
@@ -392,8 +435,15 @@ valider par le restaurant est listé ci-dessous.
   Getform, Basin…) pour recevoir les demandes directement.
 - **Mentions légales** : les zones surlignées en jaune (`[à compléter]`) —
   raison sociale, SIRET, hébergeur, médiateur, licence de débit de boissons.
-- **Photos** : le site utilise les images et la vidéo fournies. Des photos HD
-  supplémentaires (brochettes sur la braise, terrasse au coucher du soleil,
-  salle le soir, vue panoramique) remplaceront avantageusement certains visuels.
+- **Photos** : c'est le manque le plus visible. Le site vend 187 mètres
+  au-dessus de la Méditerranée et ne montre que la salle à manger : aucune
+  photographie de la mer, de la terrasse à l'heure dorée, du panorama — et
+  aucune assiette. Une seule soirée de prises de vue (panorama, terrasse au
+  crépuscule, brochettes sur la braise, trois ou quatre assiettes, la montée
+  en voiture) changerait le site plus que n'importe quelle retouche.
+- **Les descriptions du paysage** (pages « vue mer » et « Mont Saint-Clair »)
+  décrivent la mer, les plages, la pinède et l'étang de Thau d'après les
+  informations publiques du restaurant. Le gérant doit confirmer ce que l'on
+  voit réellement depuis la terrasse, et de quel côté.
 - **Version anglaise** : le site officiel en propose une ; elle n'est pas encore
   reprise ici.

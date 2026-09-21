@@ -64,6 +64,18 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
+    },
+    {
+      "source": "/coucher-de-soleil",
+      "destination": "/coucher-de-soleil.html"
+    },
+    {
+      "source": "/restaurant-vue-mer-sete",
+      "destination": "/restaurant-vue-mer-sete.html"
+    },
+    {
+      "source": "/mont-saint-clair",
+      "destination": "/manger-mont-saint-clair.html"
     }
   ],
   "redirects": [

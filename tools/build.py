@@ -17,7 +17,8 @@ Les chemins vers assets/ sont réécrits automatiquement pour les pages
 anglaises (../assets/…), afin que le site reste servable depuis
 n'importe quel sous-dossier.
 """
-import re, pathlib, datetime, html as _html
+import re, math, pathlib, datetime, html as _html
+from zoneinfo import ZoneInfo
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / 'src'
@@ -30,6 +31,83 @@ for lf in SRC.glob('layout-*.html'):
 partials = {p.stem: p.read_text(encoding='utf-8') for p in (SRC / 'partials').glob('*.html')}
 
 BI = re.compile(r'\[\[(.*?)\|\|(.*?)\]\]', re.S)
+
+# ----------------------------------------------------------------------
+# Le coucher du soleil, calculé à la construction.
+#
+# Le même algorithme (NOAA) tourne déjà dans assets/js/app.js pour
+# afficher l'heure du soir même. Ici il sert à écrire un tableau en
+# dur dans la page : un moteur de recherche lit le texte produit, pas
+# le résultat d'un script. Les deux implémentations ont été comparées
+# jour par jour sur une année entière — elles donnent la même minute.
+# ----------------------------------------------------------------------
+SUN = {'lat': 43.3934, 'lng': 3.6802, 'zone': 'Europe/Paris'}
+MOIS = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+
+def sunset_utc(d, lat, lng):
+    rd = math.pi / 180
+    d0 = datetime.datetime(d.year, d.month, d.day, tzinfo=datetime.timezone.utc).timestamp() * 1000
+    jc = (d0 / 864e5 + 2440587.5 - 2451545) / 36525
+    geom = (280.46646 + jc * (36000.76983 + jc * 0.0003032)) % 360
+    anom = 357.52911 + jc * (35999.05029 - 0.0001537 * jc)
+    ecc = 0.016708634 - jc * (0.000042037 + 0.0000001267 * jc)
+    ctr = (math.sin(rd * anom) * (1.914602 - jc * (0.004817 + 0.000014 * jc))
+           + math.sin(rd * 2 * anom) * (0.019993 - 0.000101 * jc)
+           + math.sin(rd * 3 * anom) * 0.000289)
+    app_long = geom + ctr - 0.00569 - 0.00478 * math.sin(rd * (125.04 - 1934.136 * jc))
+    obl = (23 + (26 + (21.448 - jc * (46.815 + jc * (0.00059 - jc * 0.001813))) / 60) / 60
+           + 0.00256 * math.cos(rd * (125.04 - 1934.136 * jc)))
+    decl = math.asin(math.sin(rd * obl) * math.sin(rd * app_long)) / rd
+    vary = math.tan(rd * obl / 2) ** 2
+    eq = 4 * (vary * math.sin(2 * rd * geom) - 2 * ecc * math.sin(rd * anom)
+              + 4 * ecc * vary * math.sin(rd * anom) * math.cos(2 * rd * geom)
+              - 0.5 * vary * vary * math.sin(4 * rd * geom)
+              - 1.25 * ecc * ecc * math.sin(2 * rd * anom)) / rd
+    cos_h = (math.cos(rd * 90.833) / (math.cos(rd * lat) * math.cos(rd * decl))
+             - math.tan(rd * lat) * math.tan(rd * decl))
+    if cos_h > 1 or cos_h < -1:
+        return None
+    ha = math.acos(cos_h) / rd
+    return datetime.datetime.fromtimestamp(
+        (d0 + round((720 - 4 * lng - eq + 4 * ha) * 60000)) / 1000, datetime.timezone.utc)
+
+
+def sunset_sete(d):
+    """Heure locale de Sète, heure d'été comprise."""
+    u = sunset_utc(d, SUN['lat'], SUN['lng'])
+    return u.astimezone(ZoneInfo(SUN['zone'])) if u else None
+
+
+def hhmm(t):
+    """« 19h46 » en français, « 19:46 » en anglais — l'heure est la même."""
+    return '[[%02dh%02d||%02d:%02d]]' % (t.hour, t.minute, t.hour, t.minute)
+
+
+def sunset_table(year):
+    rows = []
+    for m in range(1, 13):
+        first = sunset_sete(datetime.date(year, m, 1))
+        mid = sunset_sete(datetime.date(year, m, 15))
+        golden = mid - datetime.timedelta(minutes=60)
+        rows.append(
+            '    <tr data-sun-month="%d"><th scope="row">[[%s||%s]]</th>'
+            '<td>%s</td><td>%s</td><td>%s</td></tr>'
+            % (m, MOIS[m - 1], MONTHS[m - 1], hhmm(first), hhmm(mid), hhmm(golden)))
+    return (
+        '<table class="suntable">\n'
+        '  <caption>[[Heure du coucher du soleil à Sète, année %d. Calculée pour '
+        '43,39° N — 3,68° E, heure locale, heure d\u2019été comprise.'
+        '||Sunset times in Sète, %d. Calculated for 43.39° N — 3.68° E, local time, '
+        'including summer time.]]</caption>\n'
+        '  <thead><tr><th scope="col">[[Mois||Month]]</th>'
+        '<th scope="col">[[Le 1<sup>er</sup>||On the 1st]]</th>'
+        '<th scope="col">[[Le 15||On the 15th]]</th>'
+        '<th scope="col">[[Heure dorée (le 15)||Golden hour (15th)]]</th></tr></thead>\n'
+        '  <tbody>\n%s\n  </tbody>\n</table>' % (year, year, '\n'.join(rows)))
 
 
 def pick(text, lang):
@@ -47,6 +125,8 @@ def retarget(out, prefix):
     return out
 
 
+SUNSETS = sunset_table(datetime.date.today().year)
+
 pages, built = [], 0
 for f in sorted((SRC / 'pages').glob('*.html')):
     raw = f.read_text(encoding='utf-8')
@@ -62,6 +142,8 @@ for f in sorted((SRC / 'pages').glob('*.html')):
         ctx = dict(meta)
         ctx['content'] = body
         ctx.update(site=SITE, year=str(datetime.date.today().year), lang=lang, root=prefix)
+        ctx['sunsets'] = SUNSETS
+        ctx['sun_year'] = str(datetime.date.today().year)
         ctx.setdefault('body_class', '')
         ctx.setdefault('preload', '')
         ctx.setdefault('robots', 'index,follow')

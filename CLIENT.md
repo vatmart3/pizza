@@ -26,6 +26,11 @@ C'est aujourd'hui la limite du site. Tout ce que vous voyez vient d'un clip de
 six secondes, qui ne contient que deux plans. Nous avons fabriqué de la variété
 avec des recadrages, mais cela ne remplace pas de vraies photos.
 
+Il manque surtout **la vue**. Le site raconte 187 mètres au-dessus de la
+Méditerranée, et les sept photographies actuelles montrent toutes la salle à
+manger : pas une seule de la mer, du panorama ou de la terrasse au crépuscule.
+Et pas une seule assiette.
+
 **Ce qui aurait le plus d'effet, dans l'ordre :**
 
 1. Les brochettes sur la braise, pendant le service.
@@ -87,6 +92,30 @@ agressivité. Une réponse publique est lue par les suivants.
 > grillées sur place d'avril à fin septembre, face au coucher de soleil.
 > Tapas, cocktails maison, terrasse panoramique et parking gratuit.
 > Réservation par téléphone au 04 67 53 33 40.
+
+---
+
+## 5. Trois pages pour être trouvé
+
+Presque personne ne cherche « La Mesa » avant de connaître la maison. Les gens
+cherchent *« restaurant vue mer Sète »*, *« où manger sur le Mont Saint-Clair »*
+ou *« à quelle heure se couche le soleil à Sète »*. Trois pages répondent
+maintenant à ces questions-là, et ramènent vers vous.
+
+Celle du coucher de soleil donne l'heure exacte du soir même, les sept
+prochains jours et le tableau de l'année. Elle est utile même à quelqu'un qui
+ne vient pas manger — c'est précisément pour cela qu'elle sera trouvée.
+
+**Deux choses à vérifier de votre côté :**
+
+1. **Ce qu'on voit vraiment depuis la terrasse**, et de quel côté. Nous avons
+   écrit « la mer et les plages devant, l'étang de Thau derrière, la pinède
+   autour » à partir de vos informations publiques. Si c'est inexact, dites-le :
+   c'est une page entière qui repose là-dessus.
+2. **Le soleil se couche-t-il dans la mer, vu de chez vous ?** Selon la saison
+   le point de coucher se déplace ; nous sommes restés prudents sur ce point.
+   Une photo prise un soir d'été répondrait définitivement à la question — et
+   irait sur la page.
 
 ---
 
