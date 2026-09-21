@@ -7,7 +7,7 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 
 | Page | Fichier | Contenu |
 |---|---|---|
-| Accueil | `index.html` | héro vidéo avec rayons de lumière WebGL, « Notre histoire » avec vidéo en modale, carrousel des plats signature, bande « Réservez votre table » (pré-remplit la page réservation), horaires + itinéraire |
+| Accueil | `index.html` | héro plein cadre (photo puis vidéo), manifeste, le lieu, extrait de carte typographique, bande de trois cadrages, citation, bande « Réservez votre table » (pré-remplit la page réservation), horaires + itinéraire |
 | La carte | `carte.html` | carte complète générée depuis `data.js`, filtres (végétarien, sans gluten, signatures), recherche, navigation sticky, impression |
 | Le lieu | `le-lieu.html` | histoire, engagements, équipe, privatisation |
 | Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
