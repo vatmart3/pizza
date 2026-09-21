@@ -5,7 +5,9 @@ Chaque page commence par un bloc de méta-données `---` (clé: valeur)."""
 import re, pathlib, datetime
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / 'src'
-layout = (SRC / 'layout.html').read_text(encoding='utf-8')
+layouts = {'': (SRC / 'layout.html').read_text(encoding='utf-8')}
+for lf in SRC.glob('layout-*.html'):
+    layouts[lf.stem.split('-', 1)[1]] = lf.read_text(encoding='utf-8')
 partials = {p.stem: p.read_text(encoding='utf-8') for p in (SRC / 'partials').glob('*.html')}
 SITE = 'https://lespierresblanches.com'
 pages = []
@@ -15,12 +17,12 @@ for f in sorted((SRC / 'pages').glob('*.html')):
     meta = dict(l.split(':', 1) for l in m.group(1).splitlines() if ':' in l)
     meta = {k.strip(): v.strip() for k, v in meta.items()}
     content = m.group(2)
-    out = layout
+    out = layouts[meta.get('layout', '')]
     ctx = {**meta, 'content': content, 'site': SITE, 'year': str(datetime.date.today().year)}
     ctx.setdefault('body_class', '')
     ctx.setdefault('preload', '')
     ctx.setdefault('robots', 'index,follow')
-    ctx['canonical'] = f"{SITE}/{'' if f.name == 'index.html' else f.name}"
+    ctx.setdefault('canonical', f"{SITE}/{'' if f.name == 'index.html' else f.name}")
     ctx['og_image'] = f"{SITE}/assets/img/og.jpg"
     for k, v in partials.items():
         out = out.replace('{{> ' + k + '}}', v)

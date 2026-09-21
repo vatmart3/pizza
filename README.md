@@ -12,6 +12,8 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 | Le lieu | `le-lieu.html` | histoire du site, la journée type, ce qui fait la maison, le rythme des trois saisons |
 | Soirées brochettes | `soirees-brochettes.html` | page saisonnière : le principe, le déroulé d'une soirée, la sélection de brochettes et de tapas |
 | Groupes & événements | `groupes.html` | formules groupes, offre séminaires, formulaire de demande de devis |
+| Carte à table (QR) | `menu.html` | page autonome et ultra-légère, scannée au QR code : bilingue FR/EN, mode plein soleil, recherche, filtres, hors-ligne |
+| Fiches QR à imprimer | `qr.html` | planche A4 de deux fiches de table à plier, QR code inclus (hors index) |
 | Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
 | Réservation | `reservation.html` | le téléphone en action principale, puis une demande de rappel en quatre étapes : calendrier (jours fermés grisés selon la saison), service, convives, coordonnées |
 | Contact & accès | `contact.html` | coordonnées, horaires saisonniers, accès voiture / bus ligne 5 / à pied, accessibilité, itinéraire, formulaire |
@@ -97,6 +99,52 @@ il suffit de remplacer les fichiers de `assets/img/` et les entrées de `LM.gall
 - Aucun cookie ni traceur : pas de bandeau de consentement nécessaire (documenté dans la politique de confidentialité).
 - Mentions obligatoires : prix nets service compris, allergènes sur demande, origine des viandes, message alcool, médiation de la consommation.
 - Les zones surlignées en jaune dans les pages légales (`[à compléter]`) sont à renseigner par le restaurant (raison sociale, SIRET, hébergeur, médiateur).
+
+## La carte scannée à table (QR code)
+
+`menu.html` est une page **autonome** : elle n'utilise ni `main.css` ni
+`app.js`, son style est en ligne dans `src/layout-menu.html` et son script est
+`assets/js/menu.js`. Tout est pensé pour un téléphone, à table, avec un réseau
+médiocre : environ 100 Ko au total, premier rendu sous les 100 ms.
+
+Elle lit exactement les mêmes données que le reste du site (`LM.menu`) :
+**modifier un prix dans `data.js` met à jour la carte du site et la carte
+scannée en même temps.** Le QR imprimé n'a jamais besoin d'être refait.
+
+Ce qu'elle apporte :
+
+- **Bilingue FR / EN** — un bouton bascule toute la carte ; les traductions
+  sont dans `data.js` (`en:` sur chaque catégorie et chaque plat, `LM.ui` pour
+  l'interface). Le choix est mémorisé.
+- **Mode plein soleil** — un thème clair à fort contraste, pour une terrasse à
+  midi. Mémorisé lui aussi, et appliqué avant le premier pixel (aucun
+  clignotement).
+- **Recherche et filtres** végétarien / sans gluten / signatures.
+- **Onglets de catégorie** collants qui suivent le défilement.
+- **Conscience de la saison** : hors saison, la section des brochettes affiche
+  d'elle-même que le service reprend en avril.
+- **Hors-ligne** : la page est mise en cache par le service worker.
+
+### Le QR code et les fiches de table
+
+`qr.html` est une planche A4 contenant **deux fiches de table à plier**, avec le
+QR code déjà intégré. Le restaurant ouvre la page et imprime : rien à
+configurer. Le code pointe vers `lespierresblanches.com/m`, la plus courte
+adresse possible (réécriture définie dans `vercel.json`) — moins de caractères
+signifie un code moins dense, donc un scan plus rapide.
+
+Le code est généré en **correction d'erreur maximale (niveau H)** : il reste
+lisible même sali, plié ou partiellement masqué — ce qui arrive à tout ce qui
+traîne sur une table de restaurant. Le tracé SVG est intégré dans la page,
+sans fichier image ni service extérieur.
+
+Pour regénérer le code après un changement d'adresse :
+
+```bash
+pip install segno            # une seule fois
+python3 tools/make-qr.py     # réécrit src/pages/qr.html
+python3 tools/build.py
+```
 
 ## Le rythme des saisons
 
