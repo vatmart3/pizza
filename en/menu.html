@@ -7,7 +7,7 @@
 <meta name="description" content="The La Mesa menu, to read at your table. Lunch slate, skewer evenings, tapas, snacks, cocktails and drinks.">
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://lespierresblanches.com/carte.html">
-<meta name="theme-color" content="#E7DFCE">
+<meta name="theme-color" content="#FBF7EF">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="La Mesa — Les Pierres Blanches">
@@ -19,38 +19,37 @@
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <link rel="manifest" href="../manifest.webmanifest">
-<link rel="preload" href="../assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../assets/fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/playfair.woff2" as="font" type="font/woff2" crossorigin>
 <script>/* Préférences lues avant le premier pixel : aucun clignotement. */
 (function(){var d=document.documentElement;try{
 var t=localStorage.getItem('lm-theme');if(t==='dark')d.setAttribute('data-theme','dark');
 var l=localStorage.getItem('lm-lang');if(l){d.lang=l;}d.setAttribute('data-lang',d.lang);}catch(e){}})();</script>
 <style>
 /* ---- Polices ---- */
-@font-face{font-family:'Jost';src:url('../assets/fonts/jost.woff2') format('woff2');font-weight:300 700;font-display:swap}
-@font-face{font-family:'Bodoni Moda';src:url('../assets/fonts/bodoni.woff2') format('woff2');font-weight:400 900;font-display:swap}
-/* Bodoni n'a pas d'euro lisible à cette taille : on emprunte celui de Jost. */
-@font-face{font-family:'Bodoni Moda';src:url('../assets/fonts/jost.woff2') format('woff2');unicode-range:U+20AC;font-weight:400 900;font-display:swap;size-adjust:118%}
+@font-face{font-family:'Inter';src:url('../assets/fonts/inter.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('../assets/fonts/playfair.woff2') format('woff2');font-weight:400 900;font-display:swap}
 
 /* ---- Jetons ----
    Comme le reste du site : clair par défaut (la carte se lit surtout
    en terrasse, en plein jour), sombre d'un bouton pour le service du
    soir. La préférence est partagée avec le site (clé lm-theme). ---- */
 :root{
-  --bg:#E7DFCE; --surf:#F3EEE1; --surf2:#DCD2BC; --grain:.055;
-  --fg:#18140E; --fg2:#453D30; --fg3:#665C4B;
-  --gold:#7A5715; --gold2:#5E4310;
-  --line:rgba(24,20,14,.18); --line2:rgba(24,20,14,.09);
-  --display:'Bodoni Moda','Didot',Georgia,serif;
-  --body:'Jost','Avenir Next',system-ui,sans-serif;
+  --bg:#FBF7EF; --surf:#F5EFE3; --surf2:#DBC9B2; --grain:.05;
+  --fg:#1F1F1F; --fg2:#3D3B36; --fg3:#56544E;
+  --olive:#4A5A3F; --olive2:#3A4731; --on-olive:#FBF7EF; --terre:#B0542A;
+  --line:rgba(31,31,31,.16); --line2:rgba(31,31,31,.08);
+  --r:3px;
+  --display:'Playfair Display',Georgia,serif;
+  --body:'Inter',system-ui,sans-serif;
   --gut:clamp(16px,4.5vw,28px); --max:720px;
   color-scheme:light;
 }
 :root[data-theme="dark"]{
-  --bg:#0A0A09; --surf:#131211; --surf2:#1C1A18;
-  --fg:#EFEAE1; --fg2:#B3ABA0; --fg3:#8A8376;
-  --gold:#C6A265; --gold2:#E0C795;
-  --line:rgba(239,234,225,.13); --line2:rgba(239,234,225,.07); --grain:.04;
+  --bg:#1F1F1F; --surf:#262523; --surf2:#2E2C28;
+  --fg:#FBF7EF; --fg2:#C9C3B8; --fg3:#9A948A;
+  --olive:#8CA178; --olive2:#A6BA92; --on-olive:#1F1F1F; --terre:#E09A6A;
+  --line:rgba(251,247,239,.14); --line2:rgba(251,247,239,.07); --grain:.04;
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -70,21 +69,21 @@ button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+:focus-visible{outline:2px solid var(--olive);outline-offset:3px}
 
 /* ---- En-tête ---- */
 .top{background:var(--bg);padding-top:max(14px,env(safe-area-inset-top));padding-bottom:12px;
   box-shadow:inset 0 -1px 0 var(--line2)}
 .top .wrap{display:flex;align-items:center;gap:14px}
 .mark{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
-.mark svg{width:30px;height:19px;color:var(--gold);flex:none}
+.mark svg{width:30px;height:19px;color:var(--olive);flex:none}
 .mark__txt{font-size:inherit;font-weight:inherit;margin:0;min-width:0}
 .mark b{display:block;font-family:var(--display);font-size:1.18rem;font-weight:500;letter-spacing:.01em;line-height:1;white-space:nowrap}
 .mark span{display:block;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3);margin-top:3px}
 .tool{display:flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 11px;
   font-size:.64rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--fg2);
   box-shadow:inset 0 0 0 1px var(--line);flex:none;transition:color .2s,box-shadow .2s}
-.tool:hover,.tool:active{color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.tool:hover,.tool:active{color:var(--olive);box-shadow:inset 0 0 0 1px var(--olive)}
 .tool svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
 :root:not([data-theme="dark"]) .tool--sun .i-sun{display:none}
 :root[data-theme="dark"] .tool--sun .i-moon{display:none}
@@ -99,7 +98,7 @@ a{color:inherit;text-decoration:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{white-space:nowrap;font-size:.64rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
   color:var(--fg3);padding:8px 13px;box-shadow:inset 0 0 0 1px var(--line);transition:.2s}
-.chip[aria-pressed=true]{color:var(--bg);background:var(--gold);box-shadow:none}
+.chip[aria-pressed=true]{color:var(--on-olive);background:var(--olive);box-shadow:none}
 
 /* ---- Onglets de catégorie ---- */
 .tabs{position:sticky;top:0;z-index:20;background:var(--bg);box-shadow:inset 0 -1px 0 var(--line)}
@@ -108,33 +107,33 @@ a{color:inherit;text-decoration:none}
 .tabs .wrap::-webkit-scrollbar{display:none}
 .tabs a{position:relative;white-space:nowrap;padding:14px 0;font-size:.66rem;font-weight:500;
   letter-spacing:.17em;text-transform:uppercase;color:var(--fg3);transition:color .2s}
-.tabs a.on{color:var(--gold)}
-.tabs a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);
+.tabs a.on{color:var(--olive)}
+.tabs a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--olive);
   transform:scaleX(0);transform-origin:left;transition:transform .25s}
 .tabs a.on::after{transform:scaleX(1)}
 
 /* ---- Sections et plats ---- */
 .cat{padding-top:clamp(34px,7vw,52px);scroll-margin-top:52px}
-.cat__k{font-size:.6rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.cat__k{font-size:.6rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--olive)}
 .cat__t{font-family:var(--display);font-size:clamp(1.75rem,7vw,2.45rem);font-weight:450;line-height:1.08;margin-top:8px}
 .cat__n{font-size:.83rem;color:var(--fg3);line-height:1.7;margin-top:12px;padding-bottom:6px}
 .cat__off{margin-top:14px;padding:12px 14px;background:var(--surf2);font-size:.8rem;color:var(--fg2);
-  box-shadow:inset 3px 0 0 var(--gold)}
+  box-shadow:inset 3px 0 0 var(--olive)}
 .dish{padding:17px 0;border-top:1px solid var(--line2)}
 .dish:first-of-type{border-top:1px solid var(--line);margin-top:16px}
 .dish__r{display:flex;align-items:baseline;gap:10px}
 .dish__n{font-family:var(--display);font-size:1.12rem;font-weight:500;line-height:1.3;
   flex:0 1 auto;min-width:0;overflow-wrap:break-word}
 .dish__l{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-4px);min-width:14px}
-.dish__p{font-family:var(--display);font-size:1.12rem;font-weight:500;color:var(--gold);flex:none;white-space:nowrap}
+.dish__p{font-family:var(--display);font-size:1.12rem;font-weight:500;color:var(--olive);flex:none;white-space:nowrap}
 .dish__d{font-size:.85rem;color:var(--fg3);line-height:1.6;margin-top:5px;max-width:58ch}
-.cat__u{margin-top:14px;font-size:.62rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.cat__u{margin-top:14px;font-size:.62rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--olive)}
 .tgs{white-space:nowrap}
 .dish__u{display:block;font-size:.58rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
   color:var(--fg3);text-align:right;margin-top:4px;white-space:normal}
 .tg{display:inline-block;font-family:var(--body);font-size:.52rem;font-weight:600;letter-spacing:.1em;
-  color:var(--gold);padding:2px 5px;margin-left:6px;box-shadow:inset 0 0 0 1px var(--line);vertical-align:.18em}
-.tg--s{color:var(--bg);background:var(--gold);box-shadow:none}
+  color:var(--olive);padding:2px 5px;margin-left:6px;box-shadow:inset 0 0 0 1px var(--line);vertical-align:.18em}
+.tg--s{color:var(--on-olive);background:var(--olive);box-shadow:none}
 .none{padding:28px 0;font-size:.88rem;color:var(--fg3);text-align:center}
 
 /* ---- Pied ---- */
@@ -144,11 +143,11 @@ a{color:inherit;text-decoration:none}
 .foot p+p{margin-top:9px}
 .foot__a{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .foot__a a{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;font-size:.66rem;font-weight:500;
-  letter-spacing:.16em;text-transform:uppercase;box-shadow:inset 0 0 0 1px var(--gold);color:var(--gold)}
-.foot__a a:first-child{background:var(--gold);color:var(--bg)}
+  letter-spacing:.16em;text-transform:uppercase;box-shadow:inset 0 0 0 1px var(--olive);color:var(--olive)}
+.foot__a a:first-child{background:var(--olive);color:var(--on-olive);border-radius:var(--r)}
 .foot__a svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
 .up{position:fixed;right:var(--gut);bottom:calc(18px + env(safe-area-inset-bottom));width:42px;height:42px;
-  display:grid;place-items:center;background:var(--surf2);color:var(--gold);box-shadow:inset 0 0 0 1px var(--line);
+  display:grid;place-items:center;background:var(--surf2);color:var(--olive);box-shadow:inset 0 0 0 1px var(--line);
   opacity:0;pointer-events:none;transition:opacity .25s;z-index:30}
 .up.on{opacity:1;pointer-events:auto}
 .up svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}

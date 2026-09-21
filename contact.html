@@ -10,7 +10,7 @@
 <link rel="alternate" hreflang="fr" href="https://lespierresblanches.com/contact.html">
 <link rel="alternate" hreflang="en" href="https://lespierresblanches.com/en/contact.html">
 <link rel="alternate" hreflang="x-default" href="https://lespierresblanches.com/contact.html">
-<meta name="theme-color" content="#E7DFCE">
+<meta name="theme-color" content="#FBF7EF">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="La Mesa — Les Pierres Blanches">
@@ -28,9 +28,9 @@
 if(sessionStorage.getItem('lm-seen'))d.classList.add('no-loader');
 var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);
 }catch(e){}})();</script>
-<link rel="preload" href="assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/bodoni-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/playfair.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/playfair-italic.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="assets/css/main.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"La Mesa — Les Pierres Blanches","url":"https://lespierresblanches.com","image":"https://lespierresblanches.com/assets/img/og.jpg","telephone":"+33467533340","email":"lamesa@lespierresblanches.com","priceRange":"30 – 50 €","servesCuisine":["Méditerranéenne","Grillades","Tapas"],"acceptsReservations":"https://lespierresblanches.com/reservation.html","sameAs":["https://www.instagram.com/lamesa_sete/"],"address":{"@type":"PostalAddress","streetAddress":"65 allée Pierre Barthas","postalCode":"34200","addressLocality":"Sète","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":43.3934,"longitude":3.6802},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:30","closes":"23:00","validFrom":"2026-04-01","validThrough":"2026-09-30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Sunday"],"opens":"08:30","closes":"19:00","validFrom":"2026-10-01","validThrough":"2026-11-30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday","Saturday"],"opens":"08:30","closes":"23:00","validFrom":"2026-10-01","validThrough":"2026-11-30"}],"hasMenu":"https://lespierresblanches.com/carte.html","publicAccess":true,"amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Terrasse panoramique","value":true},{"@type":"LocationFeatureSpecification","name":"Vue mer","value":true},{"@type":"LocationFeatureSpecification","name":"Parking gratuit","value":true}]}</script>
@@ -49,7 +49,7 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
 <header class="nav"><span class="nav__progress" aria-hidden="true"></span>
   <div class="container">
     <a class="brand" href="index.html" aria-label="La Mesa — Les Pierres Blanches, accueil" data-label="Accueil">
-      <svg class="brand__emblem" viewBox="0 0 52 32" aria-hidden="true"><path fill="currentColor" d="M6 27c0-3 9-5 20-5s20 2 20 5-9 4-20 4S6 30 6 27zm5-9c0-2.5 7-4 15-4s15 1.5 15 4-7 3.5-15 3.5-15-1-15-3.5zm6-8c0-2 4-3.5 9-3.5s9 1.5 9 3.5-4 3-9 3-9-1-9-3z"/></svg>
+      <span class="brand__rule" aria-hidden="true"></span>
       <span class="brand__main">La Mesa</span>
       <span class="brand__sub">Les Pierres Blanches</span>
     </a>
@@ -186,7 +186,7 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a class="brand" href="index.html"><svg class="brand__emblem" viewBox="0 0 52 32" aria-hidden="true"><path fill="currentColor" d="M6 27c0-3 9-5 20-5s20 2 20 5-9 4-20 4S6 30 6 27zm5-9c0-2.5 7-4 15-4s15 1.5 15 4-7 3.5-15 3.5-15-1-15-3.5zm6-8c0-2 4-3.5 9-3.5s9 1.5 9 3.5-4 3-9 3-9-1-9-3z"/></svg><span class="brand__main">La Mesa</span><span class="brand__sub">Les Pierres Blanches</span></a>
+        <a class="brand brand--full" href="index.html"><span class="brand__rule" aria-hidden="true"></span><span class="brand__main">La Mesa</span><span class="brand__sub">Les Pierres Blanches</span><span class="brand__rule" aria-hidden="true"></span><span class="brand__tag">Entre mer &amp; pinède — Sète</span></a>
         <p>« La Mesa », c’est la table. Au sommet du Mont Saint-Clair, à 187 mètres, entre la pinède, la garrigue et la Méditerranée : l’ardoise du midi, les soirées brochettes et le coucher de soleil face à la mer.</p>
         <div class="social">
           <a data-href="instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
@@ -213,7 +213,7 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
         <ul>
           <li><a href="groupes.html">Groupes &amp; privatisation</a></li>
           <li><a href="carte.html#boissons">Carte des boissons</a></li>
-          <li><a href="carte.html#snack">Snack &amp; goûter</a></li>
+          <li><a href="carte.html#snack">La pause gourmande</a></li>
           <li><a href="contact.html#acces">Accès &amp; parking</a></li>
           <li><a href="restaurant-vue-mer-sete.html">Restaurant vue mer à Sète</a></li>
           <li><a href="manger-mont-saint-clair.html">Manger sur le Mont Saint-Clair</a></li>

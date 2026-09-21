@@ -4,6 +4,26 @@ Trois choses à fournir, et une à faire vous-même. Tout le reste est en place.
 
 ---
 
+## 0. Deux chiffres à trancher — avant tout le reste
+
+La charte graphique que vous nous avez transmise ne donne pas les mêmes
+coordonnées que celles du site. Une seule version peut être la bonne, et se
+tromper de numéro de téléphone sur un site de restaurant coûte des couverts
+tous les jours.
+
+| | Sur le site aujourd'hui | Sur votre charte |
+| --- | --- | --- |
+| Téléphone | **04 67 53 33 40** | **04 67 53 34 40** |
+| Adresse | **65** allée Pierre Barthas | **465** allée Pierre Barthas |
+
+Le site a gardé ses valeurs actuelles, qui viennent des informations
+publiques relevées en amont. **Dites-nous lesquelles sont justes** : c'est une
+ligne à changer dans `assets/js/data.js`, et le numéro se met alors à jour
+partout — en-tête, pied de page, boutons d'appel, fiches QR et données
+structurées.
+
+---
+
 ## 1. La carte réelle
 
 La carte du site est une **proposition**, construite à partir des plats que
@@ -126,6 +146,25 @@ groupes se modifient depuis un seul fichier. La documentation technique est
 dans le fichier `README.md`.
 
 ---
+
+## En passant : la charte
+
+Le site applique votre charte graphique à la lettre : ivoire en fond, vert
+olive pour les boutons et les accents, charbon pour les textes, sable pour les
+sections, bleu Méditerranée pour les repères pratiques, terre cuite pour les
+touches. Playfair Display pour les titres, Inter pour le reste — navigation et
+boutons en casse normale, comme sur la planche.
+
+**Trois écarts, tous pour une question de lisibilité, jamais de goût :**
+
+1. **La terre cuite ne tient pas en petit.** Sur l'ivoire elle plafonne à
+   3,4:1 là où il en faut 4,5 pour un texte courant. Elle est donc réservée
+   aux grands chiffres et aux touches graphiques ; quand il en faut vraiment
+   en texte, une version légèrement assombrie prend le relais.
+2. **Sur le sable, ni le bleu ni la terre cuite ne passent.** Ils y servent
+   aux traits et aux pictogrammes, pas au texte.
+3. **Le mode sombre éclaircit l'olive**, sinon un bouton vert foncé sur fond
+   charbon serait illisible. C'est la même teinte, montée en luminosité.
 
 ## En passant : le thème
 

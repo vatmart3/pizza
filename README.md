@@ -70,16 +70,75 @@ sw.js                      service worker (cache des ressources, hors-ligne lég
 Pour modifier une page : éditez `src/pages/<page>.html` puis lancez `python3 tools/build.py`.
 (Éditer directement les fichiers HTML à la racine fonctionne aussi, mais sera écrasé au prochain build.)
 
-## Typographie & direction artistique
+## La charte graphique
 
-Fond noir, crème, **un seul or**. **Bodoni Moda** pour les titres, les prix et les chiffres,
-**Jost** pour les textes et les libellés en capitales espacées : deux caractères variables
-auto-hébergés, sous-ensemblés au français (63 Ko à eux trois). Le `€` de Bodoni étant trop fin
-pour des prix, il est emprunté à Jost par une règle `unicode-range`, sans rien changer au balisage.
+Le site applique la charte graphique de la maison. Tout est dans le bloc de
+jetons en tête de `assets/css/main.css` : **changer une valeur là change le
+site entier.**
 
-Parti pris : **aucun effet décoratif**. Pas de curseur personnalisé, pas de défilement détourné,
-pas de WebGL, pas de grain animé, pas d'inclinaison 3D. Ce qui reste : une apparition sobre au
-défilement, un préchargement invisible des pages, et de la place.
+### Les six couleurs
+
+| | Teinte | Rôle selon la charte |
+| --- | --- | --- |
+| Ivoire | `#FBF7EF` | fond principal — épuré & lumineux |
+| Vert olive | `#4A5A3F` | boutons, accents — élégance naturelle |
+| Charbon | `#1F1F1F` | textes principaux — lisibilité |
+| Sable | `#DBC9B2` | sections, fonds — douceur |
+| Bleu Méditerranée | `#2E6F9E` | éléments graphiques — rappel de la mer |
+| Terre cuite | `#C76B3E` | touches d'accent — chaleur |
+
+**Ce que les contrastes autorisent** — mesuré, pas supposé :
+
+- sur ivoire : charbon 15,1:1 · olive 6,8:1 · bleu 5,0:1 → tout texte ;
+- sur ivoire : **terre cuite 3,4:1** → grands caractères seulement ;
+- sur sable : charbon 10,2:1 · olive 4,6:1 ; le bleu (3,4:1) et la terre
+  cuite (2,3:1) n'y passent pas et y sont réservés aux traits et aux aplats.
+
+Trois jetons en découlent, et ce sont les seules libertés prises avec la
+charte — chacune pour une raison de lisibilité, jamais d'esthétique :
+
+| Jeton | Pourquoi |
+| --- | --- |
+| `--terre-ink` `#B0542A` | la terre cuite de la charte, assombrie, pour les rares textes qui la portent (les grands chiffres). La teinte d'origine reste `--terre`, pour les aplats et les traits |
+| `--on-olive` | ce qu'on écrit **sur** un aplat d'olive : ivoire le jour, charbon la nuit — la nuit l'olive s'éclaircit, un texte ivoire y deviendrait illisible |
+| `--fg-2`, `--fg-3` | les deux niveaux de texte secondaire sont calés sur le **sable**, le fond le plus sombre de la charte : ce qui passe sur sable passe partout |
+
+### Les deux polices
+
+**Playfair Display** pour les titres, **Inter** pour le texte courant, la
+navigation et les boutons — les deux polices de la charte, en version
+variable, sous-ensemblées au français et **servies depuis le site** : aucun
+appel à Google Fonts, donc aucune donnée de visiteur envoyée à un tiers.
+120 Ko pour les trois fichiers, soit moins que les polices précédentes.
+
+Conséquence directe de la charte : **la navigation et les boutons sont en
+casse normale**, comme sur la planche. Les capitales espacées ne subsistent
+que pour les intertitres (« LE MIDI », « GALERIE »), qui les portent aussi
+sur la planche.
+
+### Grille, espacements, angles
+
+12 colonnes en grand écran. Les espacements sont les quatre valeurs de la
+charte — `--s1:24px`, `--s2:48px`, `--s3:72px`, `--s4:120px` — et la
+gouttière va de 24 px à 72 px. Les angles suivent la règle « 0 ou 2-4 px » :
+`--r:3px` sur ce qu'on touche (boutons, champs, puces), zéro sur les aplats
+et les photographies.
+
+### Le bloc-marque
+
+Un filet fin, « La Mesa » en Playfair capitales espacées vert olive, « Les
+Pierres Blanches » en Inter dessous. Le pied de page porte le bloc complet,
+second filet et baseline « Entre mer & pinède — Sète » compris. La version
+icône de la charte — le monogramme **LM** sur vert olive — sert de favicon.
+
+### Ce que la charte interdit
+
+Sa colonne *Don't* dit : pas d'images retouchées ou artificielles, pas de
+couleurs criardes, pas de typographies fantaisistes, pas de surcharge, **pas
+d'effets 3D ni de style « IA »**. Le site n'a donc ni curseur personnalisé,
+ni défilement détourné, ni WebGL, ni inclinaison 3D. Ce qui reste : une
+apparition sobre au défilement, un préchargement invisible des pages, et de
+la place.
 
 ## Cartographie
 
@@ -111,38 +170,22 @@ il suffit de remplacer les fichiers de `assets/img/` et les entrées de `LM.gall
 
 ## Clair par défaut, sombre en option
 
-Le site est **clair par défaut**. C'est un choix de fond, pas une préférence
-d'écran : « Les Pierres Blanches », c'est le calcaire au soleil, la pinède et
-la mer en plein jour. La maison ouvre à 8h30, sert le petit-déjeuner, les
-crêpes et l'ardoise du midi — un site noir raconterait une table du soir
-qu'elle n'est pas.
+La charte ne prévoit qu'un fond : **l'ivoire**. C'est donc la version par
+défaut, et celle sur laquelle tout a été dessiné.
 
-Le fond n'est pas blanc mais **sable** (`#E7DFCE`) : la teinte du calcaire des
-Pierres Blanches, et la même famille chaude que le thème sombre (crème, or,
-brun profond). Un blanc pur aurait éclaté à l'écran et perdu le caractère de
-la maison.
+Le thème sombre reste disponible d'un bouton, pour le service du soir. Ce
+n'est pas une seconde palette : c'est **la même, en négatif**. Le charbon
+passe au fond, l'ivoire au texte, et l'olive, la terre cuite et le bleu sont
+éclaircis juste assez pour repasser le seuil de lisibilité sur un fond
+sombre — ce sont les mêmes teintes, pas d'autres couleurs.
 
-Le thème sombre reste disponible d'un bouton dans la barre de navigation, pour
-le service du soir. Le choix est mémorisé (`lm-theme`) et **réappliqué avant le
-premier pixel** par un petit script dans le `<head>` : aucun clignotement au
-chargement. La carte scannée à table partage la même préférence.
+Le choix est mémorisé (`lm-theme`) et **réappliqué avant le premier pixel**
+par un petit script dans le `<head>` : aucun clignotement au chargement. La
+carte scannée à table partage la même préférence.
 
-Tout passe par des jetons CSS définis deux fois, sur `:root` puis sur
-`:root[data-theme="dark"]` :
-
-| Jeton | Rôle |
-| --- | --- |
-| `--bg`, `--surface`, `--surface-2/3` | les fonds |
-| `--fg`, `--fg-2`, `--fg-3` | les trois niveaux de texte |
-| `--gold`, `--gold-2` | l'or du texte — plus sombre en clair, plus lumineux en sombre |
-| `--gold-lg` | l'or **des grands chiffres uniquement** (heure du coucher, prix des formules, millésimes). Plus vif que `--gold` : à cette taille le seuil de contraste est de 3:1, pas 4,5:1. Ne jamais l'employer sous 24 px |
-| `--shad-1`, `--shad-2` | le relief. En clair, une ombre chaude et très diffuse (la lumière rase du Sud) ; en sombre, une ombre neutre presque invisible |
-| `--grain` | l'opacité du grain de papier |
-| `--line`, `--line-2`, `--line-gold` | les filets |
-| `--bg-rgb`, `--fg-rgb` | les mêmes en composantes, pour les fonds translucides |
-| `--scrim-rgb` | le voile posé sur les photographies |
-| `--glow-1/2` | la lueur de la bande du coucher de soleil |
-| `--ok`, `--ko`, `--err` | ouvert, fermé, erreur de formulaire |
+Si vous préférez livrer le site en ivoire seul, supprimez le bouton
+`[data-theme-toggle]` des deux partiels : le bloc `:root[data-theme="dark"]`
+devient inatteignable et rien d'autre ne bouge.
 
 ### Ce qui fait tenir une page claire
 

@@ -194,7 +194,7 @@ LM.menu = [
     ]
   },
   {
-    id: 'snack', title: 'Le snack & le goûter', kicker: 'Toute la journée, dès 8h30',
+    id: 'snack', title: 'La pause gourmande', kicker: 'Toute la journée, dès 8h30',
     en: { title: 'Snack & afternoon', kicker: 'All day, from 8.30 am', note: 'Eat in or take away, no booking: breakfast in the sun, the post-hike break, afternoon tea facing the sea.' },
     note: 'Sur place ou à emporter, sans réservation : le petit-déjeuner au soleil, la pause d’après-randonnée, le goûter face à la mer.',
     items: [
