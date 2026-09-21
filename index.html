@@ -10,7 +10,7 @@
 <link rel="alternate" hreflang="fr" href="https://lespierresblanches.com/">
 <link rel="alternate" hreflang="en" href="https://lespierresblanches.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://lespierresblanches.com/">
-<meta name="theme-color" content="#0A0A09">
+<meta name="theme-color" content="#FAF7F0">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="La Mesa — Les Pierres Blanches">
@@ -23,7 +23,11 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<script>(function(){try{if(sessionStorage.getItem('lm-seen'))document.documentElement.classList.add('no-loader')}catch(e){}})();</script>
+<script>/* Thème et préloader lus avant le premier pixel : aucun clignotement. */
+(function(){var d=document.documentElement;try{
+if(sessionStorage.getItem('lm-seen'))d.classList.add('no-loader');
+var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);
+}catch(e){}})();</script>
 <link rel="preload" href="assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/bodoni-italic.woff2" as="font" type="font/woff2" crossorigin>
@@ -59,6 +63,10 @@
     </nav>
     <div class="nav__right">
       <span class="status" data-status><i></i><span data-status-text>…</span></span>
+      <button class="tglt" type="button" data-theme-toggle aria-pressed="false" aria-label="Passer en mode sombre" title="Mode sombre">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg>
+      </button>
       <a class="lang" href="en/" hreflang="en" lang="en" data-no-transition aria-label="English"><span>EN</span></a>
       <a class="btn btn--sm btn--ghost nav__cta" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>Réserver · 04 67 53 33 40</a>
       <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu"><i></i><i></i><i></i></button>
@@ -80,6 +88,10 @@
     <a data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a>
     <span>65 allée Pierre Barthas, 34200 Sète</span>
     <span class="status" data-status><i></i><span data-status-text>…</span></span>
+    <button class="tglt tglt--wide" type="button" data-theme-toggle aria-pressed="false" aria-label="Passer en mode sombre" title="Mode sombre">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg>
+      </button>
     <a class="lang lang--wide" href="en/" hreflang="en" lang="en" data-no-transition>English</a>
   </div>
 </div>

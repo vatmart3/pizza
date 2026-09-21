@@ -102,6 +102,7 @@
     if (phone) $$('[data-href=phoneIntl]').forEach(a => a.href = 'tel:' + phone);
     document.title = `${T().menu} — La Mesa, Les Pierres Blanches · Sète`;
     filter();
+    paintTheme();
   };
 
   /* -------------------------------------- recherche et filtres */
@@ -120,6 +121,21 @@
     $('[data-none]').hidden = shown > 0;
   };
 
+  /* Clair / sombre — même préférence que le reste du site. */
+  const isDark = () => root.getAttribute('data-theme') === 'dark';
+  const paintTheme = () => {
+    const dark = isDark();
+    $('[data-sun-toggle]').setAttribute('aria-pressed', String(dark));
+    const m = $('meta[name=theme-color]'); if (m) m.content = dark ? '#0A0A09' : '#FBF8F2';
+    $$('[data-t=sun]').forEach(el => el.textContent = dark ? T().sun : T().night);
+  };
+  $('[data-sun-toggle]').addEventListener('click', () => {
+    const dark = !isDark();
+    dark ? root.setAttribute('data-theme', 'dark') : root.removeAttribute('data-theme');
+    store('lm-theme', dark ? 'dark' : 'light');
+    paintTheme();
+  });
+
   /* ------------------------------------------------ événements */
   render();
 
@@ -133,14 +149,6 @@
     filter();
   });
 
-  $('[data-sun-toggle]').addEventListener('click', e => {
-    const on = !root.hasAttribute('data-sun');
-    on ? root.setAttribute('data-sun', '') : root.removeAttribute('data-sun');
-    store('lm-sun', on ? '1' : null);
-    e.currentTarget.setAttribute('aria-pressed', on);
-    const m = $('meta[name=theme-color]'); if (m) m.content = on ? '#FBF8F2' : '#0A0A09';
-    $$('[data-t=sun]').forEach(el => el.textContent = on ? T().night : T().sun);
-  });
 
   $('[data-lang-toggle]').addEventListener('click', () => {
     lang = lang === 'fr' ? 'en' : 'fr';
@@ -169,10 +177,6 @@
   if ('serviceWorker' in navigator && location.protocol === 'https:')
     addEventListener('load', () => navigator.serviceWorker.register((root.dataset.root || '') + 'sw.js').catch(() => {}));
 
-  /* Le bouton plein soleil garde son libellé au rechargement. */
-  if (root.hasAttribute('data-sun')) {
-    $('[data-sun-toggle]').setAttribute('aria-pressed', 'true');
-    $$('[data-t=sun]').forEach(el => el.textContent = T().night);
-    const m = $('meta[name=theme-color]'); if (m) m.content = '#FBF8F2';
-  }
+  /* Le bouton garde son libellé au rechargement. */
+  paintTheme();
 })();

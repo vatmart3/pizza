@@ -1,5 +1,5 @@
 /* Service worker — cache des ressources statiques (vitesse + hors-ligne léger) */
-const V = 'lamesa-v7';
+const V = 'lamesa-v8';
 const CORE = ['index.html','menu.html','carte.html','le-lieu.html','soirees-brochettes.html','groupes.html','galerie.html','reservation.html','contact.html','en/index.html','en/menu.html','en/carte.html','assets/css/main.css','assets/js/app.js','assets/js/menu.js','assets/js/data.js','assets/fonts/jost.woff2','assets/fonts/bodoni.woff2','assets/fonts/bodoni-italic.woff2','assets/img/favicon.svg'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(V).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

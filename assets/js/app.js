@@ -45,6 +45,36 @@
   const keep = fn => bin.push(fn);
   const clearPage = () => { bin.forEach(f => { try { f(); } catch (e) {} }); bin = []; };
 
+  /* ---------------------------------------------- thème clair / sombre
+     Le clair est la version par défaut ; le choix du visiteur est
+     mémorisé et réappliqué avant le premier pixel par le script du
+     gabarit, pour éviter tout clignotement au chargement. */
+  const THEMES = { light: '#FAF7F0', dark: '#0A0A09' };
+  const themeNow = () => (html.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  const paintTheme = () => {
+    const dark = themeNow() === 'dark';
+    const m = document.querySelector('meta[name=theme-color]');
+    if (m) m.content = THEMES[dark ? 'dark' : 'light'];
+    $$('[data-theme-toggle]').forEach(b => {
+      b.setAttribute('aria-pressed', String(dark));
+      const label = dark
+        ? (LANG === 'en' ? 'Switch to light mode' : 'Passer en mode clair')
+        : (LANG === 'en' ? 'Switch to dark mode' : 'Passer en mode sombre');
+      b.setAttribute('aria-label', label);
+      b.setAttribute('title', label);
+    });
+  };
+  const setTheme = t => {
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('lm-theme', t); } catch (e) {}
+    paintTheme();
+  };
+  /* Délégué : survit au remplacement du <main> par la navigation interne. */
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-theme-toggle]');
+    if (b) setTheme(themeNow() === 'dark' ? 'light' : 'dark');
+  });
+
   /* Toast */
   const toastEl = $('.toast');
   let toastT;
@@ -323,6 +353,7 @@
       f.reset(); toast(T('newsletter'));
     }));
 
+    paintTheme();
     /* Mention « la carte change chaque jour » */
     $$('[data-menu-notice]', main).forEach(el => { el.textContent = (LANG === 'en' ? LM.menuNoticeEn : LM.menuNotice) || LM.menuNotice || ''; });
     /* Accès : voiture, bus, à pied — rendu depuis les données */

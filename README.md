@@ -106,6 +106,56 @@ il suffit de remplacer les fichiers de `assets/img/` et les entrées de `LM.gall
 - Mentions obligatoires : prix nets service compris, allergènes sur demande, origine des viandes, message alcool, médiation de la consommation.
 - Les zones surlignées en jaune dans les pages légales (`[à compléter]`) sont à renseigner par le restaurant (raison sociale, SIRET, hébergeur, médiateur).
 
+## Clair par défaut, sombre en option
+
+Le site est **clair par défaut**. C'est un choix de fond, pas une préférence
+d'écran : « Les Pierres Blanches », c'est le calcaire au soleil, la pinède et
+la mer en plein jour. La maison ouvre à 8h30, sert le petit-déjeuner, les
+crêpes et l'ardoise du midi — un site noir raconterait une table du soir
+qu'elle n'est pas.
+
+Le thème sombre reste disponible d'un bouton dans la barre de navigation, pour
+le service du soir. Le choix est mémorisé (`lm-theme`) et **réappliqué avant le
+premier pixel** par un petit script dans le `<head>` : aucun clignotement au
+chargement. La carte scannée à table partage la même préférence.
+
+Tout passe par des jetons CSS définis deux fois, sur `:root` puis sur
+`:root[data-theme="dark"]` :
+
+| Jeton | Rôle |
+| --- | --- |
+| `--bg`, `--surface`, `--surface-2/3` | les fonds |
+| `--fg`, `--fg-2`, `--fg-3` | les trois niveaux de texte |
+| `--gold`, `--gold-2` | l'or — plus sombre en clair, plus lumineux en sombre |
+| `--line`, `--line-2`, `--line-gold` | les filets |
+| `--bg-rgb`, `--fg-rgb` | les mêmes en composantes, pour les fonds translucides |
+| `--glow-1/2` | la lueur de la bande du coucher de soleil |
+| `--ok`, `--ko`, `--err` | ouvert, fermé, erreur de formulaire |
+
+Deux règles importantes, qui expliquent le reste de la feuille de style :
+
+**`--scrim-rgb` ne change jamais.** C'est le voile posé *sur les
+photographies*. Une photo ne s'éclaircit pas quand on change de thème : le
+héro, les en-têtes illustrés et les légendes gardent donc un voile sombre et un
+texte clair dans les deux cas.
+
+**La barre de navigation s'inverse au-dessus d'une image.** Tant qu'on n'a pas
+défilé (`.nav:not(.is-solid)`) sur une page à héro, son texte est clair, même
+en thème clair — sinon il disparaîtrait dans la photo.
+
+Les contrastes ont été mesurés dans les deux thèmes : tout le texte courant est
+au moins au niveau AA (4,5:1), les grands titres bien au-delà.
+
+Pour livrer le site en sombre par défaut, il suffit d'ajouter
+`data-theme="dark"` sur la balise `<html>` du gabarit. Pour suivre plutôt le
+réglage du système d'exploitation, ajoutez :
+
+```css
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ /* recopier ici le bloc sombre */ }
+}
+```
+
 ## Bilingue : français et anglais
 
 Le français est servi à la racine, l'anglais sous `/en/`. Les deux versions

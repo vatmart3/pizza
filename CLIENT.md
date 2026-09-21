@@ -95,3 +95,15 @@ agressivité. Une réponse publique est lue par les suivants.
 Le site est prêt à vivre sans nous : horaires, saisons, carte, avis et formules
 groupes se modifient depuis un seul fichier. La documentation technique est
 dans le fichier `README.md`.
+
+---
+
+## En passant : le thème
+
+Le site s'affiche en clair, ce qui correspond à ce qu'est la maison — le soleil,
+la pierre claire, la terrasse en plein jour. Un bouton dans le bandeau du haut
+permet de basculer en sombre, plutôt agréable le soir. Le choix de chaque
+visiteur est retenu sur son propre appareil.
+
+Si vous préférez que le site s'ouvre directement en sombre pour tout le monde,
+c'est une ligne à changer : dites-le nous.

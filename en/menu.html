@@ -7,7 +7,7 @@
 <meta name="description" content="The La Mesa menu, to read at your table. Lunch slate, skewer evenings, tapas, snacks, cocktails and drinks.">
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://lespierresblanches.com/carte.html">
-<meta name="theme-color" content="#0A0A09">
+<meta name="theme-color" content="#FBF8F2">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="La Mesa — Les Pierres Blanches">
@@ -22,8 +22,9 @@
 <link rel="preload" href="../assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
 <script>/* Préférences lues avant le premier pixel : aucun clignotement. */
-(function(){try{var d=document.documentElement,s=localStorage.getItem('lm-sun'),l=localStorage.getItem('lm-lang');
-if(s==='1')d.setAttribute('data-sun','');if(l)d.setAttribute('data-lang',l);else d.setAttribute('data-lang',d.lang);}catch(e){}})();</script>
+(function(){var d=document.documentElement;try{
+var t=localStorage.getItem('lm-theme');if(t==='dark')d.setAttribute('data-theme','dark');
+var l=localStorage.getItem('lm-lang');if(l){d.lang=l;}d.setAttribute('data-lang',d.lang);}catch(e){}})();</script>
 <style>
 /* ---- Polices ---- */
 @font-face{font-family:'Jost';src:url('../assets/fonts/jost.woff2') format('woff2');font-weight:300 700;font-display:swap}
@@ -31,22 +32,26 @@ if(s==='1')d.setAttribute('data-sun','');if(l)d.setAttribute('data-lang',l);else
 /* Bodoni n'a pas d'euro lisible à cette taille : on emprunte celui de Jost. */
 @font-face{font-family:'Bodoni Moda';src:url('../assets/fonts/jost.woff2') format('woff2');unicode-range:U+20AC;font-weight:400 900;font-display:swap;size-adjust:118%}
 
-/* ---- Jetons ---- */
+/* ---- Jetons ----
+   Comme le reste du site : clair par défaut (la carte se lit surtout
+   en terrasse, en plein jour), sombre d'un bouton pour le service du
+   soir. La préférence est partagée avec le site (clé lm-theme). ---- */
 :root{
+  --bg:#FBF8F2; --surf:#FFFFFF; --surf2:#F1ECE1;
+  --fg:#16130E; --fg2:#443E34; --fg3:#6B6357;
+  --gold:#8A6726; --gold2:#6E5118;
+  --line:rgba(22,19,14,.16); --line2:rgba(22,19,14,.08);
+  --display:'Bodoni Moda','Didot',Georgia,serif;
+  --body:'Jost','Avenir Next',system-ui,sans-serif;
+  --gut:clamp(16px,4.5vw,28px); --max:720px;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
   --bg:#0A0A09; --surf:#131211; --surf2:#1C1A18;
   --fg:#EFEAE1; --fg2:#B3ABA0; --fg3:#7E776C;
   --gold:#C6A265; --gold2:#E0C795;
   --line:rgba(239,234,225,.13); --line2:rgba(239,234,225,.07);
-  --display:'Bodoni Moda','Didot',Georgia,serif;
-  --body:'Jost','Avenir Next',system-ui,sans-serif;
-  --gut:clamp(16px,4.5vw,28px); --max:720px;
-}
-/* Mode plein soleil : lisible en terrasse à midi. */
-:root[data-sun]{
-  --bg:#FBF8F2; --surf:#FFFFFF; --surf2:#F1ECE1;
-  --fg:#16130E; --fg2:#443E34; --fg3:#6B6357;
-  --gold:#8A6A2F; --gold2:#6E531F;
-  --line:rgba(22,19,14,.16); --line2:rgba(22,19,14,.08);
+  color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -74,8 +79,8 @@ a{color:inherit;text-decoration:none}
   box-shadow:inset 0 0 0 1px var(--line);flex:none;transition:color .2s,box-shadow .2s}
 .tool:hover,.tool:active{color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
 .tool svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
-:root:not([data-sun]) .tool--sun .i-sun{display:none}
-:root[data-sun] .tool--sun .i-moon{display:none}
+:root:not([data-theme="dark"]) .tool--sun .i-sun{display:none}
+:root[data-theme="dark"] .tool--sun .i-moon{display:none}
 
 /* ---- Recherche et filtres ---- */
 .tools{padding:14px 0 12px;display:grid;gap:10px}
