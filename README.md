@@ -42,42 +42,28 @@ sw.js                      service worker (cache des ressources, hors-ligne lég
 Pour modifier une page : éditez `src/pages/<page>.html` puis lancez `python3 tools/build.py`.
 (Éditer directement les fichiers HTML à la racine fonctionne aussi, mais sera écrasé au prochain build.)
 
-## Typographie
+## Typographie & direction artistique
 
-**Bodoni Moda** (titres, prix, chiffres) et **Jost** (textes, libellés, boutons) : deux caractères
-variables auto-hébergés, sous-ensemblés au français. Le `€` de Bodoni étant trop fin pour des prix,
-il est emprunté à Jost par une règle `unicode-range` — sans rien changer au balisage.
+Fond noir, crème, **un seul or**. **Bodoni Moda** pour les titres, les prix et les chiffres,
+**Jost** pour les textes et les libellés en capitales espacées : deux caractères variables
+auto-hébergés, sous-ensemblés au français (63 Ko à eux trois). Le `€` de Bodoni étant trop fin
+pour des prix, il est emprunté à Jost par une règle `unicode-range`, sans rien changer au balisage.
 
-## Vitesse & fluidité
+Parti pris : **aucun effet décoratif**. Pas de curseur personnalisé, pas de défilement détourné,
+pas de WebGL, pas de grain animé, pas d'inclinaison 3D. Ce qui reste : une apparition sobre au
+défilement, un préchargement invisible des pages, et de la place.
 
-**Navigation instantanée, sans transition.** Au survol (ou à l'effleurement) d'un lien, la page
-suivante est déjà téléchargée ; au clic, seul le `<main>` est remplacé — polices, CSS, JS, en-tête et
-pied de page ne sont jamais rechargés. Historique, bouton retour, ancres et adresses partageables
-fonctionnent normalement ; sans JavaScript, les liens restent de simples liens.
+## Photographies
 
-Mesures locales, processeur bridé 4× (avant → après) :
+Les images proviennent d'un seul plan vidéo de six secondes. Elles ont été retravaillées
+(débruitage, désaturation, courbe douce, montée en définition, vignette) puis **recadrées en
+portrait** pour créer des cadrages distincts là où la source n'en offrait que deux. Le carrousel
+de « plats » en photos a été supprimé : la carte s'affiche en typographie, avec filets pointillés
+et prix, comme une vraie carte de restaurant.
 
-| | avant | après |
-|---|---|---|
-| Premier affichage | 744 ms | 288 ms |
-| Page prête | 1889 ms | 550 ms |
-| Clic → page suivante affichée | 2619 ms | 74 – 320 ms |
-| Images longues (> 50 ms) au défilement | 9 | 2 |
-
-Le reste :
-
-- **Défilement lissé** à la molette (amorti en `requestAnimationFrame`, vrai défilement conservé :
-  en-têtes collants et ancres continuent de marcher). Inactif au doigt, au clavier, sur les gestes
-  horizontaux et si le système demande moins d'animations.
-- Un **seul `requestAnimationFrame`** pour tout le travail lié au défilement (en-tête, parallaxe, soleil),
-  et démontage complet des écoutes et animations à chaque changement de page.
-- Polices sous-ensemblées au français : 112 Ko pour les trois fichiers, préchargées.
-- Images WebP avec `srcset`, `loading="lazy"`, dimensions déclarées (aucun saut de mise en page).
-- Vidéo héro chargée **au temps mort**, jamais sur mobile, réseau limité, `Save-Data` ou
-  `prefers-reduced-motion`.
-- Rayons WebGL à 45 % de résolution et 25 images/s, coupés hors écran et sur machines modestes.
-- Grain sans mélange de calque ni animation : le coût de composition à chaque image est supprimé.
-- Service worker pour les visites suivantes.
+**Le vrai levier qualité reste la photographie.** Des vues de plats, de la terrasse au coucher du
+soleil et de la salle le soir feraient franchir un palier au site sans toucher une ligne de code :
+il suffit de remplacer les fichiers de `assets/img/` et les entrées de `LM.gallery`.
 
 ## Accessibilité & conformité
 

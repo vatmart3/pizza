@@ -96,39 +96,9 @@
   /* Ajoute une tâche de défilement liée à la page en cours. */
   const onScrollJob = fn => { jobs.add(fn); keep(() => jobs.delete(fn)); fn(scrollY); };
 
-  /* Défilement lissé : on garde le vrai scroll (sticky et ancres continuent de marcher),
-     on ne fait qu'amortir la molette. Désactivé au doigt, au clavier et si l'utilisateur
-     demande moins d'animations. */
-  const smooth = fine && !reduced && !lite;
-  let sTarget = scrollY, sCur = scrollY, sRaf = 0;
-  const maxScroll = () => html.scrollHeight - innerHeight;
-  const scrollable = (el, dy) => {
-    while (el && el !== body && el.nodeType === 1) {
-      const o = getComputedStyle(el).overflowY;
-      if ((o === 'auto' || o === 'scroll') && el.scrollHeight > el.clientHeight + 2 &&
-          (dy < 0 ? el.scrollTop > 1 : el.scrollTop + el.clientHeight < el.scrollHeight - 1)) return true;
-      el = el.parentElement;
-    }
-    return false;
-  };
-  const sTick = () => {
-    sCur += (sTarget - sCur) * 0.14;
-    if (Math.abs(sTarget - sCur) < 0.5) { sCur = sTarget; sRaf = 0; } else sRaf = requestAnimationFrame(sTick);
-    scrollTo({ top: sCur, behavior: 'instant' });
-  };
-  if (smooth) {
-    addEventListener('wheel', e => {
-      if (e.ctrlKey || e.defaultPrevented || body.classList.contains('is-locked')) return;
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;   /* geste horizontal : on laisse passer (carrousels) */
-      if (scrollable(e.target, e.deltaY)) return;
-      e.preventDefault();
-      const step = e.deltaMode === 1 ? 22 : e.deltaMode === 2 ? innerHeight : 1;
-      sTarget = clamp(sTarget + e.deltaY * step, 0, maxScroll());
-      if (!sRaf) sRaf = requestAnimationFrame(sTick);
-    }, { passive: false });
-    addEventListener('scroll', () => { if (!sRaf) { sCur = sTarget = scrollY; } }, { passive: true });
-  }
-  const jumpTop = () => { sCur = sTarget = 0; if (sRaf) { cancelAnimationFrame(sRaf); sRaf = 0; } scrollTo({ top: 0, behavior: 'instant' }); };
+
+
+  const jumpTop = () => scrollTo({ top: 0, behavior: 'instant' });
 
   /* --------------------------------------------- Navigation & interface */
   const nav = $('.nav');
@@ -156,22 +126,9 @@
     });
   };
 
-  /* Curseur (souris fine uniquement) */
-  const cursor = $('.cursor');
-  if (cursor && fine && !reduced) {
-    const lab = $('.cursor__label', cursor);
-    let x = innerWidth / 2, y = innerHeight / 2, cx = x, cy = y, raf = 0;
-    const move = () => { cx += (x - cx) * .22; cy += (y - cy) * .22; cursor.style.transform = `translate(${cx - 6}px,${cy - 6}px)`; raf = (Math.abs(x - cx) + Math.abs(y - cy) > .4) ? requestAnimationFrame(move) : 0; };
-    addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(move); }, { passive: true });
-    document.addEventListener('mouseleave', () => cursor.classList.add('is-hidden'));
-    document.addEventListener('mouseenter', () => cursor.classList.remove('is-hidden'));
-    document.addEventListener('pointerover', e => {
-      const t = e.target.closest('[data-cursor]');
-      if (t) { cursor.classList.add('is-label'); lab.textContent = t.dataset.cursor; return; }
-      cursor.classList.remove('is-label');
-      cursor.classList.toggle('is-link', !!e.target.closest('a,button,label,input,select,textarea,[role=button]'));
-    });
-  } else if (cursor) cursor.remove();
+
+
+  const cursorEl = $('.cursor'); if (cursorEl) cursorEl.remove();
 
   /* ------------------------------------- 4. navigation instantanée (SPA) */
   const routable = 'fetch' in window && !!history.pushState && !!window.DOMParser;
@@ -271,27 +228,9 @@
       el.innerHTML = out.trim();
     });
 
-    /* Inclinaison 3D légère (souris seulement) */
-    if (fine && !reduced) $$('.tilt, .polaroid, .value', main).forEach(el => {
-      const max = +el.dataset.tilt || 10;
-      const mv = e => {
-        const r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-        el.style.setProperty('--mx', px * 100 + '%'); el.style.setProperty('--my', py * 100 + '%');
-        const rot = getComputedStyle(el).getPropertyValue('--rot') || '0deg';
-        el.style.transition = 'transform .12s linear';
-        el.style.transform = `perspective(900px) rotateX(${(py - .5) * -max}deg) rotateY(${(px - .5) * max}deg) rotate(${rot}) translateZ(12px)`;
-      };
-      const out = () => { el.style.transition = ''; el.style.transform = ''; };
-      on(el, 'pointermove', mv); on(el, 'pointerleave', out);
-    });
 
-    /* Parallaxe + soleil : une seule tâche de défilement */
-    const plx = $$('[data-parallax]', main);
-    const sun = $('.sun', main);
-    if ((plx.length || sun) && !reduced) onScrollJob(() => {
-      plx.forEach(el => { const r = el.getBoundingClientRect(); el.style.transform = `translate3d(0,${((r.top + r.height / 2 - innerHeight / 2) / innerHeight) * (+el.dataset.parallax || 60)}px,0)`; });
-      if (sun) { const r = sun.parentElement.getBoundingClientRect(); const v = clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1); sun.style.transform = `translate3d(0,${-50 + (1 - v) * 40}%,0) scale(${.8 + v * .3})`; }
-    });
+
+
 
     /* Partage & copie */
     $$('[data-share]', document).forEach(b => on(b, 'click', async () => {
@@ -337,92 +276,23 @@
     });
   };
 
-  /* ---------- Rayons de lumière (WebGL) : desktop et machines capables ---------- */
-  const initRays = root => {
-    const rays = $('.hero__rays', root);
-    if (!rays) return;
-    if (reduced || lite || innerWidth < 900) { rays.remove(); return; }
-    const gl = rays.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: false, powerPreference: 'low-power' });
-    if (!gl) { rays.remove(); return; }
-    const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-    const fs = `precision mediump float;uniform vec2 r;uniform float t;uniform vec2 m;
-      float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-      float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-      void main(){vec2 uv=gl_FragCoord.xy/r;vec2 o=vec2(.72+m.x*.08,1.15);vec2 d=uv-o;float a=atan(d.x,d.y);
-        float ray=0.;for(int i=1;i<4;i++){float fi=float(i);ray+=n(vec2(a*(9.+fi*5.)+t*.05*fi,fi*3.))*(1./fi);}
-        ray=pow(ray*.55,2.6);float fall=smoothstep(1.6,.1,length(d));
-        float can=n(uv*vec2(60.,3.)+t*.02)*.35+.65;
-        vec3 col=vec3(1.,.86,.62)*ray*fall*can;
-        gl_FragColor=vec4(col,ray*fall*.5);}`;
-    const sh = (ty, src) => { const o = gl.createShader(ty); gl.shaderSource(o, src); gl.compileShader(o); return o; };
-    const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
-    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { rays.remove(); return; }
-    gl.useProgram(pr);
-    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    const p = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(p); gl.vertexAttribPointer(p, 2, gl.FLOAT, false, 0, 0);
-    const ur = gl.getUniformLocation(pr, 'r'), ut = gl.getUniformLocation(pr, 't'), um = gl.getUniformLocation(pr, 'm');
-    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    let mx = 0, my = 0, tx = 0, ty2 = 0, visible = true, last = 0, alive = true, raf = 0;
-    const size = () => { const s = Math.min(devicePixelRatio, 1.5) * .45; rays.width = innerWidth * s; rays.height = innerHeight * s; gl.viewport(0, 0, rays.width, rays.height); gl.uniform2f(ur, rays.width, rays.height); };
-    size();
-    on(window, 'resize', size, { passive: true });
-    on(window, 'pointermove', e => { tx = e.clientX / innerWidth - .5; ty2 = e.clientY / innerHeight - .5; }, { passive: true });
-    const vio = new IntersectionObserver(es => visible = es[0].isIntersecting);
-    vio.observe(rays);
-    const frame = now => {
-      if (!alive) return;
-      raf = requestAnimationFrame(frame);
-      if (!visible || now - last < 40) return;                    /* ~25 images/s : invisible à l'œil, léger pour la machine */
-      last = now;
-      mx += (tx - mx) * .05; my += (ty2 - my) * .05;
-      gl.uniform1f(ut, now / 1000); gl.uniform2f(um, mx, my);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    };
-    raf = requestAnimationFrame(frame);
-    keep(() => { alive = false; cancelAnimationFrame(raf); vio.disconnect(); });
-  };
+
 
   /* ========================================================= ACCUEIL */
   function initHome(main) {
-    initRays(main);
-
-    /* Plats signature */
-    const dishes = $('[data-dishes]', main), dots = $('[data-dots]', main);
-    if (dishes) {
-      const picks = [['mer', 0, 'still-06'], ['partager', 0, 'still-00'], ['debuts', 0, 'still-03'], ['braise', 0, 'still-04'],
-                     ['mer', 4, 'still-07'], ['debuts', 1, 'still-05'], ['partager', 1, 'still-01'], ['douceurs', 0, 'still-02']];
-      dishes.innerHTML = picks.map(([cat, idx, img]) => {
-        const c = LM.menu.find(m => m.id === cat), it = c.items[idx];
-        return `<a class="dish" href="carte.html#${cat}"><div class="dish__img"><img src="assets/img/${img}-640.webp" alt="" loading="lazy" decoding="async" width="640" height="640"></div><div class="dish__body"><div class="dish__row"><b>${esc(it.name)}</b><i>${it.price} €</i></div><p>${esc(it.desc)}</p></div></a>`;
-      }).join('');
-      const paintDots = () => {
-        const pages = Math.max(1, Math.round(dishes.scrollWidth / dishes.clientWidth));
-        const cur = Math.round(dishes.scrollLeft / dishes.clientWidth);
-        if (dots.children.length !== pages) dots.innerHTML = Array.from({ length: pages }, (_, i) => `<button type="button" aria-label="Page ${i + 1}"></button>`).join('');
-        [...dots.children].forEach((b, i) => b.setAttribute('aria-current', i === cur));
-      };
-      paintDots();
-      on(window, 'resize', paintDots, { passive: true });
-      let dRaf = 0;
-      on(dishes, 'scroll', () => { if (!dRaf) dRaf = requestAnimationFrame(() => { dRaf = 0; paintDots(); }); }, { passive: true });
-      on(dots, 'click', e => { const b = e.target.closest('button'); if (!b) return; dishes.scrollTo({ left: [...dots.children].indexOf(b) * dishes.clientWidth, behavior: reduced ? 'auto' : 'smooth' }); });
-    }
-
-    /* Vidéo du lieu en modale */
-    const modal = $('[data-modal]', main);
-    if (modal) {
-      const mv = $('video', modal);
-      const openM = () => {
-        if (mv.dataset.src) { const mp4 = mv.canPlayType('video/mp4; codecs="avc1.640028"'); mv.src = (mp4 || !mv.dataset.webm) ? mv.dataset.src : mv.dataset.webm; mv.removeAttribute('data-src'); }
-        modal.classList.add('is-open'); body.classList.add('is-locked'); mv.play().catch(() => {}); $('.modal__close', modal).focus();
-      };
-      const closeM = () => { modal.classList.remove('is-open'); body.classList.remove('is-locked'); mv.pause(); };
-      $$('[data-video]', main).forEach(b => on(b, 'click', openM));
-      on($('.modal__close', modal), 'click', closeM);
-      on(modal, 'click', e => { if (e.target === modal) closeM(); });
-      on(window, 'keydown', e => { if (e.key === 'Escape') closeM(); });
-      keep(closeM);
+    /* Extrait de carte, en typographie — pas de fausses photos de plats. */
+    const ex = $('[data-extract]', main);
+    if (ex) {
+      const col = (titre, plats) => `<div class="extract__col"><h3>${esc(titre)}</h3>${plats.map(it => `
+        <div class="dish-line">
+          <span class="dish-line__name">${esc(it.name)}<span class="dish-line__lead" aria-hidden="true"></span></span>
+          <span class="dish-line__price">${it.price} €</span>
+          <p>${esc(it.desc)}</p>
+        </div>`).join('')}</div>`;
+      const cat = id => LM.menu.find(m => m.id === id).items;
+      ex.innerHTML =
+        col('À partager', [cat('debuts')[0], cat('partager')[0], cat('partager')[1], cat('debuts')[2]]) +
+        col('La mer & la braise', [cat('mer')[0], cat('mer')[2], cat('braise')[0], cat('braise')[1]]);
     }
 
     /* Bande « Réservez votre table » */
@@ -431,38 +301,10 @@
     const bform = $('[data-book]', main);
     if (bform && routable) on(bform, 'submit', e => { e.preventDefault(); swap(new URL('reservation.html?' + new URLSearchParams(new FormData(bform)), location.href), true); });
 
+    /* Cocktails (autres pages qui réutilisent le bloc) */
     const ck = $('[data-cocktails]', main);
-    if (ck) { ck.innerHTML = LM.menu.find(m => m.id === 'cocktails').items.slice(0, 5).map((c, i) => `<div class="cocktail"><span class="n">${pad(i + 1)}</span><div><b>${esc(c.name)}</b><span>${esc(c.desc)}</span></div><span class="p">${c.price} €</span></div>`).join(''); }
-
-    /* Anneau 3D (si présent) */
-    const ring = $('.ring', main), wrap = $('.ring-wrap', main);
-    if (ring && wrap) {
-      const picks = [['mer', 0, 'still-06'], ['partager', 0, 'still-00'], ['debuts', 0, 'still-03'], ['braise', 0, 'still-04'],
-                     ['cocktails', 0, 'still-01'], ['mer', 4, 'still-07'], ['debuts', 1, 'still-05'], ['douceurs', 0, 'still-02']];
-      const n = picks.length, step = 360 / n;
-      ring.innerHTML = picks.map(([cat, idx, img], i) => {
-        const c = LM.menu.find(m => m.id === cat), it = c.items[idx];
-        return `<a class="ring__card" href="carte.html#${cat}" style="--a:${i * step}deg" draggable="false" data-cursor="Voir"><img src="assets/img/${img}-640.webp" alt="${esc(it.name)}" loading="lazy" decoding="async" width="640" height="359" draggable="false"><div class="t"><b>${esc(it.name)}</b><span>${esc(c.title)}</span><i>${it.price} €</i></div></a>`;
-      }).join('');
-      const setRadius = () => {
-        const w = parseFloat(getComputedStyle(ring.querySelector('.ring__card')).width) || 300;
-        const r = Math.round((w + (innerWidth < 600 ? 30 : 130)) / (2 * Math.tan(Math.PI / n)));
-        ring.style.setProperty('--radius', r + 'px'); ring.style.setProperty('--depth', -(r - 20) + 'px');
-      };
-      setRadius(); on(window, 'resize', setRadius, { passive: true });
-      let ry = 0, drag = false, sx = 0, sr = 0, moved = 0, idleAt = 0, snapT, alive = true, raf = 0;
-      const paint = () => ring.style.setProperty('--ry', ry + 'deg');
-      const snap = () => { ring.classList.add('is-snapping'); ry = Math.round(ry / step) * step; paint(); setTimeout(() => ring.classList.remove('is-snapping'), 900); };
-      on(wrap, 'pointerdown', e => { drag = true; sx = e.clientX; sr = ry; moved = 0; clearTimeout(snapT); ring.classList.remove('is-snapping'); wrap.setPointerCapture(e.pointerId); });
-      on(wrap, 'pointermove', e => { if (!drag) return; const dx = e.clientX - sx; moved = Math.abs(dx); ry = sr + dx / 4; paint(); idleAt = performance.now(); });
-      const up = () => { if (!drag) return; drag = false; snapT = setTimeout(snap, 260); };
-      on(wrap, 'pointerup', up); on(wrap, 'pointercancel', up);
-      on(wrap, 'click', e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
-      $$('.ring-nav button', main).forEach(b => on(b, 'click', () => { ring.classList.add('is-snapping'); ry += b.dataset.dir === 'next' ? -step : step; paint(); idleAt = performance.now(); setTimeout(() => ring.classList.remove('is-snapping'), 900); }));
-      if (!reduced) { const auto = now => { if (!alive) return; raf = requestAnimationFrame(auto); if (drag || now - idleAt < 4000) return; ry -= .03; paint(); }; raf = requestAnimationFrame(auto); }
-      keep(() => { alive = false; cancelAnimationFrame(raf); clearTimeout(snapT); });
-      paint();
-    }
+    if (ck) ck.innerHTML = LM.menu.find(m => m.id === 'cocktails').items.slice(0, 5)
+      .map((c, i) => `<div class="cocktail"><span class="n">${pad(i + 1)}</span><div><b>${esc(c.name)}</b><span>${esc(c.desc)}</span></div><span class="p">${c.price} €</span></div>`).join('');
   }
 
   /* =========================================================== CARTE */

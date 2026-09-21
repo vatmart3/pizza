@@ -147,15 +147,11 @@ LM.tags = {
 
 /* ---------- Galerie ---------- */
 LM.gallery = [
-  { src: 'assets/img/still-06.webp', small: 'assets/img/still-06-640.webp', w: 1206, h: 676, alt: 'La grande table ronde et sa corbeille de légumes, sous la canisse', cap: 'La grande table' },
-  { src: 'assets/img/still-00.webp', small: 'assets/img/still-00-640.webp', w: 1206, h: 676, alt: 'Salle en bois clair, verres verts et lumière filtrée par le toit de roseaux', cap: 'Lumière du matin' },
-  { src: 'assets/img/still-03.webp', small: 'assets/img/still-03-640.webp', w: 1206, h: 676, alt: 'Un olivier au premier plan devant les tables dressées', cap: 'L’olivier' },
-  { src: 'assets/img/polaroid-1.webp', small: 'assets/img/polaroid-1.webp', w: 368, h: 262, alt: 'La terrasse face à la mer, sous les pins', cap: 'La terrasse' },
-  { src: 'assets/img/still-04.webp', small: 'assets/img/still-04-640.webp', w: 1206, h: 676, alt: 'Table ronde, verres à pied verts et set de table corail', cap: 'Avant le service' },
-  { src: 'assets/img/polaroid-2.webp', small: 'assets/img/polaroid-2.webp', w: 368, h: 262, alt: 'La salle bohème et son bar aux poteries', cap: 'Le bar' },
-  { src: 'assets/img/still-01.webp', small: 'assets/img/still-01-640.webp', w: 1206, h: 676, alt: 'Chaises en teck et longue table de bois', cap: 'Le bois & la paille' },
-  { src: 'assets/img/polaroid-3.webp', small: 'assets/img/polaroid-3.webp', w: 368, h: 262, alt: 'Table ronde dressée et lanternes', cap: 'Les lanternes' },
-  { src: 'assets/img/still-07.webp', small: 'assets/img/still-07-640.webp', w: 1206, h: 676, alt: 'Vue sur le passage vers la cuisine ouverte', cap: 'Vers la cuisine' },
-  { src: 'assets/img/still-05.webp', small: 'assets/img/still-05-640.webp', w: 1206, h: 676, alt: 'La salle depuis l’entrée, lanternes en rotin', cap: 'Sous la canisse' },
-  { src: 'assets/img/still-02.webp', small: 'assets/img/still-02-640.webp', w: 1206, h: 676, alt: 'Herbes aromatiques posées sur la longue table', cap: 'Les herbes' }
+  { src: 'assets/img/hero-1280.webp',    small: 'assets/img/hero-760.webp',    w: 1280, h: 718, alt: 'La longue table de bois sous la canisse tressée', cap: 'La longue table' },
+  { src: 'assets/img/p-table-760.webp',  small: 'assets/img/p-table-440.webp',  w: 760, h: 952, alt: 'La grande table ronde et sa corbeille de légumes', cap: 'La grande table' },
+  { src: 'assets/img/salle-1280.webp',   small: 'assets/img/salle-760.webp',   w: 1280, h: 718, alt: 'L’olivier et la cuisine ouverte au fond de la salle', cap: 'La cuisine ouverte' },
+  { src: 'assets/img/p-olivier-760.webp',small: 'assets/img/p-olivier-440.webp',w: 760, h: 952, alt: 'Les branches d’olivier au-dessus des verres verts', cap: 'L’olivier' },
+  { src: 'assets/img/book-1280.webp',    small: 'assets/img/book-760.webp',    w: 1280, h: 718, alt: 'La salle et ses lanternes en rotin au moment du service', cap: 'Les lanternes' },
+  { src: 'assets/img/p-longue-760.webp', small: 'assets/img/p-longue-440.webp', w: 760, h: 952, alt: 'La longue table qui file vers la cuisine', cap: 'Vers la cuisine' },
+  { src: 'assets/img/quote-1280.webp',   small: 'assets/img/quote-760.webp',   w: 1280, h: 718, alt: 'Herbes aromatiques et verres posés sur la table de bois', cap: 'Les herbes' }
 ];
