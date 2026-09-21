@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-root="">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,6 +7,9 @@
 <meta name="description" content="Au sommet du Mont Saint-Clair à Sète, 187 m au-dessus de la mer. Ardoise du midi, soirées brochettes face au coucher de soleil, tapas et cocktails. Terrasse panoramique, parking gratuit.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://lespierresblanches.com/">
+<link rel="alternate" hreflang="fr" href="https://lespierresblanches.com/">
+<link rel="alternate" hreflang="en" href="https://lespierresblanches.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://lespierresblanches.com/">
 <meta name="theme-color" content="#0A0A09">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
@@ -56,6 +59,7 @@
     </nav>
     <div class="nav__right">
       <span class="status" data-status><i></i><span data-status-text>…</span></span>
+      <a class="lang" href="en/" hreflang="en" lang="en" data-no-transition aria-label="English"><span>EN</span></a>
       <a class="btn btn--sm btn--ghost nav__cta" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>Réserver · 04 67 53 33 40</a>
       <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu"><i></i><i></i><i></i></button>
     </div>
@@ -76,6 +80,7 @@
     <a data-href="phoneIntl" href="tel:+33467533340">04 67 53 33 40</a>
     <span>65 allée Pierre Barthas, 34200 Sète</span>
     <span class="status" data-status><i></i><span data-status-text>…</span></span>
+    <a class="lang lang--wide" href="en/" hreflang="en" lang="en" data-no-transition>English</a>
   </div>
 </div>
 
@@ -105,54 +110,47 @@
     <div class="hero__inner">
       <span class="hero__kicker">Sète · Mont Saint-Clair · 187 mètres</span>
       <h1 class="hero__title">Là-haut, <em>la table</em></h1>
-      <p class="hero__lead">Au sommet du Mont Saint-Clair, entre la pinède, la garrigue et la Méditerranée. Le café du matin en terrasse, l’ardoise écrite chaque midi, et les brochettes grillées le soir face au coucher de soleil.</p>
+      <p class="hero__lead">Le café du matin, l’ardoise écrite chaque midi, et les brochettes grillées le soir face au coucher de soleil.</p>
       <div class="hero__actions">
         <a class="btn" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>Réserver · 04 67 53 33 40</a>
-        <a class="btn btn--ghost" href="carte.html" data-label="La carte">Découvrir la carte</a>
-      </div>
-      <div class="hero__bar">
-        <span class="status" data-status><i></i><span data-status-text>…</span></span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.3"/></svg>65 allée Pierre Barthas</span>
-        <span>Parking gratuit sur place</span>
-        <span>30 – 50 € par personne</span>
+        <a class="btn btn--ghost" href="carte.html" data-label="La carte">Voir la carte</a>
       </div>
     </div>
   </div>
   <div class="hero__scroll" aria-hidden="true"><span>Défiler</span><i></i></div>
 </section>
 
-<section class="manifesto container" aria-label="Notre idée">
-  <p data-reveal>« La Mesa », c’est la table. On monte pour la vue, <em>on reste pour ce qu’il y a dessus.</em></p>
-  <hr class="rule-gold" data-reveal style="--d:.08s">
-  <p class="sign" data-reveal style="--d:.12s">Forêt domaniale des Pierres Blanches · Sète</p>
-</section>
-
-<section class="section" id="le-lieu" aria-labelledby="lieu-t">
-  <div class="container split split--wide split--top">
-    <figure class="figure" data-reveal>
-      <img src="assets/img/salle-760.webp" srcset="assets/img/salle-760.webp 760w, assets/img/salle-1280.webp 1280w" sizes="(min-width:900px) 52vw, 100vw" width="1280" height="718" alt="L’olivier et la cuisine ouverte au fond de la salle" loading="lazy" decoding="async">
-      <span class="figure__frame" aria-hidden="true"></span>
-      <figcaption>La salle, en fin de matinée</figcaption>
-    </figure>
-    <div>
-      <span class="idx" data-reveal>01 — Le lieu</span>
-      <h2 style="margin-top:16px" data-reveal><span id="lieu-t">Au bout de la route, <em>tout en haut</em></span></h2>
-      <hr class="rule-gold" data-reveal>
-      <p class="lead" data-reveal style="--d:.06s">On monte la corniche, on traverse la forêt domaniale, et la route s’arrête là : 187 mètres au-dessus de la Méditerranée, sur le site des Pierres Blanches. Un décor ibérique, du bois clair, des lanternes en rotin — et cette vue qui prend d’un seul tenant les plages, la pinède et l’horizon.</p>
-      <dl class="facts" data-reveal style="--d:.1s">
-        <div><dt>La vue</dt><dd>Les plages sous les pins, l’étang de Thau derrière, et le soleil qui tombe droit dans la mer.</dd></div>
-        <div><dt>La table</dt><dd>« La mesa » en espagnol : des assiettes pensées pour le centre de la table, qu’on partage sans façons.</dd></div>
-        <div><dt>L’accès</dt><dd>Parking gratuit sur place, et la ligne 5 qui s’arrête devant la porte.</dd></div>
-      </dl>
-      <p style="margin-top:32px" data-reveal><a class="link" href="le-lieu.html" data-label="Le lieu">L’histoire du lieu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+<section class="essentials" aria-label="L’essentiel">
+  <div class="container">
+    <div class="ess">
+      <div class="ess__c">
+        <span class="ess__k">Aujourd’hui</span>
+        <p class="ess__v"><span class="status" data-status><i></i><span data-status-text>…</span></span></p>
+        <p class="ess__d" data-season="note"></p>
+      </div>
+      <div class="ess__c ess__c--sun">
+        <span class="ess__k" data-sunset="label">Coucher du soleil ce soir</span>
+        <p class="ess__v"><b data-sunset="time">—</b></p>
+        <p class="ess__d" data-sunset="advice"></p>
+      </div>
+      <div class="ess__c">
+        <span class="ess__k">Où nous trouver</span>
+        <p class="ess__v">65 allée Pierre Barthas<br>34200 Sète</p>
+        <p class="ess__d">Parking gratuit · ligne 5, arrêt Les Pierres Blanches</p>
+      </div>
+      <div class="ess__c">
+        <span class="ess__k">Réserver</span>
+        <p class="ess__v"><a data-href="phoneIntl" href="tel:+33467533340" data-no-transition>04 67 53 33 40</a></p>
+        <p class="ess__d">Par téléphone uniquement — nous confirmons de vive voix.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section section--surface" id="journee" aria-labelledby="jour-t">
+<section class="section" id="journee" aria-labelledby="jour-t">
   <div class="container">
     <div class="section-head">
-      <span class="idx" data-reveal>02 — Une journée ici</span>
+      <span class="idx" data-reveal>01 — Une journée ici</span>
       <h2 data-reveal style="--d:.04s"><span id="jour-t">Du premier café <em>au dernier verre</em></span></h2>
       <p class="lead" data-reveal style="--d:.08s">La Mesa ouvre à 8h30 et ne referme qu’à la nuit. Trois moments, trois façons d’être à table.</p>
     </div>
@@ -160,13 +158,13 @@
       <article class="moment">
         <span class="moment__h">8h30 — midi</span>
         <h3>Le matin</h3>
-        <p>Le petit-déjeuner au soleil, le café d’après-randonnée, les crêpes et les gaufres de la buvette. Sans réservation, sur place ou à emporter.</p>
+        <p>Le petit-déjeuner au soleil, le café d’après-randonnée, les crêpes et les gaufres. Sans réservation.</p>
         <a class="link" href="carte.html#snack" data-label="La carte">Le snack <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
       <article class="moment moment--on">
         <span class="moment__h">12h — 14h30</span>
         <h3>L’ardoise du midi</h3>
-        <p>Écrite chaque matin selon le marché et la pêche. Cuisine méditerranéenne, produits frais et locaux : c’est la garantie de la maison.</p>
+        <p>Écrite chaque matin selon le marché et la pêche. Produits frais et locaux : c’est la seule promesse, et elle tient tous les jours.</p>
         <a class="link" href="carte.html#midi" data-label="La carte">L’ardoise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
       <article class="moment">
@@ -179,12 +177,11 @@
   </div>
 </section>
 
-<section class="section" id="carte" aria-labelledby="carte-t">
+<section class="section section--surface" id="carte" aria-labelledby="carte-t">
   <div class="container">
     <div class="section-head">
-      <span class="idx" data-reveal>03 — La carte</span>
+      <span class="idx" data-reveal>02 — La carte</span>
       <h2 data-reveal style="--d:.04s"><span id="carte-t">Ce que l’on sert <em>aujourd’hui</em></span></h2>
-      <p class="lead" data-reveal style="--d:.08s">L’ardoise change tous les jours au rythme des arrivages. Voici le ton de la maison, midi et soir.</p>
     </div>
     <div class="extract" data-extract data-reveal style="--d:.1s"></div>
     <div class="extract__foot" data-reveal>
@@ -194,12 +191,54 @@
   </div>
 </section>
 
+<section class="sunband" aria-labelledby="sun-t">
+  <div class="container">
+    <span class="idx" data-reveal>03 — Le coucher de soleil</span>
+    <h2 data-reveal style="--d:.04s"><span id="sun-t">Le meilleur service <em>de la maison</em></span></h2>
+    <div class="sunband__row">
+      <div class="sunband__t" data-reveal style="--d:.08s">
+        <span data-sunset="label">Coucher du soleil ce soir</span>
+        <b data-sunset="time">—</b>
+      </div>
+      <div data-reveal style="--d:.1s">
+        <p class="lead" data-sunset="advice"></p>
+        <p class="notice" style="margin-top:14px">Calculé pour aujourd’hui à Sète. C’est le service qui se remplit le plus vite : appelez quelques jours avant pour les week-ends d’été.</p>
+        <div class="actions" style="margin-top:28px">
+          <a class="btn" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>Réserver ce service</a>
+          <a class="btn btn--ghost" href="soirees-brochettes.html" data-label="Brochettes">Les soirées brochettes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="le-lieu" aria-labelledby="lieu-t">
+  <div class="container split split--wide split--top">
+    <figure class="figure" data-reveal>
+      <img src="assets/img/salle-760.webp" srcset="assets/img/salle-760.webp 760w, assets/img/salle-1280.webp 1280w" sizes="(min-width:900px) 52vw, 100vw" width="1280" height="718" alt="L’olivier et la cuisine ouverte au fond de la salle" loading="lazy" decoding="async">
+      <span class="figure__frame" aria-hidden="true"></span>
+      <figcaption>La salle, en fin de matinée</figcaption>
+    </figure>
+    <div>
+      <span class="idx" data-reveal>04 — Le lieu</span>
+      <h2 style="margin-top:16px" data-reveal><span id="lieu-t">Au bout de la route, <em>tout en haut</em></span></h2>
+      <hr class="rule-gold" data-reveal>
+      <p class="lead" data-reveal style="--d:.06s">On monte la corniche, on traverse la forêt domaniale, et la route s’arrête là : 187 mètres au-dessus de la Méditerranée. Un décor ibérique, et cette vue qui prend d’un seul tenant les plages, la pinède et l’horizon.</p>
+      <dl class="facts" data-reveal style="--d:.1s">
+        <div><dt>La vue</dt><dd>Les plages sous les pins, l’étang de Thau derrière, et le soleil qui tombe droit dans la mer.</dd></div>
+        <div><dt>La table</dt><dd>« La mesa » en espagnol : des assiettes pensées pour le centre de la table, qu’on partage sans façons.</dd></div>
+      </dl>
+      <p style="margin-top:32px" data-reveal><a class="link" href="le-lieu.html" data-label="Le lieu">L’histoire du lieu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+    </div>
+  </div>
+</section>
+
 <section class="section section--tight" aria-label="Le restaurant en images">
   <div class="container">
     <div class="section-head section-head--row">
       <div>
-        <span class="idx" data-reveal>04 — En images</span>
-        <h2 style="margin-top:16px;--d:.04s" data-reveal >Sous <em>la canisse</em></h2>
+        <span class="idx" data-reveal>05 — En images</span>
+        <h2 style="margin-top:16px;--d:.04s" data-reveal>Sous <em>la canisse</em></h2>
       </div>
       <a class="link" href="galerie.html" data-reveal data-label="Galerie">Toute la galerie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
@@ -213,21 +252,26 @@
   </div>
 </section>
 
-<section class="quote-band" aria-label="Avis">
-  <div class="quote-band__bg"><img src="assets/img/quote-1280.webp" srcset="assets/img/quote-760.webp 760w, assets/img/quote-1280.webp 1280w" sizes="100vw" width="1280" height="718" alt="" loading="lazy" decoding="async"></div>
+<section class="section section--surface" id="avis" aria-labelledby="avis-t">
   <div class="container">
-    <blockquote data-reveal>On monte pour le panorama, on redescend en ayant dîné face au plus beau coucher de soleil de Sète.</blockquote>
-    <cite data-reveal style="--d:.08s">3,9 / 5 · 868 avis Google</cite>
+    <div class="section-head section-head--row">
+      <div>
+        <span class="idx" data-reveal>06 — Les avis</span>
+        <h2 style="margin-top:16px;--d:.04s" data-reveal><span id="avis-t">Ce qu’on <em>en dit</em></span></h2>
+      </div>
+      <span class="rating" data-reveal><b>3,9</b> / 5 · 868 avis Google</span>
+    </div>
+    <div class="revs" data-reviews data-reveal style="--d:.08s"></div>
   </div>
 </section>
 
-<section class="section section--surface" id="groupes" aria-labelledby="grp-t">
+<section class="section" id="groupes" aria-labelledby="grp-t">
   <div class="container split split--top">
     <div>
-      <span class="idx" data-reveal>05 — Groupes</span>
-      <h2 style="margin-top:16px;--d:.04s" data-reveal ><span id="grp-t">Une grande tablée, <em>tout en haut</em></span></h2>
+      <span class="idx" data-reveal>07 — Groupes</span>
+      <h2 style="margin-top:16px;--d:.04s" data-reveal><span id="grp-t">Une grande tablée, <em>tout en haut</em></span></h2>
       <hr class="rule-gold" data-reveal>
-      <p class="lead" data-reveal style="--d:.06s">Anniversaires, associations, comités d’entreprise, séminaires : nous recevons les groupes à partir de douze personnes, midi et soir, avec la terrasse panoramique et le parking pour tout le monde.</p>
+      <p class="lead" data-reveal style="--d:.06s">Anniversaires, associations, comités d’entreprise, séminaires : nous recevons les groupes à partir de douze personnes, midi et soir.</p>
       <ul class="ticks" data-group-points data-reveal style="--d:.1s"></ul>
       <p style="margin-top:32px" data-reveal><a class="btn" href="groupes.html" data-label="Groupes">Demander un devis</a></p>
     </div>
@@ -239,32 +283,16 @@
   </div>
 </section>
 
-<section class="book" id="reserver" aria-labelledby="book-t">
-  <div class="book__bg"><img src="assets/img/book-1280.webp" srcset="assets/img/book-760.webp 760w, assets/img/book-1280.webp 1280w" sizes="100vw" width="1280" height="718" alt="" loading="lazy" decoding="async"></div>
-  <div class="container">
-    <div>
-      <span class="idx" data-reveal>06 — Réservation</span>
-      <h2 style="margin-top:16px;--d:.04s" data-reveal ><span id="book-t">On vous garde <em>la meilleure table</em></span></h2>
-      <p class="lead" data-reveal style="--d:.08s">La réservation se fait par téléphone : nous confirmons chaque table de vive voix. Le service du coucher de soleil part vite — appelez quelques jours avant pour les week-ends d’été.</p>
-      <div class="hero__actions" data-reveal style="margin-top:34px;--d:.1s">
-        <a class="btn" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>Appeler le 04 67 53 33 40</a>
-        <a class="btn btn--ghost" href="reservation.html" data-label="Réservation">Être rappelé</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" aria-labelledby="infos-t">
+<section class="section section--surface" aria-labelledby="infos-t">
   <div class="container split split--top">
     <div>
-      <span class="idx" data-reveal>07 — Nous trouver</span>
-      <h2 style="margin-top:16px;--d:.04s" data-reveal ><span id="infos-t">Au sommet, <em>et facile à rejoindre</em></span></h2>
+      <span class="idx" data-reveal>08 — Nous trouver</span>
+      <h2 style="margin-top:16px;--d:.04s" data-reveal><span id="infos-t">Au sommet, <em>et facile à rejoindre</em></span></h2>
       <hr class="rule-gold" data-reveal>
       <p class="addr" data-reveal>65 allée Pierre Barthas<br>34200 Sète</p>
-      <p data-reveal style="--d:.06s;margin-top:18px"><a class="link" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>04 67 53 33 40</a></p>
-      <div class="hours" data-hours data-reveal style="--d:.1s;margin-top:34px"></div>
+      <div class="hours" data-hours data-reveal style="--d:.1s;margin-top:30px"></div>
       <p class="notice" data-reveal style="margin-top:16px">Horaires de <b data-season="grid">pleine saison</b>. Dernière commande 30 minutes avant la fermeture.</p>
-      <div class="locate__btns" style="margin-top:30px" data-reveal>
+      <div class="locate__btns" style="margin-top:28px" data-reveal>
         <a class="btn btn--sm" data-href="maps" href="#" target="_blank" rel="noopener">Google Maps</a>
         <a class="btn btn--sm btn--ghost" data-href="apple" href="#" target="_blank" rel="noopener">Plans</a>
         <a class="btn btn--sm btn--ghost" data-href="waze" href="#" target="_blank" rel="noopener">Waze</a>

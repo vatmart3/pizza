@@ -38,17 +38,20 @@ LM.access = [
   {
     id: 'voiture', label: 'En voiture',
     text: 'Montez la corniche jusqu’au site des Pierres Blanches. Le restaurant est au bout de l’allée Pierre Barthas, sur la droite.',
-    strong: 'Parking gratuit sur place'
+    strong: 'Parking gratuit sur place',
+    en: { label: 'By car', text: 'Drive up the corniche to the Pierres Blanches site. The restaurant is at the very end of allée Pierre Barthas, on the right.', strong: 'Free parking on site' }
   },
   {
     id: 'bus', label: 'En bus',
     text: 'Ligne 5 du réseau Sète Agglopôle Mobilité, arrêt « Les Pierres Blanches ». L’arrêt est devant le restaurant.',
-    strong: 'Ligne 5 · arrêt Les Pierres Blanches'
+    strong: 'Ligne 5 · arrêt Les Pierres Blanches',
+    en: { label: 'By bus', text: 'Line 5 of the Sète Agglopôle Mobilité network, stop « Les Pierres Blanches ». The stop is right outside.', strong: 'Line 5 · Les Pierres Blanches stop' }
   },
   {
     id: 'pied', label: 'À pied',
     text: 'Depuis le centre de Sète, comptez une bonne quarantaine de minutes de montée par les sentiers du Mont Saint-Clair, à travers la forêt domaniale.',
-    strong: '187 m d’altitude'
+    strong: '187 m d’altitude',
+    en: { label: 'On foot', text: 'From the centre of Sète, allow a good forty minutes uphill on the Mont Saint-Clair paths, through the state forest.', strong: '187 m above the sea' }
   }
 ];
 
@@ -67,6 +70,7 @@ LM.season = {
       from: '04-01', to: '09-30',
       tag: 'Soirées brochettes',
       note: 'Petit-déjeuner, ardoise du midi, snack toute la journée et soirées brochettes face au coucher de soleil.',
+      en: { label: 'High season', tag: 'Skewer evenings', note: 'Breakfast, the lunchtime slate, snacks all day and skewer evenings facing the sunset.' },
       hours: {
         1: [['08:30', '23:00']],
         2: [['08:30', '23:00']],
@@ -83,6 +87,7 @@ LM.season = {
       from: '10-01', to: '11-30',
       tag: 'Face à la mer',
       note: 'Le café du matin, l’ardoise du midi et le goûter face à la mer. Les soirées brochettes reprennent en avril.',
+      en: { label: 'Late season', tag: 'Facing the sea', note: 'Morning coffee, the lunchtime slate and afternoon tea facing the sea. Skewer evenings return in April.' },
       hours: {
         1: [['08:30', '19:00']],
         2: [['08:30', '19:00']],
@@ -100,17 +105,26 @@ LM.season = {
       closed: true,
       tag: 'Fermé pour l’hiver',
       note: 'La Mesa fait relâche le temps de l’hiver. Nous vous retrouvons au premier soleil du printemps.',
+      en: { label: 'Winter closing', tag: 'Closed for winter', note: 'La Mesa rests for the winter. We will see you again with the first sun of spring.' },
       hours: {}
     }
   ]
 };
 
 LM.services = {
-  lunch:  { label: 'Déjeuner', slots: ['12:00','12:15','12:30','12:45','13:00','13:15','13:30','13:45','14:00'] },
-  dinner: { label: 'Soirée brochettes', slots: ['19:00','19:15','19:30','19:45','20:00','20:15','20:30','20:45','21:00','21:15'] }
+  lunch:  { label: 'Déjeuner', en: 'Lunch', slots: ['12:00','12:15','12:30','12:45','13:00','13:15','13:30','13:45','14:00'] },
+  dinner: { label: 'Soirée brochettes', en: 'Skewer evening', slots: ['19:00','19:15','19:30','19:45','20:00','20:15','20:30','20:45','21:00','21:15'] }
 };
 LM.dayNames = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
 LM.monthNames = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+LM.dayNamesEn = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+LM.monthNamesEn = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ---------- Le coucher de soleil ----------
+   C'est l'argument numéro un de la maison : le site le calcule pour
+   le soir même, à l'heure de Sète, et conseille une heure d'arrivée.
+   « before » = minutes d'avance conseillées sur le coucher. */
+LM.sun = { lat: 43.3934, lng: 3.6802, zone: 'Europe/Paris', before: 90 };
 
 /* ---------- Réservation ----------
    Chez La Mesa, la réservation se fait par téléphone. Un e-mail
@@ -121,13 +135,20 @@ LM.booking = {
   headline: 'La réservation se fait par téléphone',
   text: 'Nous confirmons chaque table de vive voix. Un message ou un e-mail ne vaut pas réservation.',
   formTitle: 'Vous préférez être rappelé ?',
-  formText: 'Laissez-nous vos coordonnées et le créneau souhaité : nous vous rappelons pour confirmer.'
+  formText: 'Laissez-nous vos coordonnées et le créneau souhaité : nous vous rappelons pour confirmer.',
+  en: {
+    headline: 'Booking is by telephone',
+    text: 'We confirm every table by voice. A message or an e-mail is not a booking.',
+    formTitle: 'Would you rather be called back?',
+    formText: 'Leave us your details and the time you would like: we will call you back to confirm.'
+  }
 };
 
 /* ---------- La carte ----------
    tags : v = végétarien · vg = végan · sg = sans gluten · sig = signature
    Les prix sont en euros, nets, service compris. */
 LM.menuNotice = 'Carte donnée à titre indicatif : l’ardoise change chaque jour selon le marché et la pêche.';
+LM.menuNoticeEn = 'Menu given as a guide: the slate changes every day with the market and the catch.';
 
 LM.menu = [
   {
@@ -216,10 +237,11 @@ LM.menu = [
 LM.menuFormula = {
   title: 'L’ardoise du midi',
   sub: 'Tous les midis, servie de 12h à 14h30',
+  en: { title: 'The lunchtime slate', sub: 'Every day, served from 12 to 2.30 pm' },
   lines: [
-    { label: 'Plat du jour seul', price: 19 },
-    { label: 'Entrée + plat ou plat + dessert', price: 25 },
-    { label: 'Entrée + plat + dessert', price: 30 }
+    { label: 'Plat du jour seul', price: 19, en: 'Main course only' },
+    { label: 'Entrée + plat ou plat + dessert', price: 25, en: 'Starter + main, or main + dessert' },
+    { label: 'Entrée + plat + dessert', price: 30, en: 'Starter + main + dessert' }
   ]
 };
 
@@ -228,16 +250,61 @@ LM.groups = {
   intro: 'Nous recevons les groupes, les associations, les comités d’entreprise et les professionnels, midi et soir, sur devis.',
   min: 12,
   formulas: [
-    { title: 'Formule déjeuner', price: 28, desc: 'Entrée, plat et dessert au choix parmi une sélection, boisson comprise.' },
-    { title: 'Soirée brochettes', price: 36, desc: 'Tapas à partager, assortiment de brochettes, accompagnements à volonté, dessert.' },
-    { title: 'Cocktail dînatoire', price: 32, desc: 'Tapas, planches ibériques, brochettes passées en plateau, une boisson par personne.' }
+    { title: 'Formule déjeuner', price: 28, desc: 'Entrée, plat et dessert au choix parmi une sélection, boisson comprise.',
+      en: { title: 'Lunch menu', desc: 'Starter, main and dessert chosen from a selection, one drink included.' } },
+    { title: 'Soirée brochettes', price: 36, desc: 'Tapas à partager, assortiment de brochettes, accompagnements à volonté, dessert.',
+      en: { title: 'Skewer evening', desc: 'Tapas to share, an assortment of skewers, unlimited sides, dessert.' } },
+    { title: 'Cocktail dînatoire', price: 32, desc: 'Tapas, planches ibériques, brochettes passées en plateau, une boisson par personne.',
+      en: { title: 'Standing dinner', desc: 'Tapas, Iberian boards, skewers passed on trays, one drink per person.' } }
   ],
   points: [
     'À partir de 12 personnes, midi ou soir.',
     'Salle et terrasse panoramique, parking gratuit sur place.',
     'Devis sous 48 h après votre demande.',
     'Menu adapté aux régimes alimentaires sur simple demande.'
+  ],
+  pointsEn: [
+    'From 12 people, lunch or dinner.',
+    'Dining room and panoramic terrace, free parking on site.',
+    'A quote within 48 hours of your enquiry.',
+    'Menus adapted to dietary requirements on request.'
   ]
+};
+
+/* ---------- Textes produits par le script ----------
+   Tout ce que le JavaScript écrit lui-même (statut d'ouverture, messages
+   de formulaire, coucher de soleil) passe par ici, dans les deux langues. */
+LM.t = {
+  fr: {
+    open: 'Ouvert · ferme à %s', closed: 'Fermé · ouvre %s à %s', shut: 'Fermé pour l’hiver · retour le %s',
+    closedShort: 'Fermé', today: 'aujourd’hui', tomorrow: 'demain',
+    sunsetTonight: 'Coucher du soleil ce soir', sunsetAt: 'à %s',
+    sunsetAdvice: 'Arrivez vers %s pour en profiter à table.',
+    sunsetClosed: 'Le soleil se couchera à %s. Nous rouvrons le %s.',
+    copied: 'Copié !', linkCopied: 'Lien copié dans le presse-papiers',
+    formErr: 'Merci de vérifier les champs en rouge.',
+    sent: 'Message envoyé. Merci !', quoteSent: 'Demande envoyée. Nous revenons vers vous sous 48 h.',
+    newsletter: 'Merci ! Vous recevrez nos nouvelles une fois par mois.',
+    badMail: 'Adresse e-mail invalide.',
+    noSlot: 'Pas de service « %s » %s — essayez l’autre service ou une autre date.',
+    thatDay: 'ce jour-là', people: 'personnes', person: 'personne', closedLabel: 'fermé',
+    shareText: 'Réservez une table face à la mer, à Sète.'
+  },
+  en: {
+    open: 'Open · closes at %s', closed: 'Closed · opens %s at %s', shut: 'Closed for winter · back on %s',
+    closedShort: 'Closed', today: 'today', tomorrow: 'tomorrow',
+    sunsetTonight: 'Sunset tonight', sunsetAt: 'at %s',
+    sunsetAdvice: 'Arrive around %s to enjoy it from your table.',
+    sunsetClosed: 'The sun will set at %s. We reopen on %s.',
+    copied: 'Copied!', linkCopied: 'Link copied to the clipboard',
+    formErr: 'Please check the fields marked in red.',
+    sent: 'Message sent. Thank you!', quoteSent: 'Enquiry sent. We will get back to you within 48 hours.',
+    newsletter: 'Thank you! You will hear from us once a month.',
+    badMail: 'Invalid e-mail address.',
+    noSlot: 'No « %s » service %s — try the other service or another date.',
+    thatDay: 'that day', people: 'people', person: 'person', closedLabel: 'closed',
+    shareText: 'Book a table facing the sea, in Sète.'
+  }
 };
 
 /* ---------- Libellés d'interface, pour la carte scannée à table ---------- */
@@ -268,6 +335,40 @@ LM.tags = {
   sg: { label: 'Sans gluten', en: 'Gluten free', short: 'SG' },
   sig:{ label: 'Signature', en: 'House signature', short: '★' }
 };
+
+/* ---------- Les avis ----------
+   ⚠ ATTENTION — CES SIX AVIS SONT DES EXEMPLES, PAS DE VRAIS AVIS.
+   Ils ont été rédigés pour la maquette, à partir des thèmes qui
+   reviennent dans les avis publics (la vue, les brochettes, les
+   cocktails, la montée). Les prénoms sont inventés.
+
+   IL FAUT LES REMPLACER PAR DE VRAIS EXTRAITS AVANT LA MISE EN LIGNE.
+   Publier de faux avis est interdit (code de la consommation, art.
+   L. 121-2 et suivants) et sanctionné par la DGCCRF.
+
+   Recopiez des avis réels de votre fiche Google ou de TripAdvisor, avec
+   le prénom tel qu'il y figure et le mois de publication. Pour vider
+   complètement la section, mettez simplement : LM.reviews = []; */
+LM.reviews = [
+  { text: 'La vue est tout simplement la plus belle de Sète. On dîne face au coucher de soleil, avec la mer à perte de vue.',
+    en: 'Quite simply the finest view in Sète. You dine facing the sunset, with the sea as far as you can see.',
+    name: 'Sylvie', when: 'août', stars: 5 },
+  { text: 'Les brochettes sont excellentes et préparées devant vous. Le thon était parfait, les cocktails aussi.',
+    en: 'The skewers are excellent and grilled in front of you. The tuna was perfect, and so were the cocktails.',
+    name: 'Marc', when: 'juillet', stars: 5 },
+  { text: 'Un cadre incroyable en pleine nature, tout en haut du Mont Saint-Clair. On se croirait loin de tout.',
+    en: 'An incredible setting in the middle of nature, right at the top of Mont Saint-Clair. You feel miles from anywhere.',
+    name: 'Claire', when: 'juin', stars: 5 },
+  { text: 'Parfait pour l’apéritif au coucher du soleil. Pensez à réserver, la terrasse se remplit vite.',
+    en: 'Perfect for drinks at sunset. Do book — the terrace fills up fast.',
+    name: 'Julien', when: 'septembre', stars: 4 },
+  { text: 'Montée un peu raide mais le parking est gratuit et la récompense en vaut la peine.',
+    en: 'A fairly steep climb, but parking is free and the reward is worth it.',
+    name: 'Nathalie', when: 'mai', stars: 4 },
+  { text: 'Ardoise du midi très fraîche, le poisson était remarquable. Accueil sympathique.',
+    en: 'A very fresh lunchtime slate, the fish was remarkable. Friendly welcome.',
+    name: 'Pierre', when: 'octobre', stars: 5 }
+];
 
 /* ---------- Galerie ---------- */
 LM.gallery = [

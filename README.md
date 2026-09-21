@@ -5,19 +5,22 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 
 ## Pages
 
+Chaque page existe en français (à la racine) et en anglais (sous `/en/`),
+sauf mention contraire.
+
 | Page | Fichier | Contenu |
 |---|---|---|
-| Accueil | `index.html` | héro plein cadre (photo puis vidéo), manifeste, le lieu, les trois moments de la journée, extrait de carte typographique, bande de cadrages, citation, groupes, réservation, horaires + accès |
+| Accueil | `index.html` | héro, **bloc « l'essentiel »** (ouvert ou non, coucher de soleil, adresse, téléphone), les trois moments de la journée, extrait de carte, bande du coucher de soleil, le lieu, images, mur d'avis, groupes, horaires + accès |
 | La carte | `carte.html` | carte complète générée depuis `data.js` (ardoise du midi, brochettes, tapas, snack, cocktails, boissons), filtres, recherche, navigation sticky, impression |
 | Le lieu | `le-lieu.html` | histoire du site, la journée type, ce qui fait la maison, le rythme des trois saisons |
 | Soirées brochettes | `soirees-brochettes.html` | page saisonnière : le principe, le déroulé d'une soirée, la sélection de brochettes et de tapas |
 | Groupes & événements | `groupes.html` | formules groupes, offre séminaires, formulaire de demande de devis |
 | Carte à table (QR) | `menu.html` | page autonome et ultra-légère, scannée au QR code : bilingue FR/EN, mode plein soleil, recherche, filtres, hors-ligne |
-| Fiches QR à imprimer | `qr.html` | planche A4 de deux fiches de table à plier, QR code inclus (hors index) |
+| Fiches QR à imprimer | `qr.html` | planche A4 de deux fiches de table à plier, QR code inclus (hors index, français seul) |
 | Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
 | Réservation | `reservation.html` | le téléphone en action principale, puis une demande de rappel en quatre étapes : calendrier (jours fermés grisés selon la saison), service, convives, coordonnées |
 | Contact & accès | `contact.html` | coordonnées, horaires saisonniers, accès voiture / bus ligne 5 / à pied, accessibilité, itinéraire, formulaire |
-| Légal | `mentions-legales.html`, `confidentialite.html`, `accessibilite.html` | mentions obligatoires, RGPD, déclaration d'accessibilité |
+| Légal | `mentions-legales.html`, `confidentialite.html`, `accessibilite.html` | mentions obligatoires, RGPD, déclaration d'accessibilité (texte français seul) |
 | Erreur | `404.html` | page introuvable |
 
 ## Tout modifier depuis un seul fichier
@@ -32,6 +35,9 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 | `LM.booking` | les textes de réservation (téléphone d'abord, formulaire en demande de rappel) |
 | `LM.menu`, `LM.menuFormula`, `LM.menuNotice` | la carte complète, la formule du midi, la mention « l'ardoise change chaque jour » |
 | `LM.groups` | les formules groupes et les arguments de la page devis |
+| `LM.sun` | coordonnées et fuseau pour le calcul du coucher de soleil |
+| `LM.reviews` | le mur d'avis (à remplacer par de vrais extraits) |
+| `LM.t` | tout ce que le JavaScript écrit, dans les deux langues |
 | `LM.gallery` | la galerie |
 
 Les horaires de la saison en cours pilotent automatiquement le badge
@@ -99,6 +105,73 @@ il suffit de remplacer les fichiers de `assets/img/` et les entrées de `LM.gall
 - Aucun cookie ni traceur : pas de bandeau de consentement nécessaire (documenté dans la politique de confidentialité).
 - Mentions obligatoires : prix nets service compris, allergènes sur demande, origine des viandes, message alcool, médiation de la consommation.
 - Les zones surlignées en jaune dans les pages légales (`[à compléter]`) sont à renseigner par le restaurant (raison sociale, SIRET, hébergeur, médiateur).
+
+## Bilingue : français et anglais
+
+Le français est servi à la racine, l'anglais sous `/en/`. Les deux versions
+sont produites **à partir des mêmes fichiers sources** : impossible qu'une page
+existe dans une langue et pas dans l'autre.
+
+Les textes traduisibles s'écrivent en ligne, les deux langues côte à côte :
+
+```html
+<h2>[[Là-haut, la table||Up there, the table]]</h2>
+```
+
+Le compilateur garde le côté gauche pour `/`, le côté droit pour `/en/`. Comme
+les deux versions vivent dans la même ligne, elles ne peuvent pas se
+désynchroniser : on ne peut pas modifier l'une en oubliant l'autre.
+
+Le reste suit automatiquement :
+
+- `<html lang>` et `og:locale` sont posés par le compilateur ;
+- les balises `hreflang` (fr, en, x-default) sont écrites sur chaque page ;
+- les chemins vers `assets/` sont réécrits en `../assets/` pour `/en/` ;
+- le sélecteur **FR / EN** de la barre de navigation pointe vers la même page
+  dans l'autre langue, jamais vers l'accueil ;
+- le JavaScript lit `<html lang>` et adapte ce qu'il écrit lui-même : statut
+  d'ouverture, jours, mois, format d'heure (`19h46` / `19:46`), carte, avis,
+  accès, formules groupes. Ces textes sont dans `LM.t` et dans les champs `en:`
+  de `data.js`.
+
+Les pages légales sont volontairement **en français seul** : ce sont des
+documents de droit français. Leur version anglaise porte un avertissement
+indiquant que seule la version française fait foi.
+
+Pour ajouter une langue, il faudrait étendre `LANGS` dans `tools/build.py` —
+la mécanique est déjà en place.
+
+## Le coucher de soleil
+
+`assets/js/app.js` calcule l'heure du coucher de soleil du jour avec
+l'algorithme NOAA, à partir des coordonnées de `LM.sun`. Aucune dépendance,
+aucun appel réseau.
+
+L'heure est **toujours donnée à l'heure de Sète** (`Europe/Paris`), quel que
+soit le fuseau horaire du visiteur : un client à Londres qui prépare son
+voyage lit l'heure locale du restaurant, pas la sienne.
+
+Le site en déduit une heure d'arrivée conseillée (`LM.sun.before`, 90 minutes
+par défaut) et l'affiche à deux endroits : dans le bloc « l'essentiel » sous le
+héro, et dans la bande dédiée de la page d'accueil. Pendant la fermeture
+annuelle, le message bascule de lui-même sur la date de réouverture.
+
+Trois attributs suffisent à poser l'information n'importe où :
+
+```html
+<span data-sunset="label"></span>   <!-- « Coucher du soleil ce soir » -->
+<b    data-sunset="time"></b>       <!-- « 19h46 »                     -->
+<p    data-sunset="advice"></p>     <!-- « Arrivez vers 18h16… »       -->
+```
+
+## Les avis
+
+Le mur d'avis de la page d'accueil se remplit depuis `LM.reviews`.
+
+> **Les six avis livrés sont des exemples, pas de vrais avis.** Ils doivent
+> être remplacés par de vrais extraits avant la mise en ligne : publier de faux
+> avis est interdit et sanctionné. Pour retirer la section, il suffit d'écrire
+> `LM.reviews = [];` — elle disparaît d'elle-même.
 
 ## La carte scannée à table (QR code)
 

@@ -175,6 +175,9 @@ html.no-loader .loader{display:none}
 .hero__title{margin-top:24px;max-width:15ch;opacity:0;transform:translateY(14px)}
 .hero__title em{display:inline}
 .hero__lead{margin-top:26px;max-width:42ch;font-size:clamp(.96rem,1.05vw,1.05rem);line-height:1.85;color:var(--fg-2);opacity:0;transform:translateY(14px)}
+/* Rangée de boutons neutre : même mise en page que celle du héro,
+   mais sans l'animation d'entrée qui dépend de .hero.is-live. */
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
 .hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;opacity:0;transform:translateY(14px)}
 .hero.is-live .hero__kicker,.hero.is-live .hero__title,.hero.is-live .hero__lead,.hero.is-live .hero__actions{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .hero.is-live .hero__title{transition-delay:.08s}
@@ -654,3 +657,72 @@ html.no-loader .loader{display:none}
 .callout .ticks{margin-top:12px}
 .ccard--on{box-shadow:inset 0 0 0 1px var(--line-gold)}
 .ccard--on small{color:var(--gold-2)}
+
+/* ============================================================
+   Sélecteur de langue
+   ============================================================ */
+.lang{display:inline-grid;place-items:center;width:34px;height:34px;flex:none;
+  font-size:.62rem;font-weight:600;letter-spacing:.1em;color:var(--fg-2);
+  box-shadow:inset 0 0 0 1px var(--line);transition:color .2s,box-shadow .2s}
+.lang:hover{color:var(--gold);box-shadow:inset 0 0 0 1px var(--line-gold)}
+.lang--wide{width:auto;padding:0 14px;height:36px;letter-spacing:.14em;text-transform:uppercase}
+@media(max-width:1080px){.nav__right .lang{display:none}}
+
+/* ============================================================
+   L'essentiel — les quatre réponses qu'on vient chercher,
+   juste sous le héro : ouvert ?, coucher de soleil, où, réserver.
+   ============================================================ */
+.essentials{background:var(--surface);box-shadow:inset 0 -1px 0 var(--line)}
+.ess{display:grid;gap:1px;background:var(--line-2)}
+@media(min-width:680px){.ess{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.ess{grid-template-columns:repeat(4,1fr)}}
+.ess__c{background:var(--surface);padding:clamp(22px,2.4vw,30px);display:grid;gap:7px;align-content:start}
+.ess__c--sun{background:var(--surface-2)}
+.ess__k{font-family:var(--body);font-size:.58rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.ess__v{font-family:var(--display);font-size:clamp(1.15rem,1.7vw,1.42rem);font-weight:450;line-height:1.3;color:var(--fg)}
+.ess__v b{font-weight:450;font-variant-numeric:tabular-nums}
+.ess__v a{transition:color .2s}
+.ess__v a:hover{color:var(--gold)}
+.ess__v .status{font-size:.82rem;font-family:var(--body);white-space:normal}
+.ess__d{font-size:.8rem;color:var(--fg-3);line-height:1.6}
+.ess__c--sun .ess__v b{color:var(--gold-2);font-size:1.5em}
+
+/* ============================================================
+   La bande du coucher de soleil — pas de photo : un dégradé
+   d'heure dorée, qui reste net et ne coûte rien à charger.
+   ============================================================ */
+.sunband{position:relative;isolation:isolate;overflow:hidden;
+  padding-block:clamp(60px,9vw,110px);background:var(--bg)}
+.sunband::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(120% 130% at 88% 112%,rgba(224,199,149,.30),rgba(198,162,101,.10) 42%,transparent 68%),
+             linear-gradient(180deg,var(--surface),var(--bg) 78%)}
+.sunband::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line-2);z-index:-1}
+.sunband h2{font-size:clamp(1.9rem,4.6vw,3.2rem);margin-top:14px;max-width:16ch}
+.sunband__row{display:grid;gap:clamp(26px,4vw,56px);margin-top:clamp(30px,4vw,48px);align-items:start}
+@media(min-width:860px){.sunband__row{grid-template-columns:auto 1fr}}
+.sunband__t{display:grid;gap:6px}
+.sunband__t span{font-family:var(--body);font-size:.62rem;font-weight:500;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold)}
+.sunband__t b{font-family:var(--display);font-size:clamp(3.4rem,10vw,5.6rem);font-weight:450;line-height:.92;
+  color:var(--gold-2);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.sunband .lead{color:var(--fg);max-width:46ch}
+.sunband .notice{color:var(--fg-2);max-width:52ch}
+
+/* ============================================================
+   Mur d'avis
+   ============================================================ */
+.rating{font-family:var(--body);font-size:.8rem;color:var(--fg-3);white-space:nowrap}
+.rating b{font-family:var(--display);font-size:1.7rem;font-weight:450;color:var(--gold);vertical-align:-.12em;margin-right:4px}
+.revs{display:grid;gap:2px;background:var(--line-2)}
+@media(min-width:680px){.revs{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.revs{grid-template-columns:repeat(3,1fr)}}
+.rev{background:var(--bg);padding:clamp(24px,2.6vw,32px);display:grid;gap:14px;align-content:start;margin:0}
+.section--surface .rev{background:var(--surface)}
+.rev__s{font-size:.8rem;letter-spacing:.22em;color:var(--gold)}
+.rev blockquote{font-family:var(--display);font-size:clamp(1rem,1.25vw,1.12rem);font-weight:400;
+  line-height:1.55;color:var(--fg);quotes:'«\00a0' '\00a0»'}
+.rev blockquote::before{content:open-quote}
+.rev blockquote::after{content:close-quote}
+:root:lang(en) .rev blockquote{quotes:'“' '”'}
+.rev figcaption{font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+.rev figcaption span{color:var(--gold);margin-left:8px;text-transform:none;letter-spacing:.06em}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{lang}}" data-root="{{root}}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -9,7 +9,7 @@
 <link rel="canonical" href="{{canonical}}">
 <meta name="theme-color" content="#0A0A09">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="fr_FR">
+<meta property="og:locale" content="{{og_locale}}">
 <meta property="og:site_name" content="La Mesa — Les Pierres Blanches">
 <meta property="og:title" content="{{title}}">
 <meta property="og:description" content="{{desc}}">
@@ -23,7 +23,7 @@
 <link rel="preload" href="assets/fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
 <script>/* Préférences lues avant le premier pixel : aucun clignotement. */
 (function(){try{var d=document.documentElement,s=localStorage.getItem('lm-sun'),l=localStorage.getItem('lm-lang');
-if(s==='1')d.setAttribute('data-sun','');if(l==='en'){d.lang='en';d.setAttribute('data-lang','en');}}catch(e){}})();</script>
+if(s==='1')d.setAttribute('data-sun','');if(l)d.setAttribute('data-lang',l);else d.setAttribute('data-lang',d.lang);}catch(e){}})();</script>
 <style>
 /* ---- Polices ---- */
 @font-face{font-family:'Jost';src:url('assets/fonts/jost.woff2') format('woff2');font-weight:300 700;font-display:swap}

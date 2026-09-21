@@ -85,6 +85,7 @@ page = (
  'title: Fiche de table à imprimer — La Mesa\n'
  'desc: Le QR code de la carte, sur une fiche de table à plier. À imprimer en A4.\n'
  'layout: print\n'
+ 'translate: no\n'
  'robots: noindex,nofollow\n'
  '---\n'
  '<div class="note">\n'

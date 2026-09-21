@@ -167,7 +167,7 @@
 
   /* La carte reste consultable même si le réseau lâche au milieu du service. */
   if ('serviceWorker' in navigator && location.protocol === 'https:')
-    addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+    addEventListener('load', () => navigator.serviceWorker.register((root.dataset.root || '') + 'sw.js').catch(() => {}));
 
   /* Le bouton plein soleil garde son libellé au rechargement. */
   if (root.hasAttribute('data-sun')) {
