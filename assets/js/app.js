@@ -49,7 +49,7 @@
      Le clair est la version par défaut ; le choix du visiteur est
      mémorisé et réappliqué avant le premier pixel par le script du
      gabarit, pour éviter tout clignotement au chargement. */
-  const THEMES = { light: '#FAF7F0', dark: '#0A0A09' };
+  const THEMES = { light: '#E7DFCE', dark: '#0A0A09' };
   const themeNow = () => (html.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
   const paintTheme = () => {
     const dark = themeNow() === 'dark';

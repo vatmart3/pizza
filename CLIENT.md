@@ -100,8 +100,8 @@ dans le fichier `README.md`.
 
 ## En passant : le thème
 
-Le site s'affiche en clair, ce qui correspond à ce qu'est la maison — le soleil,
-la pierre claire, la terrasse en plein jour. Un bouton dans le bandeau du haut
+Le site s'affiche dans une teinte sable, celle du calcaire des Pierres
+Blanches — ni blanc clinique, ni noir de bistrot du soir. Un bouton dans le bandeau du haut
 permet de basculer en sombre, plutôt agréable le soir. Le choix de chaque
 visiteur est retenu sur son propre appareil.
 

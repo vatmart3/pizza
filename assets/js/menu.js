@@ -126,7 +126,7 @@
   const paintTheme = () => {
     const dark = isDark();
     $('[data-sun-toggle]').setAttribute('aria-pressed', String(dark));
-    const m = $('meta[name=theme-color]'); if (m) m.content = dark ? '#0A0A09' : '#FBF8F2';
+    const m = $('meta[name=theme-color]'); if (m) m.content = dark ? '#0A0A09' : '#E7DFCE';
     $$('[data-t=sun]').forEach(el => el.textContent = dark ? T().sun : T().night);
   };
   $('[data-sun-toggle]').addEventListener('click', () => {

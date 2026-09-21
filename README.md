@@ -114,6 +114,11 @@ la mer en plein jour. La maison ouvre à 8h30, sert le petit-déjeuner, les
 crêpes et l'ardoise du midi — un site noir raconterait une table du soir
 qu'elle n'est pas.
 
+Le fond n'est pas blanc mais **sable** (`#E7DFCE`) : la teinte du calcaire des
+Pierres Blanches, et la même famille chaude que le thème sombre (crème, or,
+brun profond). Un blanc pur aurait éclaté à l'écran et perdu le caractère de
+la maison.
+
 Le thème sombre reste disponible d'un bouton dans la barre de navigation, pour
 le service du soir. Le choix est mémorisé (`lm-theme`) et **réappliqué avant le
 premier pixel** par un petit script dans le `<head>` : aucun clignotement au

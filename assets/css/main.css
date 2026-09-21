@@ -23,15 +23,15 @@
    illisible.
    ------------------------------------------------------------------ */
 :root{
-  --bg:#FAF7F0; --bg0:#FAF7F0; --bg-rgb:250,247,240;
-  --surface:#FFFFFF; --surface-2:#F3EDE1; --surface-3:#E9E1D2;
-  --fg:#191510; --fg-rgb:25,21,16; --fg-2:#4C4438; --fg-3:#736A5C;
-  --gold:#8A6726; --gold-2:#6E5118; --gold-dim:rgba(138,103,38,.13);
-  --line:rgba(25,21,16,.15); --line-2:rgba(25,21,16,.07); --line-gold:rgba(138,103,38,.38);
-  --err:#A8412B;
-  --ok:#3F7A34; --ko:#A8492F;
+  --bg:#E7DFCE; --bg0:#E7DFCE; --bg-rgb:231,223,206;
+  --surface:#EFE9DA; --surface-2:#DCD2BC; --surface-3:#CFC3A9;
+  --fg:#18140E; --fg-rgb:24,20,14; --fg-2:#453D30; --fg-3:#665C4B;
+  --gold:#7A5715; --gold-2:#5E4310; --gold-dim:rgba(122,87,21,.13);
+  --line:rgba(24,20,14,.18); --line-2:rgba(24,20,14,.09); --line-gold:rgba(122,87,21,.4);
+  --err:#96331F;
+  --ok:#3A6B2F; --ko:#96432A;
   --scrim-rgb:10,10,9;
-  --glow-1:rgba(138,103,38,.17); --glow-2:rgba(138,103,38,.07);
+  --glow-1:rgba(122,87,21,.18); --glow-2:rgba(122,87,21,.08);
   --gutter:clamp(20px,5vw,80px);
   --max:1320px;
   --nav-h:82px;
@@ -45,7 +45,7 @@
 :root[data-theme="dark"]{
   --bg:#0A0A09; --bg0:#0A0A09; --bg-rgb:10,10,9;
   --surface:#121110; --surface-2:#1A1917; --surface-3:#242220;
-  --fg:#EFEAE1; --fg-rgb:239,234,225; --fg-2:#B3ABA0; --fg-3:#7B746A;
+  --fg:#EFEAE1; --fg-rgb:239,234,225; --fg-2:#B3ABA0; --fg-3:#8A8376;
   --gold:#C6A265; --gold-2:#E0C795; --gold-dim:rgba(198,162,101,.18);
   --line:rgba(239,234,225,.12); --line-2:rgba(239,234,225,.06); --line-gold:rgba(198,162,101,.3);
   --err:#D98B7A;
