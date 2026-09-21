@@ -559,7 +559,7 @@
 
   /* =========================================================== CARTE */
   function initCarte(main) {
-    const root = $('#carte-root', main), catNav = $('.carte-nav .container', main);
+    const root = $('#carte-root', main), catIndex = $('[data-carte-index]', main);
     if (!root) return;
     const filters = new Set(); let q = '';
     const price = it => {
@@ -573,7 +573,14 @@
         <h3 class="mitem__name">${esc(tx(it, 'name'))}${(it.tags || []).map(t => `<span class="tag ${t === 'sig' ? 'tag--sig' : ''}" title="${LANG === 'en' ? (LM.tags[t].en || LM.tags[t].label) : LM.tags[t].label}">${LM.tags[t].short}</span>`).join('')}</h3>
         <div class="mitem__price">${price(it)}</div><p class="mitem__desc">${esc(tx(it, 'desc'))}</p></article>`).join('')}
         <p class="empty">Rien ne correspond dans cette catégorie.</p></div></section>`).join('');
-    catNav.innerHTML = LM.menu.map(c => `<a href="#${c.id}">${esc(tx(c, 'title'))}</a>`).join('');
+    /* Le sommaire, en tête de carte : ce qu'il y a, et en quelle
+       quantité. Une carte imprimée annonce ses pages avant de les
+       tourner — pas besoin d'une barre qui suit le défilement. */
+    if (catIndex) catIndex.innerHTML = LM.menu.map((c, i) => `<a href="#${c.id}">
+      <span class="sommaire__n">${pad(i + 1)}</span>
+      <span class="sommaire__t">${esc(tx(c, 'title'))}</span>
+      <span class="sommaire__k">${esc(tx(c, 'kicker'))}</span>
+      <span class="sommaire__c">${c.items.length} ${T('choices')}</span></a>`).join('');
     const f = $('[data-formula]', main);
     if (f) f.innerHTML = `<h3>${esc(tx(LM.menuFormula, 'title'))}</h3><p class="sub">${esc(tx(LM.menuFormula, 'sub'))}</p><ul>${LM.menuFormula.lines.map(l => `<li><span>${esc(LANG === 'en' && l.en ? l.en : l.label)}</span><b>${l.price} €</b></li>`).join('')}</ul>`;
     const apply = () => $$('.mcat', main).forEach(sec => {
@@ -592,11 +599,13 @@
     const si = $('.search input', main);
     if (si) { let t; on(si, 'input', () => { clearTimeout(t); t = setTimeout(() => { q = si.value.trim().toLowerCase(); apply(); }, 90); }); }
     const pb = $('[data-print]', main); if (pb) on(pb, 'click', () => print());
-    const links = $$('a', catNav);
-    const spy = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id)); }), { rootMargin: '-30% 0px -60% 0px' });
-    $$('.mcat', main).forEach(s => spy.observe(s));
-    keep(() => spy.disconnect());
-    links.forEach(a => on(a, 'click', e => { e.preventDefault(); const t = $(a.getAttribute('href'), main); if (t) { t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }); history.replaceState(history.state, '', a.getAttribute('href')); } }));
+    $$('a', catIndex).forEach(a => on(a, 'click', e => {
+      e.preventDefault();
+      const t = $(a.getAttribute('href'), main);
+      if (!t) return;
+      t.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+      history.replaceState(history.state, '', a.getAttribute('href'));
+    }));
     if (location.hash) { const t = $(location.hash, main); if (t) requestAnimationFrame(() => t.scrollIntoView()); }
   }
 

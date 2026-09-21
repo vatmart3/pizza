@@ -126,7 +126,13 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
     <p class="notice" data-reveal data-menu-notice style="margin-top:20px"></p>
   </div>
 </section>
-<nav class="carte-nav" aria-label="Catégories de la carte"><div class="container"></div></nav>
+<section class="section section--tight" aria-labelledby="som-t">
+  <div class="container">
+    <span class="idx" data-reveal id="som-t">Sommaire</span>
+    <nav class="sommaire" data-carte-index data-reveal style="--d:.06s"
+      aria-labelledby="som-t"></nav>
+  </div>
+</section>
 <div class="container">
   <div id="carte-root"></div>
   <div class="split" style="padding-block:clamp(40px,6vw,88px);border-top:1px solid var(--line)">

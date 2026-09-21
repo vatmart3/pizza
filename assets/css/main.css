@@ -370,14 +370,6 @@ html.no-loader .loader{display:none}
 .crumbs a:hover{color:var(--gold)}
 
 /* Carte ---------------------------------------------------------------------- */
-.carte-nav{position:sticky;top:var(--nav-h);z-index:50;background:rgba(var(--bg-rgb),.94);border-block:1px solid var(--line-2)}
-@supports(backdrop-filter:blur(1px)){.carte-nav{background:rgba(var(--bg-rgb),.82);backdrop-filter:blur(14px)}}
-.carte-nav .container{display:flex;align-items:center;gap:28px;overflow-x:auto;scrollbar-width:none;padding-block:12px}
-.carte-nav .container::-webkit-scrollbar{display:none}
-.carte-nav a{white-space:nowrap;font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:6px 0;position:relative;color:var(--fg-3);transition:color .25s}
-.carte-nav a.is-active{color:var(--gold)}
-.carte-nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s var(--ease)}
-.carte-nav a.is-active::after{transform:scaleX(1)}
 .carte-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:28px}
 .chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;box-shadow:inset 0 0 0 1px var(--line);font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-2);transition:background .25s,color .25s,box-shadow .25s}
 .chip[aria-pressed=true]{background:var(--gold);color:var(--bg0);box-shadow:none}
@@ -386,9 +378,9 @@ html.no-loader .loader{display:none}
 .search input{border:0;background:none;font:inherit;padding:10px 0;width:170px;outline:0;color:var(--fg);font-size:.84rem}
 .search input::placeholder{color:var(--fg-3)}
 .search svg{width:14px;height:14px;color:var(--gold)}
-.mcat{padding-block:clamp(44px,6vw,84px);border-top:1px solid var(--line-2);scroll-margin-top:calc(var(--nav-h) + 58px)}
+.mcat{padding-block:clamp(44px,6vw,84px);border-top:1px solid var(--line-2);scroll-margin-top:calc(var(--nav-h) + 26px)}
 .mcat__head{display:grid;gap:10px;margin-bottom:30px}
-@media(min-width:900px){.mcat{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:clamp(30px,5vw,90px)}.mcat__head{position:sticky;top:calc(var(--nav-h) + 72px);align-self:start;margin:0}}
+@media(min-width:900px){.mcat{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:clamp(30px,5vw,90px)}.mcat__head{position:sticky;top:calc(var(--nav-h) + 34px);align-self:start;margin:0}}
 .mcat__head h2{font-size:clamp(1.7rem,3vw,2.6rem)}
 .mcat__head .kicker{font-family:var(--display);font-style:italic;color:var(--gold);font-size:1rem}
 .mcat__note{font-size:.82rem;color:var(--fg-3);max-width:32ch;margin-top:10px;line-height:1.7}
@@ -581,7 +573,7 @@ html.no-loader .loader{display:none}
 .dishes,.dots,.dish{display:none}
 
 @media print{
-  .nav,.menu,.footer,.cursor,.loader,.carte-nav,.carte-tools,.btn,.hero__media video,.toast,.book,.strip,.quote-band{display:none!important}
+  .nav,.menu,.footer,.cursor,.loader,.sommaire,.carte-tools,.btn,.hero__media video,.toast,.book,.strip,.quote-band{display:none!important}
   html,body{background:#fff;color:#000;font-size:11pt}
   .print-only{display:block}
   .mcat{display:block;page-break-inside:avoid;padding:12pt 0}
@@ -1091,3 +1083,30 @@ body::after{content:'';position:fixed;inset:0;z-index:700;pointer-events:none;
   .suntable thead th:nth-child(4),.suntable tbody td:nth-child(4){display:none}
   .suntable caption{font-size:.74rem}
 }
+
+/* ============================================================
+   Le sommaire de la carte
+   Une carte imprimée annonce ses pages en tête, elle ne fait pas
+   suivre une barre d'onglets au lecteur. Six entrées, leur numéro
+   dans la marge, et le nombre de propositions : on sait ce qu'il
+   y a et combien, avant même de faire défiler.
+   ============================================================ */
+.sommaire{display:grid;gap:0;margin-top:clamp(20px,2.4vw,30px);
+  border-top:1px solid var(--line)}
+@media(min-width:680px){.sommaire{grid-template-columns:repeat(2,1fr);
+  column-gap:clamp(30px,4vw,64px);border-top:0}}
+@media(min-width:1100px){.sommaire{grid-template-columns:repeat(3,1fr)}}
+.sommaire a{display:grid;grid-template-columns:auto 1fr auto;
+  align-items:baseline;gap:4px 16px;padding:18px 0;
+  border-bottom:1px solid var(--line-2);transition:color .25s}
+@media(min-width:680px){.sommaire a{border-top:1px solid var(--line-2);border-bottom:0}}
+.sommaire a:hover{color:var(--gold)}
+.sommaire__n{font-family:var(--body);font-size:.6rem;font-weight:500;
+  letter-spacing:.2em;color:var(--gold);align-self:center}
+.sommaire__t{font-family:var(--display);font-size:clamp(1.08rem,1.4vw,1.28rem);
+  font-weight:480;line-height:1.25;color:inherit;min-width:0}
+.sommaire__c{font-family:var(--body);font-size:.66rem;font-weight:500;
+  letter-spacing:.08em;color:var(--fg-3);white-space:nowrap}
+.sommaire__k{grid-column:2;font-family:var(--display);font-style:italic;
+  font-size:.92rem;color:var(--gold-2);line-height:1.4}
+.sommaire a:hover .sommaire__t{color:var(--gold)}

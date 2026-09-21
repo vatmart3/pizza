@@ -11,7 +11,7 @@ sauf mention contraire.
 | Page | Fichier | Contenu |
 |---|---|---|
 | Accueil | `index.html` | héro, **bloc « l'essentiel »** (ouvert ou non, coucher de soleil, adresse, téléphone), les trois moments de la journée, extrait de carte, bande du coucher de soleil, le lieu, images, mur d'avis, groupes, horaires + accès |
-| La carte | `carte.html` | carte complète générée depuis `data.js` (ardoise du midi, brochettes, tapas, snack, cocktails, boissons), filtres, recherche, navigation sticky, impression |
+| La carte | `carte.html` | carte complète générée depuis `data.js` (ardoise du midi, brochettes, tapas, snack, cocktails, boissons), sommaire en tête, filtres, recherche, impression |
 | Le lieu | `le-lieu.html` | histoire du site, la journée type, ce qui fait la maison, le rythme des trois saisons |
 | Soirées brochettes | `soirees-brochettes.html` | page saisonnière : le principe, le déroulé d'une soirée, la sélection de brochettes et de tapas |
 | Groupes & événements | `groupes.html` | formules groupes, offre séminaires, formulaire de demande de devis |
