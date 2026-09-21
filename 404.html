@@ -20,12 +20,12 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<script>(function(){try{var h=document.documentElement;if(sessionStorage.getItem('lm-seen'))h.classList.add('no-loader');if(sessionStorage.getItem('lm-veil')){h.classList.add('is-transition');sessionStorage.removeItem('lm-veil')}}catch(e){}})();</script>
-<link rel="preload" href="assets/fonts/playfair.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){try{if(sessionStorage.getItem('lm-seen'))document.documentElement.classList.add('no-loader')}catch(e){}})();</script>
+<link rel="preload" href="assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni-italic.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="assets/css/main.css">
-<script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"La Mesa — Les Pierres Blanches","url":"https://lespierresblanches.com","image":"https://lespierresblanches.com/assets/img/og.jpg","telephone":"+33467533340","priceRange":"30 – 50 €","servesCuisine":["Méditerranéenne","Fruits de mer","Grillades"],"acceptsReservations":"True","address":{"@type":"PostalAddress","streetAddress":"65 allée Pierre Barthas","postalCode":"34200","addressLocality":"Sète","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":43.3934,"longitude":3.6802},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday"],"opens":"09:30","closes":"23:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"09:30","closes":"00:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"09:30","closes":"18:00"}],"hasMenu":"https://lespierresblanches.com/carte.html","amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Terrasse","value":true},{"@type":"LocationFeatureSpecification","name":"Vue mer","value":true}]}</script>
 </head>
 <body data-page="404" class="">
@@ -47,10 +47,9 @@
   <div class="loader__bar"><i></i></div>
 </div>
 
-<div class="veil" aria-hidden="true"><div class="veil__slat"></div><div class="veil__slat"></div><div class="veil__slat"></div><div class="veil__slat"></div><div class="veil__slat"></div><div class="veil__slat"></div><div class="veil__slat"></div><div class="veil__label"></div></div>
 <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
 <div class="grain" aria-hidden="true"></div>
-<header class="nav">
+<header class="nav"><span class="nav__progress" aria-hidden="true"></span>
   <div class="container">
     <a class="brand" href="index.html" aria-label="La Mesa — Les Pierres Blanches, accueil" data-label="Accueil">
       <svg class="brand__emblem" viewBox="0 0 52 32" aria-hidden="true"><path fill="currentColor" d="M6 27c0-3 9-5 20-5s20 2 20 5-9 4-20 4S6 30 6 27zm5-9c0-2.5 7-4 15-4s15 1.5 15 4-7 3.5-15 3.5-15-1-15-3.5zm6-8c0-2 4-3.5 9-3.5s9 1.5 9 3.5-4 3-9 3-9-1-9-3z"/></svg>
@@ -163,5 +162,6 @@
 <div class="toast" role="status" aria-live="polite"></div>
 <script src="assets/js/data.js" defer></script>
 <script src="assets/js/app.js" defer></script>
+<noscript><style>[data-reveal],.mask>*{opacity:1!important;transform:none!important}.loader{display:none}</style></noscript>
 </body>
 </html>
