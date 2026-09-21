@@ -30,7 +30,7 @@ index.html … 404.html      pages générées (à servir)
 assets/css/main.css        styles (thème noir & or, fine dining)
 assets/js/data.js          données modifiables
 assets/js/app.js           préloader, transitions 3D, curseur, nav, statut horaires, carte, galerie, réservation, contact
-assets/fonts/              Playfair Display (variable) & Instrument Sans (variable), licence OFL
+assets/fonts/              Bodoni Moda & Jost (variables, sous-ensemble français), licence OFL
 assets/img/ · assets/video/ photos (WebP, 2 tailles + LQIP) et vidéo héro (H.264, boucle aller-retour)
 src/layout.html            gabarit commun (head SEO, JSON-LD Restaurant, nav, footer)
 src/partials/*.html        nav, footer, préloader, plan SVG
@@ -42,13 +42,42 @@ sw.js                      service worker (cache des ressources, hors-ligne lég
 Pour modifier une page : éditez `src/pages/<page>.html` puis lancez `python3 tools/build.py`.
 (Éditer directement les fichiers HTML à la racine fonctionne aussi, mais sera écrasé au prochain build.)
 
-## Vitesse
+## Typographie
 
-- Aucun script externe, aucune police distante : deux polices variables auto-hébergées et préchargées.
-- Images WebP avec `srcset`, `loading="lazy"`, dimensions déclarées (pas de saut de mise en page).
-- Vidéo héro chargée **après** le préloader, jamais si `prefers-reduced-motion` ou `Save-Data`.
-- `speculationrules` (préchargement des pages au survol) + service worker.
-- Animations en `transform`/`opacity`, WebGL rendu à demi-résolution et mis en pause hors écran.
+**Bodoni Moda** (titres, prix, chiffres) et **Jost** (textes, libellés, boutons) : deux caractères
+variables auto-hébergés, sous-ensemblés au français. Le `€` de Bodoni étant trop fin pour des prix,
+il est emprunté à Jost par une règle `unicode-range` — sans rien changer au balisage.
+
+## Vitesse & fluidité
+
+**Navigation instantanée, sans transition.** Au survol (ou à l'effleurement) d'un lien, la page
+suivante est déjà téléchargée ; au clic, seul le `<main>` est remplacé — polices, CSS, JS, en-tête et
+pied de page ne sont jamais rechargés. Historique, bouton retour, ancres et adresses partageables
+fonctionnent normalement ; sans JavaScript, les liens restent de simples liens.
+
+Mesures locales, processeur bridé 4× (avant → après) :
+
+| | avant | après |
+|---|---|---|
+| Premier affichage | 744 ms | 288 ms |
+| Page prête | 1889 ms | 550 ms |
+| Clic → page suivante affichée | 2619 ms | 74 – 320 ms |
+| Images longues (> 50 ms) au défilement | 9 | 2 |
+
+Le reste :
+
+- **Défilement lissé** à la molette (amorti en `requestAnimationFrame`, vrai défilement conservé :
+  en-têtes collants et ancres continuent de marcher). Inactif au doigt, au clavier, sur les gestes
+  horizontaux et si le système demande moins d'animations.
+- Un **seul `requestAnimationFrame`** pour tout le travail lié au défilement (en-tête, parallaxe, soleil),
+  et démontage complet des écoutes et animations à chaque changement de page.
+- Polices sous-ensemblées au français : 112 Ko pour les trois fichiers, préchargées.
+- Images WebP avec `srcset`, `loading="lazy"`, dimensions déclarées (aucun saut de mise en page).
+- Vidéo héro chargée **au temps mort**, jamais sur mobile, réseau limité, `Save-Data` ou
+  `prefers-reduced-motion`.
+- Rayons WebGL à 45 % de résolution et 25 images/s, coupés hors écran et sur machines modestes.
+- Grain sans mélange de calque ni animation : le coût de composition à chaque image est supprimé.
+- Service worker pour les visites suivantes.
 
 ## Accessibilité & conformité
 
