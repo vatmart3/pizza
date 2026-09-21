@@ -161,7 +161,7 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
 
 <section class="section" id="journee" aria-labelledby="jour-t">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head section-head--hang">
       <span class="idx" data-reveal>01 — Une journée ici</span>
       <h2 data-reveal style="--d:.04s"><span id="jour-t">Du premier café <em>au dernier verre</em></span></h2>
       <p class="lead" data-reveal style="--d:.08s">La Mesa ouvre à 8h30 et ne referme qu’à la nuit. Trois moments, trois façons d’être à table.</p>
@@ -191,9 +191,17 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
 
 <section class="section section--surface" id="carte" aria-labelledby="carte-t">
   <div class="container">
-    <div class="section-head">
-      <span class="idx" data-reveal>02 — La carte</span>
-      <h2 data-reveal style="--d:.04s"><span id="carte-t">Ce que l’on sert <em>aujourd’hui</em></span></h2>
+    <div class="dual">
+      <div class="section-head">
+        <span class="idx" data-reveal>02 — La carte</span>
+        <h2 data-reveal style="--d:.04s"><span id="carte-t">Ce que l’on sert <em>aujourd’hui</em></span></h2>
+        <p class="lead" data-reveal style="--d:.08s">Des assiettes pensées pour le centre de la table. L’ardoise change chaque jour ; voici ce qui revient le plus souvent.</p>
+      </div>
+      <figure class="figure bleed-r" data-reveal style="--d:.12s">
+        <img src="assets/img/book-760.webp" srcset="assets/img/book-760.webp 760w, assets/img/book-1280.webp 1280w" sizes="(min-width:960px) 52vw, 100vw" width="1280" height="718" alt="La grande table ronde et sa corbeille de poivrons, au centre de la salle" loading="lazy" decoding="async">
+        <span class="figure__frame" aria-hidden="true"></span>
+        <figcaption>Le plat du milieu, celui qu’on partage</figcaption>
+      </figure>
     </div>
     <div class="extract" data-extract data-reveal style="--d:.1s"></div>
     <div class="extract__foot" data-reveal>
@@ -224,9 +232,9 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
   </div>
 </section>
 
-<section class="section" id="le-lieu" aria-labelledby="lieu-t">
+<section class="section section--air" id="le-lieu" aria-labelledby="lieu-t">
   <div class="container split split--wide split--top">
-    <figure class="figure" data-reveal>
+    <figure class="figure bleed-l" data-reveal>
       <img src="assets/img/salle-760.webp" srcset="assets/img/salle-760.webp 760w, assets/img/salle-1280.webp 1280w" sizes="(min-width:900px) 52vw, 100vw" width="1280" height="718" alt="L’olivier et la cuisine ouverte au fond de la salle" loading="lazy" decoding="async">
       <span class="figure__frame" aria-hidden="true"></span>
       <figcaption>La salle, en fin de matinée</figcaption>
@@ -256,7 +264,7 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
     </div>
   </div>
   <div class="container">
-    <div class="strip" data-reveal>
+    <div class="strip strip--edito bleed-r" data-reveal>
       <figure><img src="assets/img/p-longue-440.webp" srcset="assets/img/p-longue-440.webp 440w, assets/img/p-longue-760.webp 760w" sizes="(min-width:760px) 32vw, 100vw" width="440" height="551" alt="La longue table de bois qui file vers la cuisine" loading="lazy" decoding="async"><figcaption>La longue table</figcaption></figure>
       <figure><img src="assets/img/p-olivier-440.webp" srcset="assets/img/p-olivier-440.webp 440w, assets/img/p-olivier-760.webp 760w" sizes="(min-width:760px) 32vw, 100vw" width="440" height="551" alt="Les branches d’olivier au-dessus des verres verts" loading="lazy" decoding="async"><figcaption>L’olivier</figcaption></figure>
       <figure><img src="assets/img/p-table-440.webp" srcset="assets/img/p-table-440.webp 440w, assets/img/p-table-760.webp 760w" sizes="(min-width:760px) 32vw, 100vw" width="440" height="551" alt="La grande table ronde et sa corbeille de légumes" loading="lazy" decoding="async"><figcaption>La grande table</figcaption></figure>
@@ -287,11 +295,30 @@ var t=localStorage.getItem('lm-theme');if(t==='dark'||t==='light')d.setAttribute
       <ul class="ticks" data-group-points data-reveal style="--d:.1s"></ul>
       <p style="margin-top:32px" data-reveal><a class="btn" href="groupes.html" data-label="Groupes">Demander un devis</a></p>
     </div>
-    <figure class="figure figure--tall" data-reveal>
-      <img src="assets/img/p-table-440.webp" srcset="assets/img/p-table-440.webp 440w, assets/img/p-table-760.webp 760w" sizes="(min-width:900px) 44vw, 100vw" width="440" height="551" alt="La grande table ronde dressée pour un groupe" loading="lazy" decoding="async">
+    <figure class="figure figure--framed bleed-r" data-reveal>
+      <img src="assets/img/p-table-440.webp" srcset="assets/img/p-table-440.webp 440w, assets/img/p-table-760.webp 760w" sizes="(min-width:900px) 50vw, 100vw" width="440" height="551" alt="La grande table ronde dressée pour un groupe" loading="lazy" decoding="async">
       <span class="figure__frame" aria-hidden="true"></span>
       <figcaption>La grande table, dressée</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- Une page claire a besoin d'un point d'ancrage sombre, sinon elle
+     s'étale. Cette bande photographique fait respirer la fin de page
+     et porte l'appel à réserver, juste avant les informations pratiques. -->
+<section class="book" aria-labelledby="home-book">
+  <div class="book__bg"><img src="assets/img/quote-1280.webp" srcset="assets/img/quote-760.webp 760w, assets/img/quote-1280.webp 1280w" sizes="100vw" width="1280" height="718" alt="" loading="lazy" decoding="async"></div>
+  <div class="container">
+    <div>
+      <span class="eyebrow" data-reveal>Réserver</span>
+      <h2 style="margin-top:16px" data-reveal><span id="home-book">Une table, <em>et la mer devant.</em></span></h2>
+      <p class="lead" data-reveal style="--d:.08s">Un appel suffit. Nous confirmons chaque table de vive voix — c’est plus sûr, et c’est l’occasion de nous dire si vous venez pour le coucher de soleil.</p>
+      <div class="actions" data-reveal style="margin-top:34px;--d:.1s">
+        <a class="btn" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>Appeler le 04 67 53 33 40</a>
+        <a class="btn btn--ghost" href="reservation.html" data-label="Réservation">Être rappelé</a>
+      </div>
+      <p class="notice" data-reveal style="margin-top:24px">À partir de douze personnes, passez plutôt par les formules groupes — <a class="link" href="groupes.html" data-label="Groupes">voir les formules</a>.</p>
+    </div>
   </div>
 </section>
 

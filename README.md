@@ -52,15 +52,15 @@ visiteur avec le message pré-rempli.
 
 ```
 index.html … 404.html      pages générées (à servir)
-assets/css/main.css        styles (thème noir & or, fine dining)
+assets/css/main.css        styles (sable & or, thème sombre en option, outils de composition)
 assets/js/data.js          données modifiables
-assets/js/app.js           préloader, transitions 3D, curseur, nav, statut horaires, carte, galerie, réservation, contact
+assets/js/app.js           préloader, navigation, langue, thème, saisons, coucher de soleil, carte, galerie, réservation, contact
 assets/fonts/              Bodoni Moda & Jost (variables, sous-ensemble français), licence OFL
 assets/img/ · assets/video/ photos (WebP, 2 tailles + LQIP) et vidéo héro (H.264, boucle aller-retour)
 src/layout.html            gabarit commun (head SEO, JSON-LD Restaurant, nav, footer)
 src/partials/*.html        nav, footer, préloader
 src/pages/*.html           contenu de chaque page (avec en-tête `---`)
-tools/build.py             régénère les pages + sitemap.xml
+tools/build.py             régénère les pages + sitemap.xml, et vérifie l'équilibre des balises
 sw.js                      service worker (cache des ressources, hors-ligne léger)
 ```
 
@@ -131,18 +131,44 @@ Tout passe par des jetons CSS définis deux fois, sur `:root` puis sur
 | --- | --- |
 | `--bg`, `--surface`, `--surface-2/3` | les fonds |
 | `--fg`, `--fg-2`, `--fg-3` | les trois niveaux de texte |
-| `--gold`, `--gold-2` | l'or — plus sombre en clair, plus lumineux en sombre |
+| `--gold`, `--gold-2` | l'or du texte — plus sombre en clair, plus lumineux en sombre |
+| `--gold-lg` | l'or **des grands chiffres uniquement** (heure du coucher, prix des formules, millésimes). Plus vif que `--gold` : à cette taille le seuil de contraste est de 3:1, pas 4,5:1. Ne jamais l'employer sous 24 px |
+| `--shad-1`, `--shad-2` | le relief. En clair, une ombre chaude et très diffuse (la lumière rase du Sud) ; en sombre, une ombre neutre presque invisible |
+| `--grain` | l'opacité du grain de papier |
 | `--line`, `--line-2`, `--line-gold` | les filets |
 | `--bg-rgb`, `--fg-rgb` | les mêmes en composantes, pour les fonds translucides |
+| `--scrim-rgb` | le voile posé sur les photographies |
 | `--glow-1/2` | la lueur de la bande du coucher de soleil |
 | `--ok`, `--ko`, `--err` | ouvert, fermé, erreur de formulaire |
 
-Deux règles importantes, qui expliquent le reste de la feuille de style :
+### Ce qui fait tenir une page claire
 
-**`--scrim-rgb` ne change jamais.** C'est le voile posé *sur les
-photographies*. Une photo ne s'éclaircit pas quand on change de thème : le
-héro, les en-têtes illustrés et les légendes gardent donc un voile sombre et un
-texte clair dans les deux cas.
+Un thème clair n'est pas le thème sombre avec un fond blanc : sans matière,
+il s'aplatit. Trois dispositifs l'en empêchent.
+
+**Le grain.** Une trame de bruit fixe (`body::after`, un SVG `feTurbulence` en
+ligne, ~1 Ko) posée en fondu multiplicatif sur toute la page. L'aplat de sable
+devient du papier. Aucun fichier à charger, aucun recalcul : l'élément ne bouge
+jamais.
+
+**Le relief.** Les ombres sont réservées à ce qui est réellement *posé* sur la
+page — une formule, un récapitulatif, un calendrier, la carte d'itinéraire. Le
+reste tient au filet. Une page où tout porte une ombre est une page où rien
+n'en porte.
+
+**Les photographies respirent.** Le voile (`--scrim-rgb`) reste sombre dans les
+deux thèmes — une photo ne s'éclaircit pas quand on change de thème, et le
+texte blanc qu'elle porte doit rester lisible. Mais il est **chaud en clair**
+(`26,17,6`, un brun) et **neutre en sombre** (`10,10,9`), et surtout beaucoup
+plus léger qu'avant : au-dessus du héro il ne dépasse plus 0,34 d'opacité. La
+salle, les tables et la canisse redeviennent visibles au lieu d'être noyées.
+
+Sur une photographie, le texte suit ses propres règles : blanc cassé pour le
+corps, `#E0C795` pour l'or et les italiques, `#C9C2B6` pour les mentions. Elles
+sont regroupées en fin de feuille de style, sous « Texte posé sur une
+photographie » — tout élément ajouté dans un `.hero`, un `.book`, un
+`.page-head--media` ou une `.quote-band` doit y être déclaré, sinon il hérite
+d'une couleur pensée pour le sable et disparaît dans l'image.
 
 **La barre de navigation s'inverse au-dessus d'une image.** Tant qu'on n'a pas
 défilé (`.nav:not(.is-solid)`) sur une page à héro, son texte est clair, même
@@ -160,6 +186,43 @@ réglage du système d'exploitation, ajoutez :
   :root:not([data-theme="light"]){ /* recopier ici le bloc sombre */ }
 }
 ```
+
+## Mise en page : les outils de composition
+
+Une page se lit à son rythme, pas à sa grille. Le piège d'un site assemblé
+vite, c'est que chaque section reprenne la même structure — un titre calé à
+gauche, trois tuiles égales séparées d'un filet d'un pixel, et ainsi de suite
+huit fois. Tout est aligné, et rien n'est composé.
+
+Cinq classes servent à casser cette régularité. Elles sont utilisables sur
+n'importe quelle page, sans toucher au JavaScript.
+
+| Classe | Sur quoi | Effet |
+| --- | --- | --- |
+| `.section-head--hang` | un `.section-head` | le numéro (`.idx`) ou le sur-titre (`.eyebrow`) passe dans une colonne de marge, sous un filet d'or ; le titre démarre plus à droite. Au-delà de 1240 px, le chapeau remonte à droite du titre, sur sa ligne de pied |
+| `.section-head--wide` | un `.section-head` | titre à gauche, chapeau à droite, alignés par le bas |
+| `.bleed-l` / `.bleed-r` | une figure, une bande d'images | l'élément déborde du conteneur d'exactement une gouttière et va chercher le bord de l'écran. Jamais au-delà : la largeur ajoutée vaut `var(--gutter)`, qui est aussi la marge du conteneur. Actif à partir de 900 px ; la légende, elle, reste dans la colonne de texte |
+| `.figure--framed` | une figure | un angle d'or en saillie derrière la photographie, dans la gouttière |
+| `.dual` | un conteneur | en-tête à gauche, photographie à droite, alignés par le bas |
+| `.strip--edito` | une `.strip` | une grande verticale à gauche, deux vues serrées à droite, au lieu de trois vignettes identiques |
+| `.section--air` | une `.section` | respiration plus large, pour rompre la cadence |
+
+Trois grilles ont été recomposées directement dans la feuille de style, sans
+classe supplémentaire :
+
+- **`.moments`** (les trois moments de la journée) : colonnes inégales, départs
+  décalés, filet en tête de chaque colonne — et l'ardoise du midi, celle qui
+  compte, posée en relief au milieu. En colonne unique, une liste réglée.
+- **`.revs`** (les avis) : des citations posées sur le papier, décalées les
+  unes des autres, sans encadré.
+- **`.gforms`, `.values`, `.contact-cards`, `.rituals`** : les tuiles collées
+  bord à bord deviennent des blocs détachés avec une vraie ombre ; la formule
+  du milieu monte d'un cran.
+
+Un repère utile quand on ajoute une section : **si elle commence comme la
+précédente, elle est mal placée.** Alterner `--hang` et `--wide`, faire
+déborder une image sur deux, et laisser une bande photographique sombre
+(`.book`) tous les cinq ou six écrans pour ancrer la page.
 
 ## Bilingue : français et anglais
 

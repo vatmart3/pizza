@@ -103,3 +103,46 @@ urls = ''.join(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + urls + '</urlset>\n', encoding='utf-8')
 print('✓ sitemap.xml — %d fichiers écrits, %d adresses indexées' % (built, len(pages)))
+
+
+# ----------------------------------------------------------------------
+# Contrôle d'équilibre des balises de bloc.
+#
+# Une balise jamais refermée ne casse pas la page : le navigateur la
+# rattrape en silence, en imbriquant ce qui suit. Le texte reste lisible,
+# et la mise en page est fausse sans que rien ne le signale — c'est ainsi
+# que la page contact a longtemps tenu dans la moitié gauche de l'écran.
+# Le contrôle est fait ici, à chaque construction, sur le contenu produit.
+# ----------------------------------------------------------------------
+VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+        'link', 'meta', 'source', 'track', 'wbr'}
+TAG = re.compile(r'<(/?)([a-zA-Z][a-zA-Z0-9]*)\b[^>]*?(/?)>')
+
+faults = 0
+for f in sorted(list(ROOT.glob('*.html')) + list((ROOT / 'en').glob('*.html'))):
+    text = f.read_text(encoding='utf-8')
+    if '<main id="main">' not in text:
+        continue
+    body = re.sub(r'<!--.*?-->', '', text.split('<main id="main">')[1].split('</main>')[0], flags=re.S)
+    stack, err = [], None
+    for m in TAG.finditer(body):
+        closing, tag, selfclosing = m.group(1), m.group(2).lower(), m.group(3)
+        if tag in VOID or selfclosing:
+            continue
+        if not closing:
+            stack.append(tag)
+        elif not stack:
+            err = '</%s> en trop' % tag
+            break
+        elif stack[-1] != tag:
+            err = '</%s> alors que <%s> est encore ouverte' % (tag, stack[-1])
+            break
+        else:
+            stack.pop()
+    if err is None and stack:
+        err = 'jamais refermée : ' + ', '.join('<%s>' % t for t in stack)
+    if err:
+        faults += 1
+        print('✗ %s — %s' % (f.relative_to(ROOT), err))
+print('✓ balises équilibrées sur toutes les pages' if not faults
+      else '✗ %d page(s) mal formée(s) — corrigez src/pages/' % faults)

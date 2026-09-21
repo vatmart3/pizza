@@ -37,7 +37,7 @@ var l=localStorage.getItem('lm-lang');if(l){d.lang=l;}d.setAttribute('data-lang'
    en terrasse, en plein jour), sombre d'un bouton pour le service du
    soir. La préférence est partagée avec le site (clé lm-theme). ---- */
 :root{
-  --bg:#E7DFCE; --surf:#EFE9DA; --surf2:#DCD2BC;
+  --bg:#E7DFCE; --surf:#F3EEE1; --surf2:#DCD2BC; --grain:.055;
   --fg:#18140E; --fg2:#453D30; --fg3:#665C4B;
   --gold:#7A5715; --gold2:#5E4310;
   --line:rgba(24,20,14,.18); --line2:rgba(24,20,14,.09);
@@ -50,10 +50,17 @@ var l=localStorage.getItem('lm-lang');if(l){d.lang=l;}d.setAttribute('data-lang'
   --bg:#0A0A09; --surf:#131211; --surf2:#1C1A18;
   --fg:#EFEAE1; --fg2:#B3ABA0; --fg3:#8A8376;
   --gold:#C6A265; --gold2:#E0C795;
-  --line:rgba(239,234,225,.13); --line2:rgba(239,234,225,.07);
+  --line:rgba(239,234,225,.13); --line2:rgba(239,234,225,.07); --grain:.04;
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* Le même grain de papier que le reste du site : la carte scannée à
+   table doit avoir la même matière que les pages. */
+body::after{content:'';position:fixed;inset:0;z-index:70;pointer-events:none;opacity:var(--grain);
+  mix-blend-mode:multiply;background-size:180px 180px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+:root[data-theme="dark"] body::after{mix-blend-mode:screen}
+@media print{body::after{display:none}}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom)}

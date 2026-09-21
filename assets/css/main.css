@@ -24,14 +24,19 @@
    ------------------------------------------------------------------ */
 :root{
   --bg:#E7DFCE; --bg0:#E7DFCE; --bg-rgb:231,223,206;
-  --surface:#EFE9DA; --surface-2:#DCD2BC; --surface-3:#CFC3A9;
+  --surface:#F3EEE1; --surface-2:#DCD2BC; --surface-3:#CFC3A9;
   --fg:#18140E; --fg-rgb:24,20,14; --fg-2:#453D30; --fg-3:#665C4B;
-  --gold:#7A5715; --gold-2:#5E4310; --gold-dim:rgba(122,87,21,.13);
+  --gold:#7A5715; --gold-2:#5E4310; --gold-lg:#9A6A17; --gold-dim:rgba(122,87,21,.13);
   --line:rgba(24,20,14,.18); --line-2:rgba(24,20,14,.09); --line-gold:rgba(122,87,21,.4);
   --err:#96331F;
   --ok:#3A6B2F; --ko:#96432A;
-  --scrim-rgb:10,10,9;
+  --scrim-rgb:26,17,6;
   --glow-1:rgba(122,87,21,.18); --glow-2:rgba(122,87,21,.08);
+  /* Le relief. En clair, une ombre chaude et très diffuse : la lumière
+     rase du Sud, pas le halo gris des interfaces. */
+  --shad-1:0 1px 2px rgba(58,41,13,.05),0 10px 24px -16px rgba(58,41,13,.38);
+  --shad-2:0 2px 5px rgba(58,41,13,.06),0 34px 64px -34px rgba(58,41,13,.55);
+  --grain:.06;
   --gutter:clamp(20px,5vw,80px);
   --max:1320px;
   --nav-h:82px;
@@ -46,11 +51,15 @@
   --bg:#0A0A09; --bg0:#0A0A09; --bg-rgb:10,10,9;
   --surface:#121110; --surface-2:#1A1917; --surface-3:#242220;
   --fg:#EFEAE1; --fg-rgb:239,234,225; --fg-2:#B3ABA0; --fg-3:#8A8376;
-  --gold:#C6A265; --gold-2:#E0C795; --gold-dim:rgba(198,162,101,.18);
+  --gold:#C6A265; --gold-2:#E0C795; --gold-lg:#D8B87C; --gold-dim:rgba(198,162,101,.18);
   --line:rgba(239,234,225,.12); --line-2:rgba(239,234,225,.06); --line-gold:rgba(198,162,101,.3);
   --err:#D98B7A;
   --ok:#8FBF7A; --ko:#C87B62;
   --glow-1:rgba(224,199,149,.30); --glow-2:rgba(198,162,101,.10);
+  --scrim-rgb:10,10,9;
+  --shad-1:0 10px 26px -18px rgba(0,0,0,.9);
+  --shad-2:0 34px 64px -34px rgba(0,0,0,1);
+  --grain:.045;
   color-scheme:dark;
 }
 
@@ -199,7 +208,7 @@ html.no-loader .loader{display:none}
 @keyframes heroZoom{from{transform:scale(1.05)}to{transform:scale(1)}}
 .hero__media video{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
 .hero__media video.is-ready{opacity:1}
-.hero__media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--scrim-rgb),.72) 0%,rgba(var(--scrim-rgb),.3) 26%,rgba(var(--scrim-rgb),.78) 66%,rgba(var(--scrim-rgb),.97) 100%),linear-gradient(100deg,rgba(var(--scrim-rgb),.78) 0%,rgba(var(--scrim-rgb),.34) 46%,rgba(var(--scrim-rgb),.12) 100%)}
+.hero__media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--scrim-rgb),.34) 0%,rgba(var(--scrim-rgb),.10) 26%,rgba(var(--scrim-rgb),.50) 64%,rgba(var(--scrim-rgb),.86) 100%),linear-gradient(100deg,rgba(var(--scrim-rgb),.58) 0%,rgba(var(--scrim-rgb),.18) 52%,rgba(var(--scrim-rgb),0) 100%)}
 .hero__rays{display:none}
 .hero__inner{position:relative;padding-top:calc(var(--nav-h) + 40px);padding-bottom:clamp(30px,5vw,54px);display:grid;justify-items:start;max-width:820px}
 .hero__kicker{font-size:.64rem;font-weight:500;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(10px)}
@@ -238,7 +247,7 @@ html.no-loader .loader{display:none}
 .figure img{width:100%;aspect-ratio:4/3;object-fit:cover}
 .figure--tall img{aspect-ratio:3/4}
 .figure figcaption{margin-top:14px;font-size:.66rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3)}
-.figure__frame{position:absolute;inset:14px;border:1px solid rgba(255,255,255,.22);pointer-events:none}
+.figure__frame{position:absolute;inset:14px;border:1px solid rgba(255,255,255,.16);pointer-events:none}
 .facts{display:grid;gap:0;margin-top:34px;border-top:1px solid var(--line-2)}
 .facts div{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;padding:16px 0;border-bottom:1px solid var(--line-2);align-items:baseline}
 .facts dt,.facts b{font-size:.62rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
@@ -279,8 +288,8 @@ html.no-loader .loader{display:none}
 /* Bande réservation ------------------------------------------------------- */
 .book{position:relative;isolation:isolate;padding-block:clamp(64px,8vw,110px);overflow:hidden;background:var(--surface)}
 .book__bg{position:absolute;inset:0;z-index:-1}
-.book__bg img{width:100%;height:100%;object-fit:cover;object-position:center 45%;opacity:.42}
-.book__bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(var(--scrim-rgb),.96),rgba(var(--scrim-rgb),.7) 55%,rgba(var(--scrim-rgb),.5))}
+.book__bg img{width:100%;height:100%;object-fit:cover;object-position:center 45%;opacity:.7}
+.book__bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(var(--scrim-rgb),.93),rgba(var(--scrim-rgb),.66) 55%,rgba(var(--scrim-rgb),.34))}
 .book .container{display:grid;gap:clamp(30px,4vw,60px);align-items:center}
 @media(min-width:1000px){.book .container{grid-template-columns:.85fr 1.15fr}}
 .book__form{display:grid;gap:10px;grid-template-columns:1fr}
@@ -356,7 +365,7 @@ html.no-loader .loader{display:none}
 .page-head--media{position:relative;min-height:58svh;display:grid;align-items:end;isolation:isolate;overflow:hidden;background:var(--bg)}
 .page-head--media .bg{position:absolute;inset:0;z-index:-1}
 .page-head--media .bg img{width:100%;height:100%;object-fit:cover;animation:heroZoom 20s var(--ease) forwards}
-.page-head--media .bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--scrim-rgb),.72),rgba(var(--scrim-rgb),.34) 38%,rgba(var(--scrim-rgb),.82) 78%,var(--bg)),linear-gradient(100deg,rgba(var(--scrim-rgb),.72),rgba(var(--scrim-rgb),.28) 55%,rgba(var(--scrim-rgb),.08))}
+.page-head--media .bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--scrim-rgb),.36),rgba(var(--scrim-rgb),.14) 38%,rgba(var(--scrim-rgb),.74) 74%,rgba(var(--scrim-rgb),.88) 88%,var(--bg)),linear-gradient(100deg,rgba(var(--scrim-rgb),.6),rgba(var(--scrim-rgb),.2) 55%,rgba(var(--scrim-rgb),0))}
 .crumbs{display:flex;gap:10px;font-size:.6rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3);margin-bottom:22px}
 .crumbs a:hover{color:var(--gold)}
 
@@ -725,7 +734,7 @@ html.no-loader .loader{display:none}
 .sunband{position:relative;isolation:isolate;overflow:hidden;
   padding-block:clamp(60px,9vw,110px);background:var(--bg)}
 .sunband::before{content:'';position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(120% 130% at 88% 112%,var(--glow-1),var(--glow-2) 42%,transparent 68%),
+  background:radial-gradient(76% 108% at 84% 96%,var(--glow-1),var(--glow-2) 46%,transparent 72%),
              linear-gradient(180deg,var(--surface),var(--bg) 78%)}
 .sunband::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line-2);z-index:-1}
 .sunband h2{font-size:clamp(1.9rem,4.6vw,3.2rem);margin-top:14px;max-width:16ch}
@@ -782,6 +791,10 @@ html.no-loader .loader{display:none}
 .hero .status,.hero__scroll{color:#C9C2B6}
 .lightbox__cap,.lightbox__count{color:#C9C2B6}
 .book .btn--ghost{--b-fg:#EFEAE1;--b-line:rgba(255,255,255,.28)}
+.book .notice,.page-head--media .notice,.hero .notice{color:#C9C2B6}
+.book .notice b,.page-head--media .notice b{color:#EFEAE1}
+.book .link,.page-head--media .link{color:#E0C795;border-bottom-color:rgba(224,199,149,.45)}
+.book .link:hover,.page-head--media .link:hover{color:#F0DCB6;border-bottom-color:#E0C795}
 .hero .btn--ghost{--b-fg:#EFEAE1;--b-line:rgba(255,255,255,.28)}
 
 /* ============================================================
@@ -816,3 +829,202 @@ html.no-loader .loader{display:none}
 .has-hero .nav:not(.is-solid) .nav__cta{--b-fg:#EFEAE1;--b-line:rgba(255,255,255,.3)}
 .has-hero .nav:not(.is-solid) .nav__cta:hover{--b-fg:var(--bg0)}
 .has-hero .nav:not(.is-solid) .burger i{background:#EFEAE1}
+
+/* ============================================================
+   LUMIÈRE
+   Le thème clair ne doit pas être le thème sombre avec un fond
+   blanc. Ce qui fait tenir une page claire, c'est la matière :
+   un grain de papier, des ombres chaudes très diffuses, et des
+   photographies qui respirent au lieu d'être noyées sous un
+   voile noir.
+   ============================================================ */
+
+/* Le grain. Une trame de bruit fixe, en fondu multiplicatif :
+   elle transforme l'aplat de sable en papier. 1,2 Ko, aucun
+   fichier à charger, aucun repaint (l'élément ne bouge jamais). */
+body::after{content:'';position:fixed;inset:0;z-index:700;pointer-events:none;
+  opacity:var(--grain);mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px}
+:root[data-theme="dark"] body::after{mix-blend-mode:screen}
+@media print{body::after{display:none}}
+
+/* Les aplats de surface deviennent des dégradés très lents :
+   un mur de sable reçoit la lumière, il n'est pas uniforme. */
+.section--surface{background:linear-gradient(180deg,var(--surface),var(--surface) 62%,rgba(var(--bg-rgb),.55));
+  box-shadow:inset 0 1px 0 var(--line-2),inset 0 -1px 0 var(--line-2)}
+
+/* La jonction héro / page : une ligne d'or, pas une coupure nette. */
+.essentials{box-shadow:inset 0 1px 0 var(--line-gold),inset 0 -1px 0 var(--line)}
+
+/* Le relief, réservé à ce qui est réellement posé sur la page. */
+.formula,.callout,.summary,.cal,.ticket,.locate{box-shadow:inset 0 0 0 1px var(--line),var(--shad-1)}
+.ticket{box-shadow:inset 0 0 0 1px var(--line-gold),var(--shad-2)}
+.gform,.ccard{box-shadow:var(--shad-1)}
+
+/* Les grands chiffres d'or (heure du coucher, prix des formules,
+   tarifs) peuvent respirer une teinte plus vive : à cette taille
+   le contraste reste largement au-dessus du seuil. */
+.sunband__t b,.gform__p,.ess__c--sun .ess__v b,.timeline .y,.nf .num,.ritual__time{color:var(--gold-lg)}
+
+/* ============================================================
+   MISE EN PAGE
+   Une page se lit à son rythme, pas à sa grille. Les blocs ne
+   commencent plus tous au même endroit : le numéro de section
+   passe dans une colonne de marge, les cartes se décalent, les
+   photographies dépassent du cadre. C'est ce décalage qui
+   distingue une page composée d'une page assemblée.
+   ============================================================ */
+
+/* Numéro de section suspendu dans une colonne de marge. */
+@media(min-width:960px){
+  .section-head--hang{grid-template-columns:clamp(116px,10vw,172px) minmax(0,1fr);
+    column-gap:clamp(24px,3vw,48px);max-width:none;align-items:start}
+  .section-head--hang .idx,.section-head--hang .eyebrow{grid-column:1;grid-row:1/span 3;align-self:start;letter-spacing:.17em;
+    padding-top:14px;line-height:1.9;border-top:1px solid var(--line-gold);color:var(--gold)}
+  .section-head--hang h2,.section-head--hang .lead{grid-column:2;max-width:22ch}
+  .section-head--hang .lead{max-width:54ch;margin-top:8px}
+}
+/* Au-delà, le chapeau remonte à droite du titre, sur sa ligne de pied :
+   la largeur est occupée, sans que rien ne soit centré. */
+@media(min-width:1240px){
+  .section-head--hang{grid-template-columns:clamp(116px,10vw,172px) minmax(0,1.1fr) minmax(0,.9fr)}
+  .section-head--hang .idx,.section-head--hang .eyebrow{grid-row:1}
+  .section-head--hang h2{grid-column:2;grid-row:1}
+  .section-head--hang .lead{grid-column:3;grid-row:1;align-self:end;margin:0 0 .55em;max-width:38ch}
+}
+
+/* Titre à gauche, chapeau à droite, alignés sur la même ligne de pied. */
+@media(min-width:1040px){
+  .section-head--wide{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+    column-gap:clamp(40px,6vw,96px);max-width:none;align-items:end}
+  .section-head--wide .idx,.section-head--wide .eyebrow{grid-column:1/-1}
+  .section-head--wide h2{grid-column:1;margin:0}
+  .section-head--wide .lead{grid-column:2;margin-bottom:.45em;max-width:40ch}
+}
+
+/* Les trois moments de la journée : un programme imprimé, pas
+   trois tuiles identiques. Colonnes inégales, départs décalés,
+   et l'ardoise du midi posée en relief au milieu. */
+@media(min-width:780px){
+  .moments{grid-template-columns:1.04fr .96fr 1fr;background:none;
+    column-gap:clamp(26px,3.2vw,54px);row-gap:0;align-items:start}
+  .moments .moment{background:none;padding:0;padding-top:24px;border-top:1px solid var(--line)}
+  .moments .moment:nth-child(2){margin-top:clamp(30px,4.4vw,64px)}
+  .moments .moment:nth-child(3){margin-top:clamp(12px,1.8vw,26px)}
+  .moments .moment--on{background:var(--surface);box-shadow:var(--shad-2);
+    border-top:2px solid var(--gold);padding:clamp(24px,2.4vw,32px)}
+  .section--surface .moments .moment--on{background:var(--bg)}
+}
+/* Le libellé horaire reste sur l'or foncé : à 10 px, l'or vif ne
+   tiendrait pas le seuil de lisibilité. */
+
+/* Les avis : des citations posées sur le papier, décalées les
+   unes des autres, avec le guillemet en saillie dans la marge. */
+@media(min-width:1040px){
+  .revs{background:none;gap:clamp(26px,3vw,50px)}
+  .revs .rev{background:none;padding:0;padding-top:24px;border-top:1px solid var(--line)}
+  .section--surface .revs .rev{background:none}
+  .revs .rev:nth-child(3n+2){margin-top:clamp(28px,3.6vw,58px)}
+  .revs .rev:nth-child(3n){margin-top:clamp(12px,1.6vw,26px)}
+}
+
+/* Photographies qui dépassent du cadre, d'un côté ou de l'autre.
+   La largeur ajoutée vaut exactement la gouttière : l'image
+   atteint le bord de l'écran, jamais au-delà. */
+@media(min-width:900px){
+  .bleed-r{width:calc(100% + var(--gutter));max-width:none}
+  .bleed-l{width:calc(100% + var(--gutter));max-width:none;margin-left:calc(var(--gutter) * -1)}
+  /* La légende, elle, revient dans la colonne de texte. */
+  .bleed-l > figcaption{padding-left:var(--gutter)}
+  .bleed-r > figcaption{padding-right:var(--gutter)}
+}
+
+/* Un angle d'or en saillie derrière la photographie. */
+.figure--framed::before{content:'';position:absolute;left:-16px;top:-16px;
+  width:44%;height:42%;border-left:1px solid var(--line-gold);
+  border-top:1px solid var(--line-gold);pointer-events:none}
+
+/* La bande d'images : une grande verticale, deux vues serrées. */
+@media(min-width:900px){
+  .strip--edito{grid-template-columns:1.42fr 1fr;
+    grid-template-rows:minmax(0,1.06fr) minmax(0,1fr);
+    gap:clamp(12px,1.4vw,22px);height:clamp(460px,46vw,680px)}
+  .strip--edito figure{display:grid;min-height:0}
+  .strip--edito figure:first-child{grid-row:1/3}
+  .strip--edito figure img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
+}
+
+/* L'essentiel : le coucher de soleil est l'information qu'on
+   vient chercher, il occupe deux fois plus de place. */
+@media(min-width:1040px){
+  .ess{grid-template-columns:repeat(5,1fr)}
+  .ess__c--sun{grid-column:span 2}
+}
+
+/* Respiration variable d'une section à l'autre. */
+.section--air{padding-block:clamp(84px,11vw,166px)}
+
+/* En-tête et photographie côte à côte, la seconde jusqu'au bord. */
+.dual{display:grid;gap:clamp(28px,4vw,52px);align-items:end}
+.dual .section-head{margin-bottom:0}
+.dual + .extract{margin-top:clamp(40px,5vw,72px)}
+@media(min-width:960px){
+  .dual{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);column-gap:clamp(40px,5vw,84px)}
+  .dual .figure img{aspect-ratio:3/2}
+}
+
+/* L'italique d'or, posé sur une photographie, suit la règle des
+   photographies : il s'éclaircit, sinon il disparaît dans l'image. */
+.hero__title em,.page-head--media h1 em,.page-head--media .lead em,
+.book h2 em,.quote-band em,.strip figcaption em{color:#E0C795}
+
+/* L'heure du coucher part au bord droit, le conseil reste à gauche :
+   la bande se lit d'un bout à l'autre au lieu de s'entasser à gauche. */
+@media(min-width:860px){
+  .sunband__row{grid-template-columns:minmax(0,1fr) auto;align-items:end;
+    column-gap:clamp(40px,6vw,90px)}
+  .sunband__t{order:2;justify-items:end;text-align:right}
+  .sunband__t b{font-size:clamp(4rem,11vw,7rem)}
+}
+
+/* En colonne unique, les trois moments deviennent une liste réglée :
+   pas de tuiles bord à bord, l'ardoise du midi reste en relief. */
+@media(max-width:779px){
+  .moments{background:none;gap:0}
+  .moments .moment{background:none;padding:26px 0 30px;border-top:1px solid var(--line)}
+  .moments .moment--on{background:var(--surface);box-shadow:var(--shad-1);
+    border-top:2px solid var(--gold);padding:26px 22px 30px;margin-block:8px}
+  .section--surface .moments .moment--on{background:var(--bg)}
+}
+
+/* ------------------------------------------------------------------
+   Les grilles de tuiles collées, séparées d'un filet d'un pixel,
+   sont la signature d'une page assemblée à la chaîne. Les blocs se
+   détachent, respirent, et celui qui compte se met en avant.
+   ------------------------------------------------------------------ */
+@media(min-width:760px){
+  .gforms,.values,.contact-cards,.rituals{background:none;gap:clamp(16px,1.9vw,28px);align-items:start}
+  .gform,.value,.ccard,.ritual{background:var(--surface);box-shadow:var(--shad-1)}
+  .section--surface .value,.section--surface .ritual{background:var(--bg)}
+  /* La formule du milieu est celle qu'on choisit le plus : elle monte. */
+  .gforms .gform:nth-child(2){box-shadow:var(--shad-2);border-top:2px solid var(--gold);
+    margin-top:calc(-1 * clamp(10px,1.4vw,22px));padding-bottom:clamp(34px,3.6vw,48px)}
+}
+/* Les rituels gardent leur photographie au survol : le fond reste
+   opaque pour que le texte ne se mélange pas à l'image. */
+.ritual{overflow:hidden}
+
+/* La tuile du coucher de soleil est posée sur un sable plus soutenu :
+   son texte descend d'un cran pour rester au-dessus du seuil AA. */
+.ess__c--sun .ess__k{color:var(--gold-2)}
+.ess__c--sun .ess__d{color:var(--fg-2)}
+
+/* En colonne unique, le texte occupe toute la largeur : le voile des
+   bandes photographiques passe du dégradé latéral à un voile plein,
+   sinon la fin des lignes tombe sur la partie claire de l'image. */
+@media(max-width:899px){
+  .book__bg::after{background:linear-gradient(180deg,rgba(var(--scrim-rgb),.88),rgba(var(--scrim-rgb),.8))}
+  .hero__media::after{background:linear-gradient(180deg,rgba(var(--scrim-rgb),.42) 0%,rgba(var(--scrim-rgb),.22) 24%,rgba(var(--scrim-rgb),.66) 58%,rgba(var(--scrim-rgb),.9) 100%)}
+  .page-head--media .bg::after{background:linear-gradient(180deg,rgba(var(--scrim-rgb),.5),rgba(var(--scrim-rgb),.3) 32%,rgba(var(--scrim-rgb),.8) 76%,var(--bg))}
+}

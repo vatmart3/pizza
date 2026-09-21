@@ -57,7 +57,7 @@ preload: <link rel="preload" as="image" href="assets/img/hero-1280.webp" imagesr
 
 <section class="section" id="journee" aria-labelledby="jour-t">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head section-head--hang">
       <span class="idx" data-reveal>01 — [[Une journée ici||A day here]]</span>
       <h2 data-reveal style="--d:.04s"><span id="jour-t">[[Du premier café <em>au dernier verre</em>||From the first coffee <em>to the last glass</em>]]</span></h2>
       <p class="lead" data-reveal style="--d:.08s">[[La Mesa ouvre à 8h30 et ne referme qu’à la nuit. Trois moments, trois façons d’être à table.||La Mesa opens at 8.30 am and only closes at nightfall. Three moments, three ways to be at the table.]]</p>
@@ -87,9 +87,17 @@ preload: <link rel="preload" as="image" href="assets/img/hero-1280.webp" imagesr
 
 <section class="section section--surface" id="carte" aria-labelledby="carte-t">
   <div class="container">
-    <div class="section-head">
-      <span class="idx" data-reveal>02 — [[La carte||The menu]]</span>
-      <h2 data-reveal style="--d:.04s"><span id="carte-t">[[Ce que l’on sert <em>aujourd’hui</em>||What we serve <em>today</em>]]</span></h2>
+    <div class="dual">
+      <div class="section-head">
+        <span class="idx" data-reveal>02 — [[La carte||The menu]]</span>
+        <h2 data-reveal style="--d:.04s"><span id="carte-t">[[Ce que l’on sert <em>aujourd’hui</em>||What we serve <em>today</em>]]</span></h2>
+        <p class="lead" data-reveal style="--d:.08s">[[Des assiettes pensées pour le centre de la table. L’ardoise change chaque jour ; voici ce qui revient le plus souvent.||Plates made for the middle of the table. The slate changes every day; here is what comes back most often.]]</p>
+      </div>
+      <figure class="figure bleed-r" data-reveal style="--d:.12s">
+        <img src="assets/img/book-760.webp" srcset="assets/img/book-760.webp 760w, assets/img/book-1280.webp 1280w" sizes="(min-width:960px) 52vw, 100vw" width="1280" height="718" alt="[[La grande table ronde et sa corbeille de poivrons, au centre de la salle||The large round table and its basket of peppers, in the middle of the room]]" loading="lazy" decoding="async">
+        <span class="figure__frame" aria-hidden="true"></span>
+        <figcaption>[[Le plat du milieu, celui qu’on partage||The middle dish, the one you share]]</figcaption>
+      </figure>
     </div>
     <div class="extract" data-extract data-reveal style="--d:.1s"></div>
     <div class="extract__foot" data-reveal>
@@ -120,9 +128,9 @@ preload: <link rel="preload" as="image" href="assets/img/hero-1280.webp" imagesr
   </div>
 </section>
 
-<section class="section" id="le-lieu" aria-labelledby="lieu-t">
+<section class="section section--air" id="le-lieu" aria-labelledby="lieu-t">
   <div class="container split split--wide split--top">
-    <figure class="figure" data-reveal>
+    <figure class="figure bleed-l" data-reveal>
       <img src="assets/img/salle-760.webp" srcset="assets/img/salle-760.webp 760w, assets/img/salle-1280.webp 1280w" sizes="(min-width:900px) 52vw, 100vw" width="1280" height="718" alt="[[L’olivier et la cuisine ouverte au fond de la salle||The olive tree and the open kitchen at the back of the room]]" loading="lazy" decoding="async">
       <span class="figure__frame" aria-hidden="true"></span>
       <figcaption>[[La salle, en fin de matinée||The dining room, late morning]]</figcaption>
@@ -152,7 +160,7 @@ preload: <link rel="preload" as="image" href="assets/img/hero-1280.webp" imagesr
     </div>
   </div>
   <div class="container">
-    <div class="strip" data-reveal>
+    <div class="strip strip--edito bleed-r" data-reveal>
       <figure><img src="assets/img/p-longue-440.webp" srcset="assets/img/p-longue-440.webp 440w, assets/img/p-longue-760.webp 760w" sizes="(min-width:760px) 32vw, 100vw" width="440" height="551" alt="[[La longue table de bois qui file vers la cuisine||The long wooden table running towards the kitchen]]" loading="lazy" decoding="async"><figcaption>[[La longue table||The long table]]</figcaption></figure>
       <figure><img src="assets/img/p-olivier-440.webp" srcset="assets/img/p-olivier-440.webp 440w, assets/img/p-olivier-760.webp 760w" sizes="(min-width:760px) 32vw, 100vw" width="440" height="551" alt="[[Les branches d’olivier au-dessus des verres verts||Olive branches above the green glasses]]" loading="lazy" decoding="async"><figcaption>[[L’olivier||The olive tree]]</figcaption></figure>
       <figure><img src="assets/img/p-table-440.webp" srcset="assets/img/p-table-440.webp 440w, assets/img/p-table-760.webp 760w" sizes="(min-width:760px) 32vw, 100vw" width="440" height="551" alt="[[La grande table ronde et sa corbeille de légumes||The large round table and its basket of vegetables]]" loading="lazy" decoding="async"><figcaption>[[La grande table||The big table]]</figcaption></figure>
@@ -183,11 +191,30 @@ preload: <link rel="preload" as="image" href="assets/img/hero-1280.webp" imagesr
       <ul class="ticks" data-group-points data-reveal style="--d:.1s"></ul>
       <p style="margin-top:32px" data-reveal><a class="btn" href="groupes.html" data-label="[[Groupes||Groups]]">[[Demander un devis||Request a quote]]</a></p>
     </div>
-    <figure class="figure figure--tall" data-reveal>
-      <img src="assets/img/p-table-440.webp" srcset="assets/img/p-table-440.webp 440w, assets/img/p-table-760.webp 760w" sizes="(min-width:900px) 44vw, 100vw" width="440" height="551" alt="[[La grande table ronde dressée pour un groupe||The large round table laid for a group]]" loading="lazy" decoding="async">
+    <figure class="figure figure--framed bleed-r" data-reveal>
+      <img src="assets/img/p-table-440.webp" srcset="assets/img/p-table-440.webp 440w, assets/img/p-table-760.webp 760w" sizes="(min-width:900px) 50vw, 100vw" width="440" height="551" alt="[[La grande table ronde dressée pour un groupe||The large round table laid for a group]]" loading="lazy" decoding="async">
       <span class="figure__frame" aria-hidden="true"></span>
       <figcaption>[[La grande table, dressée||The big table, laid]]</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- Une page claire a besoin d'un point d'ancrage sombre, sinon elle
+     s'étale. Cette bande photographique fait respirer la fin de page
+     et porte l'appel à réserver, juste avant les informations pratiques. -->
+<section class="book" aria-labelledby="home-book">
+  <div class="book__bg"><img src="assets/img/quote-1280.webp" srcset="assets/img/quote-760.webp 760w, assets/img/quote-1280.webp 1280w" sizes="100vw" width="1280" height="718" alt="" loading="lazy" decoding="async"></div>
+  <div class="container">
+    <div>
+      <span class="eyebrow" data-reveal>[[Réserver||Book]]</span>
+      <h2 style="margin-top:16px" data-reveal><span id="home-book">[[Une table, <em>et la mer devant.</em>||A table, <em>with the sea in front.</em>]]</span></h2>
+      <p class="lead" data-reveal style="--d:.08s">[[Un appel suffit. Nous confirmons chaque table de vive voix — c’est plus sûr, et c’est l’occasion de nous dire si vous venez pour le coucher de soleil.||One call is enough. We confirm every table by voice — it is safer, and it is the moment to tell us if you are coming for the sunset.]]</p>
+      <div class="actions" data-reveal style="margin-top:34px;--d:.1s">
+        <a class="btn" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>[[Appeler le 04 67 53 33 40||Call +33 4 67 53 33 40]]</a>
+        <a class="btn btn--ghost" href="reservation.html" data-label="[[Réservation||Booking]]">[[Être rappelé||Request a call back]]</a>
+      </div>
+      <p class="notice" data-reveal style="margin-top:24px">[[À partir de douze personnes, passez plutôt par les formules groupes —||From twelve people, go through the group packages —]] <a class="link" href="groupes.html" data-label="[[Groupes||Groups]]">[[voir les formules||see the packages]]</a>.</p>
+    </div>
   </div>
 </section>
 
