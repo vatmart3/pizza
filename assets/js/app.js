@@ -40,42 +40,95 @@
   };
   window.LM = window.LM || {}; LM.toast = toast;
 
-  /* ------------------------------------------------ 2. horaires & infos */
+  /* --------------------------------------- 2. saison, horaires & infos */
+  /* Le restaurant vit au rythme de l'annee : pleine saison, arriere-saison,
+     puis fermeture hivernale. Les horaires sont toujours lus a travers la
+     saison de la date concernee, jamais dans une table figee. */
+  const mmdd = d => pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  const inPeriod = (k, from, to) => from <= to ? (k >= from && k <= to) : (k >= from || k <= to);
+  const periods = () => (LM.season && LM.season.periods) || [];
+  const season = (when = new Date()) => periods().find(p => inPeriod(mmdd(when), p.from, p.to)) || null;
+  const seasonHours = (when) => { const s = season(when); return (s && s.hours) || {}; };
+  const hoursOn = dt => seasonHours(dt)[dt.getDay()] || null;
+  const isShut = (when) => { const s = season(when); return !!(s && s.closed); };
+  /* Date de reouverture, ecrite en toutes lettres. */
+  const reopenParts = () => {
+    const [m, d] = String((LM.season && LM.season.reopen) || '').split('-').map(Number);
+    if (!m) return null;
+    const now = new Date();
+    let y = now.getFullYear();
+    if (new Date(y, m - 1, d) <= now) y++;
+    return { date: new Date(y, m - 1, d), text: `${d === 1 ? '1\u1D49\u02B3' : d} ${LM.monthNames[m - 1]}` };
+  };
+  /* Saison a afficher dans la grille d'horaires : pendant la fermeture,
+     on montre celle qui reprend, pour que le visiteur sache a quoi s'attendre. */
+  const gridSeason = () => {
+    const s = season();
+    if (!s || !s.closed) return s;
+    const r = reopenParts();
+    return (r && season(r.date)) || periods().find(p => !p.closed) || s;
+  };
+
   const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
-  const dayRanges = d => (LM.hours[d] || []).map(([a, b]) => { const A = toMin(a); let B = toMin(b); if (B <= A) B += 1440; return [A, B]; });
+  const dayRanges = (d, when) => (seasonHours(when)[d] || []).map(([a, b]) => { const A = toMin(a); let B = toMin(b); if (B <= A) B += 1440; return [A, B]; });
   const openStatus = (now = new Date()) => {
+    if (isShut(now)) return { open: false, shut: true };
     const d = now.getDay(), m = now.getHours() * 60 + now.getMinutes();
-    for (const [, B] of dayRanges((d + 6) % 7)) if (B > 1440 && m < B - 1440) return { open: true, until: B - 1440 };
-    for (const [A, B] of dayRanges(d)) {
+    const yest = new Date(now); yest.setDate(yest.getDate() - 1);
+    for (const [, B] of dayRanges((d + 6) % 7, yest)) if (B > 1440 && m < B - 1440) return { open: true, until: B - 1440 };
+    for (const [A, B] of dayRanges(d, now)) {
       if (m >= A && m < B) return { open: true, until: B % 1440 };
       if (m < A) return { open: false, next: { day: d, at: A } };
     }
-    for (let i = 1; i <= 7; i++) { const nd = (d + i) % 7, r = dayRanges(nd); if (r.length) return { open: false, next: { day: nd, at: r[0][0] } }; }
+    for (let i = 1; i <= 7; i++) {
+      const fwd = new Date(now); fwd.setDate(fwd.getDate() + i);
+      if (isShut(fwd)) break;
+      const r = dayRanges(fwd.getDay(), fwd);
+      if (r.length) return { open: false, next: { day: fwd.getDay(), at: r[0][0] } };
+    }
     return { open: false };
   };
   const fmtMin = m => `${pad(Math.floor(m / 60) % 24)}h${pad(m % 60)}`;
   const statusText = () => {
     const s = openStatus();
     if (s.open) return { cls: 'is-open', text: `Ouvert · ferme à ${fmtMin(s.until)}` };
+    if (s.shut) { const r = reopenParts(); return { cls: 'is-shut', text: r ? `Fermé pour l’hiver · retour le ${r.text}` : 'Fermeture annuelle' }; }
     if (!s.next) return { cls: 'is-closed', text: 'Fermé' };
     const today = new Date().getDay();
     const when = s.next.day === today ? "aujourd'hui" : s.next.day === (today + 1) % 7 ? 'demain' : LM.dayNames[s.next.day].toLowerCase();
     return { cls: 'is-closed', text: `Fermé · ouvre ${when} à ${fmtMin(s.next.at)}` };
   };
   const paintStatus = () => $$('[data-status]').forEach(el => {
-    const s = statusText(); el.classList.remove('is-open', 'is-closed'); el.classList.add(s.cls);
+    const s = statusText(); el.classList.remove('is-open', 'is-closed', 'is-shut'); el.classList.add(s.cls);
     ($('[data-status-text]', el) || el).textContent = s.text;
   });
 
   /* Remplit horaires, coordonnées et liens dans un fragment donné. */
   const paintDynamic = (root = document) => {
     const today = new Date().getDay();
+    const gs = gridSeason(), shut = isShut(), reopen = reopenParts();
     $$('[data-hours]', root).forEach(el => {
+      const H = (gs && gs.hours) || {};
       el.innerHTML = [1, 2, 3, 4, 5, 6, 0].map(d => {
-        const r = LM.hours[d];
+        const r = H[d];
         const txt = r ? r.map(([a, b]) => `<span class="num">${a.replace(':', 'h')} – ${b.replace(':', 'h')}</span>`).join(' · ') : '<span>Fermé</span>';
-        return `<div class="${d === today ? 'is-today' : ''} ${r ? '' : 'is-closed'}"><span>${LM.dayNames[d]}</span>${txt}</div>`;
+        return `<div class="${(!shut && d === today) ? 'is-today' : ''} ${r ? '' : 'is-closed'}"><span>${LM.dayNames[d]}</span>${txt}</div>`;
       }).join('');
+    });
+    /* Bandeau et libellés de saison */
+    $$('[data-season]', root).forEach(el => {
+      const s = season(), k = el.dataset.season;
+      if (!s) return;
+      if (k === 'label') el.textContent = s.label;
+      else if (k === 'tag') el.textContent = s.tag || s.label;
+      else if (k === 'note') el.textContent = s.note || '';
+      else if (k === 'grid') el.textContent = gs ? gs.label : '';
+      else if (k === 'reopen') el.textContent = reopen ? reopen.text : '';
+    });
+    $$('[data-when]', root).forEach(el => {
+      const want = el.dataset.when, s = season();
+      const shown = want === 'shut' ? isShut() : want === 'open' ? !isShut() : s && s.id === want;
+      el.hidden = !shown;
     });
     $$('[data-info]', root).forEach(el => { const v = LM.info[el.dataset.info]; if (v != null) el.textContent = v; });
     $$('[data-href]', root).forEach(el => {
@@ -249,11 +302,35 @@
       f.reset(); toast('Merci ! Vous recevrez nos nouvelles une fois par mois.');
     }));
 
+    /* Mention « la carte change chaque jour » */
+    $$('[data-menu-notice]', main).forEach(el => { el.textContent = LM.menuNotice || ''; });
+    /* Accès : voiture, bus, à pied — rendu depuis les données */
+    $$('[data-access]', main).forEach(el => {
+      el.innerHTML = (LM.access || []).map(a => `<div class="acc">
+        <h3>${esc(a.label)}</h3>
+        <p>${esc(a.text)}</p>
+        <b>${esc(a.strong)}</b>
+      </div>`).join('');
+    });
+    /* Formules groupes */
+    $$('[data-groups]', main).forEach(el => {
+      const G = LM.groups || { formulas: [] };
+      el.innerHTML = G.formulas.map(f => `<div class="gform">
+        <h3>${esc(f.title)}</h3>
+        <span class="gform__p">${f.price} €<small>par personne</small></span>
+        <p>${esc(f.desc)}</p>
+      </div>`).join('');
+    });
+    $$('[data-group-points]', main).forEach(el => {
+      el.innerHTML = ((LM.groups || {}).points || []).map(t => `<li>${esc(t)}</li>`).join('');
+    });
+
     if (page === 'home') initHome(main);
     if (page === 'carte') initCarte(main);
     if (page === 'galerie') initGalerie(main);
     if (page === 'reservation') initResa(main);
-    if (page === 'contact') initContact(main);
+    if (page === 'contact' || page === 'groupes') initContact(main);
+    if (page === 'brochettes') initBrochettes(main);
 
     /* Le héro s'anime dès que la page est visible (le préloader s'en charge au 1er chargement) */
     const hero = $('.hero', main);
@@ -289,10 +366,10 @@
           <span class="dish-line__price">${it.price} €</span>
           <p>${esc(it.desc)}</p>
         </div>`).join('')}</div>`;
-      const cat = id => LM.menu.find(m => m.id === id).items;
+      const cat = id => (LM.menu.find(m => m.id === id) || { items: [] }).items;
       ex.innerHTML =
-        col('À partager', [cat('debuts')[0], cat('partager')[0], cat('partager')[1], cat('debuts')[2]]) +
-        col('La mer & la braise', [cat('mer')[0], cat('mer')[2], cat('braise')[0], cat('braise')[1]]);
+        col('L’ardoise du midi', cat('midi').slice(0, 4)) +
+        col('Les soirées brochettes', cat('brochettes').slice(0, 4));
     }
 
     /* Bande « Réservez votre table » */
@@ -307,12 +384,30 @@
       .map((c, i) => `<div class="cocktail"><span class="n">${pad(i + 1)}</span><div><b>${esc(c.name)}</b><span>${esc(c.desc)}</span></div><span class="p">${c.price} €</span></div>`).join('');
   }
 
+  /* ============================================== SOIRÉES BROCHETTES */
+  function initBrochettes(main) {
+    const ex = $('[data-extract-br]', main);
+    if (!ex) return;
+    const cat = id => (LM.menu.find(m => m.id === id) || { items: [] }).items;
+    const col = (titre, plats) => `<div class="extract__col"><h3>${esc(titre)}</h3>${plats.map(it => `
+      <div class="dish-line">
+        <span class="dish-line__name">${esc(it.name)}<span class="dish-line__lead" aria-hidden="true"></span></span>
+        <span class="dish-line__price">${it.price} €</span>
+        <p>${esc(it.desc)}</p>
+      </div>`).join('')}</div>`;
+    ex.innerHTML = col('Les brochettes', cat('brochettes')) + col('À partager avant', cat('tapas'));
+  }
+
   /* =========================================================== CARTE */
   function initCarte(main) {
     const root = $('#carte-root', main), catNav = $('.carte-nav .container', main);
     if (!root) return;
     const filters = new Set(); let q = '';
-    const price = it => it.prices ? `<b>${it.prices.verre} €</b><small>verre · ${it.prices.bouteille} € bout.</small>` : `<b>${it.price} €</b>${it.unit ? `<small>${esc(it.unit)}</small>` : ''}`;
+    const price = it => {
+      if (!it.prices) return `<b>${it.price} €</b>${it.unit ? `<small>${esc(it.unit)}</small>` : ''}`;
+      const k = Object.keys(it.prices);
+      return `<b>${it.prices[k[0]]} €</b><small>${k.map(n => `${esc(n)} ${it.prices[n]} €`).join(' · ')}</small>`;
+    };
     root.innerHTML = LM.menu.map(c => `<section class="mcat" id="${c.id}" aria-labelledby="h-${c.id}">
       <div class="mcat__head"><span class="kicker">${esc(c.kicker)}</span><h2 id="h-${c.id}">${esc(c.title)}</h2>${c.note ? `<p class="mcat__note">${esc(c.note)}</p>` : ''}</div>
       <div class="mitems">${c.items.map(it => `<article class="mitem" data-tags="${(it.tags || []).join(' ')}" data-text="${esc((it.name + ' ' + it.desc).toLowerCase())}">
@@ -426,7 +521,7 @@
     const drawSlots = () => {
       if (!S.service) { slotsEl.innerHTML = ''; return; }
       const isToday = S.date && S.date.getTime() === today.getTime(), nowM = new Date().getHours() * 60 + new Date().getMinutes();
-      const ranges = S.date ? dayRanges(S.date.getDay()) : [];
+      const ranges = S.date ? dayRanges(S.date.getDay(), S.date) : [];
       slotsEl.innerHTML = LM.services[S.service].slots.map(t => {
         const tm = toMin(t), inHours = !S.date || ranges.some(([A, B]) => tm >= A && tm + 30 <= B), past = isToday && tm < nowM + 45;
         return `<button type="button" class="slot" aria-pressed="${S.time === t}" ${(!inHours || past) ? 'disabled' : ''}>${t.replace(':', 'h')}</button>`;
@@ -441,7 +536,7 @@
       const off = (new Date(y, m, 1).getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
       let h = ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(d => `<span class="cal__dn">${d}</span>`).join('') + '<span></span>'.repeat(off);
       for (let d = 1; d <= days; d++) {
-        const dt = new Date(y, m, d), closed = !LM.hours[dt.getDay()], dis = dt < today || dt > maxDate || closed;
+        const dt = new Date(y, m, d), closed = !hoursOn(dt), dis = dt < today || dt > maxDate || closed;
         const sel = S.date && dt.getTime() === S.date.getTime();
         h += `<button type="button" class="cal__d ${closed ? 'is-closed' : ''} ${dt.getTime() === today.getTime() ? 'is-today' : ''}" ${dis ? 'disabled' : ''} aria-pressed="${sel}" data-d="${d}" aria-label="${fmtDate(dt)}${closed ? ' (fermé)' : ''}">${d}</button>`;
       }
@@ -452,7 +547,7 @@
     const qd = q.get('date');
     if (qd && /^\d{4}-\d{2}-\d{2}$/.test(qd)) {
       const [y, m, d] = qd.split('-').map(Number), dt = new Date(y, m - 1, d);
-      if (dt >= today && dt <= maxDate && LM.hours[dt.getDay()]) { S.date = dt; view = new Date(y, m - 1, 1); }
+      if (dt >= today && dt <= maxDate && hoursOn(dt)) { S.date = dt; view = new Date(y, m - 1, 1); }
     }
     if (LM.services[q.get('service')]) S.service = q.get('service');
     const qg = parseInt(q.get('guests'), 10); if (qg >= 1 && qg <= 12) S.guests = qg;
@@ -505,13 +600,21 @@
     const form = $('#contact-form', main);
     if (!form) return;
     const q = new URLSearchParams(location.search).get('objet');
-    if (q) { const sel = $('#c-subject', form); if (sel) [...sel.options].forEach(o => { if (o.value.toLowerCase() === q.toLowerCase()) sel.value = o.value; }); }
+    const sel = $('select[name=subject]', form);
+    if (q && sel) [...sel.options].forEach(o => { if (o.value.toLowerCase() === q.toLowerCase()) sel.value = o.value; });
+    const devis = form.querySelector('[name=guests]');
+    /* Pas de date passée dans une demande de devis. */
+    const gd = $('input[type=date]', form);
+    if (gd) { const t = new Date(); gd.min = `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`; }
     on(form, 'submit', async e => {
       e.preventDefault();
       if (!validate(form)) return toast('Merci de vérifier les champs en rouge.');
       const fd = new FormData(form);
-      await send(`Contact site — ${fd.get('subject')}`, [['Nom', fd.get('name')], ['E-mail', fd.get('email')], ['Téléphone', fd.get('phone') || '—'], ['Objet', fd.get('subject')], ['Message', fd.get('message')]], form);
-      form.reset(); toast('Message envoyé. Merci !');
+      const lines = [['Nom', fd.get('name')], ['E-mail', fd.get('email')], ['Téléphone', fd.get('phone') || '—'], ['Objet', fd.get('subject')]];
+      if (devis) lines.push(['Structure', fd.get('org') || '—'], ['Date souhaitée', fd.get('date') || '—'], ['Convives', fd.get('guests')]);
+      lines.push(['Message', fd.get('message')]);
+      await send(`${devis ? 'Demande de devis' : 'Contact site'} — ${fd.get('subject')}`, lines, form);
+      form.reset(); toast(devis ? 'Demande envoyée. Nous revenons vers vous sous 48 h.' : 'Message envoyé. Merci !');
     });
   }
 

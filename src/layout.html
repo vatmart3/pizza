@@ -26,12 +26,13 @@
 <link rel="preload" href="assets/fonts/bodoni-italic.woff2" as="font" type="font/woff2" crossorigin>
 {{preload}}
 <link rel="stylesheet" href="assets/css/main.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"La Mesa — Les Pierres Blanches","url":"{{site}}","image":"{{og_image}}","telephone":"+33467533340","priceRange":"30 – 50 €","servesCuisine":["Méditerranéenne","Fruits de mer","Grillades"],"acceptsReservations":"True","address":{"@type":"PostalAddress","streetAddress":"65 allée Pierre Barthas","postalCode":"34200","addressLocality":"Sète","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":43.3934,"longitude":3.6802},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday"],"opens":"09:30","closes":"23:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"09:30","closes":"00:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"09:30","closes":"18:00"}],"hasMenu":"{{site}}/carte.html","amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Terrasse","value":true},{"@type":"LocationFeatureSpecification","name":"Vue mer","value":true}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"La Mesa — Les Pierres Blanches","url":"{{site}}","image":"{{og_image}}","telephone":"+33467533340","email":"lamesa@lespierresblanches.com","priceRange":"30 – 50 €","servesCuisine":["Méditerranéenne","Grillades","Tapas"],"acceptsReservations":"{{site}}/reservation.html","sameAs":["https://www.instagram.com/lamesa_sete/"],"address":{"@type":"PostalAddress","streetAddress":"65 allée Pierre Barthas","postalCode":"34200","addressLocality":"Sète","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":43.3934,"longitude":3.6802},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:30","closes":"23:00","validFrom":"2026-04-01","validThrough":"2026-09-30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Sunday"],"opens":"08:30","closes":"19:00","validFrom":"2026-10-01","validThrough":"2026-11-30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday","Saturday"],"opens":"08:30","closes":"23:00","validFrom":"2026-10-01","validThrough":"2026-11-30"}],"hasMenu":"{{site}}/carte.html","publicAccess":true,"amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Terrasse panoramique","value":true},{"@type":"LocationFeatureSpecification","name":"Vue mer","value":true},{"@type":"LocationFeatureSpecification","name":"Parking gratuit","value":true}]}</script>
 </head>
 <body data-page="{{page}}" class="{{body_class}}">
 <a class="skip" href="#main">Aller au contenu</a>
 {{> loader}}
 {{> nav}}
+{{> seasonbar}}
 <main id="main">
 {{content}}
 </main>

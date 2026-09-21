@@ -319,7 +319,7 @@ html.no-loader .loader{display:none}
 .page-head{padding-top:calc(var(--nav-h) + clamp(44px,7vw,96px));padding-bottom:clamp(30px,4vw,52px)}
 .page-head h1{max-width:15ch}
 .page-head .lead{margin-top:22px}
-.page-head--media{min-height:58svh;display:grid;align-items:end;isolation:isolate;overflow:hidden;background:var(--bg)}
+.page-head--media{position:relative;min-height:58svh;display:grid;align-items:end;isolation:isolate;overflow:hidden;background:var(--bg)}
 .page-head--media .bg{position:absolute;inset:0;z-index:-1}
 .page-head--media .bg img{width:100%;height:100%;object-fit:cover;animation:heroZoom 20s var(--ease) forwards}
 .page-head--media .bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,9,.72),rgba(10,10,9,.34) 38%,rgba(10,10,9,.82) 78%,var(--bg)),linear-gradient(100deg,rgba(10,10,9,.72),rgba(10,10,9,.28) 55%,rgba(10,10,9,.08))}
@@ -580,3 +580,77 @@ html.no-loader .loader{display:none}
   [data-reveal],.mask>*{opacity:1;transform:none}
   .hero__kicker,.hero__title,.hero__lead,.hero__actions,.hero__bar{opacity:1;transform:none}
 }
+
+/* ============================================================
+   Saison — bandeau, statut de fermeture, repères de l'année
+   ============================================================ */
+.seasonbar{background:var(--gold);color:#17140F}
+.seasonbar .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px;padding-block:13px}
+.seasonbar p{font-size:.84rem;line-height:1.6;max-width:86ch}
+.seasonbar b{font-weight:600}
+.seasonbar .link{color:inherit;white-space:nowrap;flex:none}
+.seasonbar .link svg{width:15px;height:15px}
+.seasonbar--soft{background:var(--surface-2);color:var(--fg-2);box-shadow:inset 0 -1px 0 var(--line)}
+.seasonbar--soft b{color:var(--fg)}
+.seasonbar--soft .link{color:var(--gold)}
+.status.is-shut i{background:var(--gold)}
+.seasons{display:grid;border-top:1px solid var(--line-2)}
+.seasons div{display:grid;gap:4px;padding:14px 0;border-bottom:1px solid var(--line-2)}
+.seasons b{font-family:var(--display);font-size:1.02rem;font-weight:500;color:var(--fg)}
+.seasons span{font-size:.84rem;color:var(--fg-3);line-height:1.65}
+.seasons span b{font-size:inherit;font-family:inherit;color:var(--gold)}
+
+/* ============================================================
+   Moments de la journée / de l'année
+   ============================================================ */
+.moments{display:grid;gap:2px;background:var(--line-2)}
+@media(min-width:760px){.moments{grid-template-columns:repeat(3,1fr)}}
+.moment{background:var(--bg);padding:clamp(26px,3vw,40px);display:grid;gap:12px;align-content:start}
+.moment--on{background:var(--surface)}
+.moment__h{font-family:var(--body);font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.moment h3{font-family:var(--display);font-size:clamp(1.3rem,2vw,1.7rem);font-weight:450;line-height:1.2}
+.moment p{font-size:.88rem;color:var(--fg-3);line-height:1.75}
+.moment .link{margin-top:4px;font-size:.72rem}
+.moment .link svg{width:14px;height:14px}
+.section--surface .moment{background:var(--surface)}
+.section--surface .moment--on{background:var(--surface-2)}
+
+/* ============================================================
+   Accès — voiture, bus, à pied
+   ============================================================ */
+.access .acc{display:grid;grid-template-columns:1fr;gap:6px;padding:20px 0;border-top:1px solid var(--line-2)}
+.acc h3{font-family:var(--display);font-size:1.08rem;font-weight:500}
+.acc p{font-size:.86rem;color:var(--fg-3);line-height:1.75;max-width:60ch}
+.acc>b{justify-self:start;margin-top:4px;font-family:var(--body);font-size:.64rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);padding:5px 10px;box-shadow:inset 0 0 0 1px var(--line-gold)}
+
+/* ============================================================
+   Listes à puces dorées
+   ============================================================ */
+.ticks{display:grid;gap:11px;margin-top:20px}
+.ticks li{position:relative;padding-left:26px;font-size:.88rem;color:var(--fg-2);line-height:1.7}
+.ticks li::before{content:'';position:absolute;left:0;top:.52em;width:11px;height:6px;border-left:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);transform:rotate(-45deg)}
+@media(min-width:760px){.ticks--wide{grid-template-columns:repeat(2,1fr);gap:14px 44px}}
+
+/* ============================================================
+   Formules groupes
+   ============================================================ */
+.gforms{display:grid;gap:2px;background:var(--line-2)}
+@media(min-width:760px){.gforms{grid-template-columns:repeat(3,1fr)}}
+.gform{background:var(--surface);padding:clamp(26px,3vw,38px);display:grid;gap:12px;align-content:start}
+.gform h3{font-family:var(--display);font-size:clamp(1.25rem,1.9vw,1.6rem);font-weight:450}
+.gform__p{font-family:var(--display);font-size:clamp(2rem,3.4vw,2.8rem);font-weight:450;color:var(--gold);line-height:1;display:flex;align-items:baseline;gap:8px}
+.gform__p small{font-family:var(--body);font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+.gform p{font-size:.87rem;color:var(--fg-3);line-height:1.75}
+
+/* ============================================================
+   Encart d'appel (page réservation)
+   ============================================================ */
+.callout{display:grid;gap:28px;margin-top:clamp(30px,4vw,44px);padding:clamp(26px,3vw,38px);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+@media(min-width:760px){.callout{grid-template-columns:.9fr 1.1fr;gap:clamp(30px,4vw,56px)}}
+.callout__k{font-family:var(--body);font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.callout__n{font-family:var(--display);font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:450;line-height:1.1;margin-top:10px}
+.callout__n a{color:var(--fg);transition:color .2s}
+.callout__n a:hover{color:var(--gold)}
+.callout .ticks{margin-top:12px}
+.ccard--on{box-shadow:inset 0 0 0 1px var(--line-gold)}
+.ccard--on small{color:var(--gold-2)}

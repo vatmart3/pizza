@@ -7,21 +7,38 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 
 | Page | Fichier | Contenu |
 |---|---|---|
-| Accueil | `index.html` | héro plein cadre (photo puis vidéo), manifeste, le lieu, extrait de carte typographique, bande de trois cadrages, citation, bande « Réservez votre table » (pré-remplit la page réservation), horaires + itinéraire |
-| La carte | `carte.html` | carte complète générée depuis `data.js`, filtres (végétarien, sans gluten, signatures), recherche, navigation sticky, impression |
-| Le lieu | `le-lieu.html` | histoire, engagements, équipe, privatisation |
+| Accueil | `index.html` | héro plein cadre (photo puis vidéo), manifeste, le lieu, les trois moments de la journée, extrait de carte typographique, bande de cadrages, citation, groupes, réservation, horaires + accès |
+| La carte | `carte.html` | carte complète générée depuis `data.js` (ardoise du midi, brochettes, tapas, snack, cocktails, boissons), filtres, recherche, navigation sticky, impression |
+| Le lieu | `le-lieu.html` | histoire du site, la journée type, ce qui fait la maison, le rythme des trois saisons |
+| Soirées brochettes | `soirees-brochettes.html` | page saisonnière : le principe, le déroulé d'une soirée, la sélection de brochettes et de tapas |
+| Groupes & événements | `groupes.html` | formules groupes, offre séminaires, formulaire de demande de devis |
 | Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
-| Réservation | `reservation.html` | calendrier (jours fermés grisés), service + créneaux selon les horaires réels, convives, coordonnées, ticket de confirmation, export `.ics` |
-| Infos & accès | `contact.html` | coordonnées, statut ouvert/fermé en direct, horaires, accès, itinéraire, formulaire |
-| Légal | `mentions-legales.html`, `confidentialite.html`, `accessibilite.html` | textes conformes LCEN / RGPD, sans cookie ni traceur |
-| 404 | `404.html` | |
+| Réservation | `reservation.html` | le téléphone en action principale, puis une demande de rappel en quatre étapes : calendrier (jours fermés grisés selon la saison), service, convives, coordonnées |
+| Contact & accès | `contact.html` | coordonnées, horaires saisonniers, accès voiture / bus ligne 5 / à pied, accessibilité, itinéraire, formulaire |
+| Légal | `mentions-legales.html`, `confidentialite.html`, `accessibilite.html` | mentions obligatoires, RGPD, déclaration d'accessibilité |
+| Erreur | `404.html` | page introuvable |
 
 ## Tout modifier depuis un seul fichier
 
-`assets/js/data.js` contient **tout ce qui change** : téléphone, e-mail, liens de navigation (Google Maps, Plans, Waze), horaires (`LM.hours`), créneaux de réservation (`LM.services`), la carte complète (`LM.menu`), la formule du midi et la galerie.
+`assets/js/data.js` contient **tout ce qui change**. Aucun autre fichier n'est à toucher pour une mise à jour courante.
 
-- Les horaires pilotent : le badge « Ouvert · ferme à … » (nav, héro, contact), le tableau d’horaires, le calendrier et les créneaux de réservation.
-- `LM.info.formEndpoint` : renseignez une URL Formspree / Getform / Basin pour recevoir les réservations et messages par e-mail. Vide, le site ouvre le client mail du visiteur avec le message pré-rempli.
+| Clé | Ce qu'elle pilote |
+| --- | --- |
+| `LM.info` | téléphone, e-mail, adresse, Instagram, liens Google Maps / Plans / Waze, coordonnées GPS |
+| `LM.season` | les trois périodes de l'année **et leurs horaires** — voir « Le rythme des saisons » |
+| `LM.access` | les blocs d'accès (voiture, bus, à pied) sur l'accueil et la page contact |
+| `LM.booking` | les textes de réservation (téléphone d'abord, formulaire en demande de rappel) |
+| `LM.menu`, `LM.menuFormula`, `LM.menuNotice` | la carte complète, la formule du midi, la mention « l'ardoise change chaque jour » |
+| `LM.groups` | les formules groupes et les arguments de la page devis |
+| `LM.gallery` | la galerie |
+
+Les horaires de la saison en cours pilotent automatiquement le badge
+« Ouvert · ferme à … » (barre de navigation, héro, contact, pied de page), le
+tableau d'horaires, le calendrier de réservation et les créneaux proposés.
+
+`LM.info.formEndpoint` : renseignez une URL Formspree / Getform / Basin pour
+recevoir les demandes par e-mail. Vide, le site ouvre le client mail du
+visiteur avec le message pré-rempli.
 
 ## Structure
 
@@ -81,9 +98,63 @@ il suffit de remplacer les fichiers de `assets/img/` et les entrées de `LM.gall
 - Mentions obligatoires : prix nets service compris, allergènes sur demande, origine des viandes, message alcool, médiation de la consommation.
 - Les zones surlignées en jaune dans les pages légales (`[à compléter]`) sont à renseigner par le restaurant (raison sociale, SIRET, hébergeur, médiateur).
 
+## Le rythme des saisons
+
+Le restaurant ne vit pas de la même façon toute l'année, et le site le sait. Les
+périodes sont décrites dans `LM.season` (`assets/js/data.js`) :
+
+| Période | Dates | Ce qui est servi | Horaires |
+| --- | --- | --- | --- |
+| Pleine saison | 1ᵉʳ avril → 30 septembre | Petit-déjeuner, ardoise, snack, soirées brochettes | 7j/7, 8h30 – 23h |
+| Arrière-saison | 1ᵉʳ octobre → 30 novembre | Café, ardoise du midi, goûter face à la mer | 8h30 – 19h, et jusqu'à 23h du jeudi au samedi |
+| Fermeture | 1ᵉʳ décembre → 31 mars | — | Fermé, réouverture le 1ᵉʳ avril |
+
+Conséquences automatiques, sans aucune intervention :
+
+- l'indicateur « Ouvert / Fermé » lit les horaires **de la saison en cours** ;
+- pendant la fermeture il affiche « Fermé pour l'hiver · retour le 1ᵉʳ avril » et
+  un bandeau apparaît en haut de toutes les pages ;
+- la grille d'horaires montre alors la saison qui reprend, pour que le visiteur
+  sache à quoi s'attendre ;
+- le calendrier de réservation grise les dates fermées, y compris quand la
+  réservation porte sur une autre saison que celle du jour.
+
+Pour décaler une date d'ouverture, il suffit de modifier `from`, `to` et
+`reopen` dans `LM.season` : tout le site suit.
+
+## Réservation
+
+La réservation se fait **par téléphone**. Le site le dit partout et met le
+numéro en action principale. Le formulaire de `reservation.html` est une
+*demande de rappel* : il est présenté comme tel et précise qu'il ne vaut pas
+réservation tant que l'équipe n'a pas rappelé. `LM.booking` centralise ces
+textes.
+
+## Sources des informations
+
+Les contenus factuels (concept, saisons, horaires, accès, e-mail, Instagram)
+proviennent du site officiel `lespierresblanches.com`, de l'office de tourisme
+de Sète, d'Archipel de Thau et des annuaires professionnels. Ce qui reste à
+valider par le restaurant est listé ci-dessous.
+
 ## À compléter par le restaurant
 
-- Menu : les plats et prix de `data.js` sont une **proposition** rédigée pour la démo, à remplacer par la carte réelle.
-- Horaires : déduits des informations publiques (« ouvre à 09:30 mar. ») — à vérifier.
-- E-mail, Instagram, endpoint de formulaire, mentions légales.
-- Photos : le site utilise les images et la vidéo fournies ; des photos HD supplémentaires (plats, terrasse au coucher du soleil) remplaceront avantageusement certains visuels.
+- **La carte** : les plats et prix de `data.js` sont une **proposition** construite
+  à partir des spécialités réellement citées (ardoise du midi, brochettes à ~9 €,
+  tartare et thon snacké, burger Black Angus, filet de bar sauce Mesa, encornets
+  persillade-chorizo, focaccia, linguines, crêpes et gaufres). À remplacer par
+  l'ardoise et le tarif réels.
+- **Les horaires** : reconstitués à partir des informations publiques, à confirmer
+  saison par saison.
+- **Le menu groupes** : les trois formules de `LM.groups` sont une trame de
+  travail ; le restaurant diffuse déjà un menu groupes, à substituer.
+- **Endpoint de formulaire** (`LM.info.formEndpoint`) : vide par défaut, le site
+  ouvre alors le client mail du visiteur. Renseigner un service (Formspree,
+  Getform, Basin…) pour recevoir les demandes directement.
+- **Mentions légales** : les zones surlignées en jaune (`[à compléter]`) —
+  raison sociale, SIRET, hébergeur, médiateur, licence de débit de boissons.
+- **Photos** : le site utilise les images et la vidéo fournies. Des photos HD
+  supplémentaires (brochettes sur la braise, terrasse au coucher du soleil,
+  salle le soir, vue panoramique) remplaceront avantageusement certains visuels.
+- **Version anglaise** : le site officiel en propose une ; elle n'est pas encore
+  reprise ici.

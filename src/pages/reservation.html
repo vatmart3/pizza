@@ -1,6 +1,6 @@
 ---
 title: Réserver une table — La Mesa, Les Pierres Blanches · Sète
-desc: Réservez votre table à La Mesa, Sète : choisissez la date, le service et l’horaire, nous confirmons par téléphone ou e-mail. Réservation obligatoire.
+desc: Réserver à La Mesa, Sète. La réservation se fait par téléphone au 04 67 53 33 40. Vous pouvez aussi demander à être rappelé en remplissant ce formulaire.
 page: reservation
 priority: 0.9
 ---
@@ -8,15 +8,39 @@ priority: 0.9
   <div class="container">
     <nav class="crumbs" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span>/</span><span>Réservation</span></nav>
     <span class="eyebrow">Réservation</span>
-    <h1 class="mask" style="margin-top:18px"><span id="resa-t">Votre table <em>face à la mer.</em></span></h1>
-    <p class="lead" data-reveal>Trois étapes, une minute. Nous confirmons chaque demande par téléphone ou e-mail. Pour une table le jour même ou plus de 12 personnes, appelez-nous directement au <a class="link" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>04 67 53 33 40</a>.</p>
+    <h1 class="mask" style="margin-top:18px"><span id="resa-t">On vous garde <em>une table.</em></span></h1>
+    <p class="lead" data-reveal>La réservation se fait par téléphone : nous confirmons chaque table de vive voix, c’est la seule façon d’être sûr de la vôtre.</p>
+    <div class="callout" data-reveal style="--d:.06s">
+      <div>
+        <span class="callout__k">Le plus simple</span>
+        <p class="callout__n"><a data-href="phoneIntl" href="tel:+33467533340" data-no-transition>04 67 53 33 40</a></p>
+        <p class="notice" style="margin-top:8px">Tous les jours pendant les heures d’ouverture. <span data-when="shut" hidden>En période de fermeture, la boîte vocale est relevée régulièrement.</span></p>
+      </div>
+      <div>
+        <span class="callout__k">Bon à savoir</span>
+        <ul class="ticks">
+          <li>Le service du coucher de soleil part vite : appelez quelques jours avant pour les week-ends d’été.</li>
+          <li>Les soirées brochettes ont lieu d’avril à fin septembre.</li>
+          <li>À partir de 12 personnes, passez plutôt par la <a class="link" href="groupes.html" data-label="Groupes">page groupes</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section section--tight" aria-labelledby="rap-t">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Ou bien</span>
+      <h2 class="mask"><span id="rap-t">Faites-vous <em>rappeler.</em></span></h2>
+      <p class="lead" data-reveal>Vous ne pouvez pas appeler maintenant ? Laissez-nous le créneau souhaité et vos coordonnées : nous vous rappelons pour confirmer. <b>Ce formulaire ne vaut pas réservation</b> tant que nous ne vous avons pas eu au téléphone.</p>
+    </div>
   </div>
 </section>
 <section class="section section--tight" aria-label="Formulaire de réservation">
   <div class="container resa">
     <form id="resa-form" novalidate>
       <ol class="steps" aria-label="Étapes">
-        <li class="is-active" data-n="1" data-label="Date &amp; heure">1 · Date &amp; heure</li><li data-n="2" data-label="Convives">2 · Convives</li><li data-n="3" data-label="Coordonnées">3 · Coordonnées</li><li data-n="4" data-label="Confirmation">4 · Confirmation</li>
+        <li class="is-active" data-n="1" data-label="Date &amp; heure">1 · Date &amp; heure</li><li data-n="2" data-label="Convives">2 · Convives</li><li data-n="3" data-label="Coordonnées">3 · Coordonnées</li><li data-n="4" data-label="Envoyé">4 · Envoyé</li>
       </ol>
       <div class="step is-active" data-step="0">
         <h2>Quand <em>venez-vous ?</em></h2>
@@ -31,7 +55,7 @@ priority: 0.9
           </div>
           <div style="display:grid;gap:26px;align-content:start">
             <div class="field"><label>Service</label>
-              <div class="seg" data-service><button type="button" data-v="lunch" aria-pressed="false">Déjeuner</button><button type="button" data-v="dinner" aria-pressed="false">Dîner</button></div>
+              <div class="seg" data-service><button type="button" data-v="lunch" aria-pressed="false">Déjeuner</button><button type="button" data-v="dinner" aria-pressed="false">Soirée brochettes</button></div>
             </div>
             <div class="field"><label>Horaire</label><div class="slots" aria-live="polite"></div><p class="notice" style="margin-top:6px">Choisissez d’abord une date et un service. Les horaires barrés sont hors ouverture.</p></div>
           </div>
@@ -41,7 +65,7 @@ priority: 0.9
       <div class="step" data-step="1">
         <h2>Vous serez <em>combien ?</em></h2>
         <div class="stepper" role="group" aria-label="Nombre de convives"><button type="button" data-d="-1" aria-label="Moins">−</button><output>2</output><button type="button" data-d="1" aria-label="Plus">+</button></div>
-        <p class="notice">Au-delà de 12 personnes, contactez-nous pour un menu de groupe ou une privatisation. Poussettes et chaises hautes bienvenues.</p>
+        <p class="notice">Au-delà de 12 personnes, passez par la <a class="link" href="groupes.html" data-label="Groupes">page groupes</a> : nous établissons un devis sous 48 h. Poussettes et chaises hautes bienvenues.</p>
         <div class="step__actions"><button type="button" class="btn btn--ghost" data-prev>Retour</button><button type="button" class="btn" data-next>Continuer <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
       </div>
       <div class="step" data-step="2">
@@ -55,21 +79,21 @@ priority: 0.9
           <p class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></p>
           <label class="check full"><input type="checkbox" name="rgpd" required><span>J’accepte que mes coordonnées soient utilisées pour traiter ma réservation, conformément à la <a href="confidentialite.html">politique de confidentialité</a>.</span></label>
         </div>
-        <div class="step__actions"><button type="button" class="btn btn--ghost" data-prev>Retour</button><button type="submit" class="btn btn--terra">Envoyer la demande</button></div>
+        <div class="step__actions"><button type="button" class="btn btn--ghost" data-prev>Retour</button><button type="submit" class="btn btn--terra">Demander à être rappelé</button></div>
       </div>
       <div class="step" data-step="3">
         <div class="ticket">
-          <div><span class="eyebrow">Demande envoyée</span><h2 style="margin-top:14px">À très vite, <em data-t="name"></em></h2><p class="notice" style="margin-top:10px">Votre demande est enregistrée. Elle sera <strong>confirmée par l’équipe</strong> par téléphone ou e-mail. Sans confirmation, la table n’est pas garantie.</p></div>
+          <div><span class="eyebrow">Demande envoyée</span><h2 style="margin-top:14px">À très vite, <em data-t="name"></em></h2><p class="notice" style="margin-top:10px">Nous vous rappelons pour confirmer. <strong>Tant que nous ne vous avons pas eu au téléphone, la table n’est pas réservée</strong> — si vous êtes pressé, appelez-nous au <a class="link" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>04 67 53 33 40</a>.</p></div>
           <div class="ticket__row"><div><small>Date</small><b data-t="date"></b></div><div><small>Heure</small><b data-t="time"></b></div><div><small>Convives</small><b data-t="guests"></b></div><div><small>Lieu</small><b>La Mesa, Sète</b></div></div>
-          <div class="ticket__actions"><a class="btn btn--sm" data-ics href="#" download="reservation-la-mesa.ics" data-no-transition>Ajouter à mon agenda</a><a class="btn btn--sm btn--ghost" href="carte.html" data-label="La carte">Regarder la carte</a></div>
+          <div class="ticket__actions"><a class="btn btn--sm" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>Appeler pour confirmer</a><a class="btn btn--sm btn--ghost" data-ics href="#" download="reservation-la-mesa.ics" data-no-transition>Ajouter à mon agenda</a><a class="btn btn--sm btn--ghost" href="carte.html" data-label="La carte">Regarder la carte</a></div>
           <p class="ticket__code">Référence <span data-t="code"></span></p>
         </div>
       </div>
     </form>
     <aside class="summary" aria-label="Récapitulatif">
-      <h3>Votre réservation</h3>
+      <h3>Votre demande</h3>
       <dl><dt>Date</dt><dd data-s="date"></dd><dt>Heure</dt><dd data-s="time"></dd><dt>Convives</dt><dd data-s="guests"></dd><dt>Nom</dt><dd data-s="name"></dd></dl>
-      <p class="summary__note">Réservation obligatoire. Les tables sont gardées 15 minutes après l’heure prévue. Pour annuler, un simple appel ou un e-mail suffit — merci de nous prévenir.</p>
+      <p class="summary__note">La réservation n’est ferme qu’une fois confirmée par téléphone. Les tables sont gardées 15 minutes après l’heure prévue. Pour annuler, un simple appel suffit — merci de nous prévenir.</p>
     </aside>
   </div>
 </section>
