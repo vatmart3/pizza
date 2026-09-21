@@ -131,15 +131,20 @@ preload: <link rel="preload" as="image" href="assets/img/hero-1280.webp" imagesr
       <p data-reveal style="--d:.06s;margin-top:18px"><a class="link" data-href="phoneIntl" href="tel:+33467533340" data-no-transition>04 67 53 33 40</a></p>
       <div class="hours" data-hours data-reveal style="--d:.1s;margin-top:34px"></div>
       <p class="notice" data-reveal style="margin-top:16px">Horaires variables selon la saison et la météo. Dernière commande 30 minutes avant la fermeture.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px" data-reveal>
+      <div class="locate__btns" style="margin-top:30px" data-reveal>
+        <a class="btn btn--sm" data-href="maps" href="#" target="_blank" rel="noopener">Google Maps</a>
+        <a class="btn btn--sm btn--ghost" data-href="apple" href="#" target="_blank" rel="noopener">Plans</a>
+        <a class="btn btn--sm btn--ghost" data-href="waze" href="#" target="_blank" rel="noopener">Waze</a>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px" data-reveal>
         <a class="btn" href="reservation.html" data-label="Réserver">Réserver une table</a>
         <a class="btn btn--ghost" href="contact.html" data-label="Contact">Accès &amp; contact</a>
       </div>
     </div>
-    <div class="map" data-reveal>
-      {{> map}}
-      <div class="map__pin" style="--x:41%;--y:63%"><span>La Mesa</span><i></i></div>
-      <div class="map__btns"><a data-href="maps" href="#" target="_blank" rel="noopener">Google Maps</a><a data-href="apple" href="#" target="_blank" rel="noopener">Plans</a><a data-href="waze" href="#" target="_blank" rel="noopener">Waze</a></div>
-    </div>
+    <figure class="figure figure--tall" data-reveal>
+      <img src="assets/img/p-olivier-440.webp" srcset="assets/img/p-olivier-440.webp 440w, assets/img/p-olivier-760.webp 760w" sizes="(min-width:900px) 44vw, 100vw" width="440" height="551" alt="Les branches d’olivier au-dessus des tables, à l’entrée de la salle" loading="lazy" decoding="async">
+      <span class="figure__frame" aria-hidden="true"></span>
+      <figcaption>L’entrée, allée Pierre Barthas</figcaption>
+    </figure>
   </div>
 </section>

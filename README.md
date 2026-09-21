@@ -7,12 +7,12 @@ Statique, sans framework ni dépendance : HTML + CSS + JavaScript, servi tel que
 
 | Page | Fichier | Contenu |
 |---|---|---|
-| Accueil | `index.html` | héro vidéo avec rayons de lumière WebGL, « Notre histoire » avec vidéo en modale, carrousel des plats signature, bande « Réservez votre table » (pré-remplit la page réservation), horaires + plan |
+| Accueil | `index.html` | héro vidéo avec rayons de lumière WebGL, « Notre histoire » avec vidéo en modale, carrousel des plats signature, bande « Réservez votre table » (pré-remplit la page réservation), horaires + itinéraire |
 | La carte | `carte.html` | carte complète générée depuis `data.js`, filtres (végétarien, sans gluten, signatures), recherche, navigation sticky, impression |
 | Le lieu | `le-lieu.html` | histoire, engagements, équipe, privatisation |
 | Galerie | `galerie.html` | mosaïque + visionneuse (clavier, gestes) |
 | Réservation | `reservation.html` | calendrier (jours fermés grisés), service + créneaux selon les horaires réels, convives, coordonnées, ticket de confirmation, export `.ics` |
-| Infos & accès | `contact.html` | coordonnées, statut ouvert/fermé en direct, horaires, accès, plan stylisé, formulaire |
+| Infos & accès | `contact.html` | coordonnées, statut ouvert/fermé en direct, horaires, accès, itinéraire, formulaire |
 | Légal | `mentions-legales.html`, `confidentialite.html`, `accessibilite.html` | textes conformes LCEN / RGPD, sans cookie ni traceur |
 | 404 | `404.html` | |
 
@@ -33,7 +33,7 @@ assets/js/app.js           préloader, transitions 3D, curseur, nav, statut hora
 assets/fonts/              Bodoni Moda & Jost (variables, sous-ensemble français), licence OFL
 assets/img/ · assets/video/ photos (WebP, 2 tailles + LQIP) et vidéo héro (H.264, boucle aller-retour)
 src/layout.html            gabarit commun (head SEO, JSON-LD Restaurant, nav, footer)
-src/partials/*.html        nav, footer, préloader, plan SVG
+src/partials/*.html        nav, footer, préloader
 src/pages/*.html           contenu de chaque page (avec en-tête `---`)
 tools/build.py             régénère les pages + sitemap.xml
 sw.js                      service worker (cache des ressources, hors-ligne léger)
@@ -52,6 +52,15 @@ pour des prix, il est emprunté à Jost par une règle `unicode-range`, sans rie
 Parti pris : **aucun effet décoratif**. Pas de curseur personnalisé, pas de défilement détourné,
 pas de WebGL, pas de grain animé, pas d'inclinaison 3D. Ce qui reste : une apparition sobre au
 défilement, un préchargement invisible des pages, et de la place.
+
+## Cartographie
+
+**Aucune carte n'est intégrée.** Pas de dessin stylisé qui ferait faux, pas d'iframe Google Maps
+qui imposerait un bandeau de consentement et 500 Ko de scripts tiers. L'adresse est donnée en
+toutes lettres, avec trois boutons qui ouvrent directement Google Maps, Plans ou Waze dans
+l'application du visiteur — ce que les gens utilisent réellement — plus un bouton « copier
+l'adresse ». Les coordonnées GPS restent déclarées dans les données structurées du site, donc
+Google les affiche dans ses résultats.
 
 ## Photographies
 

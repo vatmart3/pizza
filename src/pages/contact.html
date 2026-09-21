@@ -33,10 +33,21 @@ priority: 0.8
       </div>
     </div>
     <div style="display:grid;gap:40px;align-content:start">
-      <div class="map" data-reveal="scale">
-        {{> map}}
-        <div class="map__pin" style="--x:41%;--y:63%"><span>La Mesa</span><i></i></div>
-        <div class="map__btns"><a data-href="maps" href="#" target="_blank" rel="noopener">Google Maps</a><a data-href="apple" href="#" target="_blank" rel="noopener">Plans</a><a data-href="waze" href="#" target="_blank" rel="noopener">Waze</a><button type="button" data-copy="65 allée Pierre Barthas, 34200 Sète">Copier l’adresse</button></div>
+      <div class="locate" data-reveal>
+        <figure class="locate__photo">
+          <img src="assets/img/p-longue-440.webp" srcset="assets/img/p-longue-440.webp 440w, assets/img/p-longue-760.webp 760w" sizes="(min-width:900px) 44vw, 100vw" width="440" height="551" alt="La longue table de bois de La Mesa, vue depuis l’entrée" loading="lazy" decoding="async">
+        </figure>
+        <div class="locate__body">
+          <span class="idx">Itinéraire</span>
+          <p class="addr">65 allée Pierre Barthas<br>34200 Sète</p>
+          <p class="notice">Sur la corniche, à l’orée de la forêt des Pierres Blanches. Le restaurant se trouve au bout de l’allée, sur la droite en montant.</p>
+          <div class="locate__btns">
+            <a class="btn btn--sm" data-href="maps" href="#" target="_blank" rel="noopener">Google Maps</a>
+            <a class="btn btn--sm btn--ghost" data-href="apple" href="#" target="_blank" rel="noopener">Plans</a>
+            <a class="btn btn--sm btn--ghost" data-href="waze" href="#" target="_blank" rel="noopener">Waze</a>
+            <button class="btn btn--sm btn--ghost" type="button" data-copy="65 allée Pierre Barthas, 34200 Sète">Copier l’adresse</button>
+          </div>
+        </div>
       </div>
       <form id="contact-form" novalidate data-reveal>
         <h3 style="margin-bottom:6px">Nous écrire</h3>
